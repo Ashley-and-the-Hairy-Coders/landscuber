@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-plat">
     <router-link class="navbar-brand" :to="{ name: 'Home' }"
-      >AppName</router-link
+      ><img src="../assets/Logo.png" class="img-fluid"></router-link
     >
     <button
       class="navbar-toggler"
@@ -66,4 +66,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.bg-plat{
+  background-color: #E8E9EB;
+}
+
+</style>
