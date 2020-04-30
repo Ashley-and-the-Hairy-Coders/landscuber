@@ -12,7 +12,7 @@ export class Paths {
     return this.Server + "/controllers";
   }
 }
-
+ 
 export function RegisterControllers(router) {
   let controllers = fs.readdirSync(Paths.Controllers);
   controllers.forEach(loadController);
