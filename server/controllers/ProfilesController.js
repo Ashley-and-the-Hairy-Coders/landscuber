@@ -1,13 +1,13 @@
 import express from "express";
 import BaseController from "../utils/BaseController";
-import auth0Provider from "@bcwdev/auth0provider";
+import auth0provider from "@bcwdev/auth0provider";
 import { profilesService } from "../services/ProfilesService";
 
 export class ProfilesController extends BaseController {
   constructor() {
     super("api/profile");
     this.router
-      .use(auth0Provider.getAuthorizedUserInfo)
+      .use(auth0provider.getAuthorizedUserInfo)
       .get("", this.getUserProfile)
       .put("/:id", this.edit);
   }
