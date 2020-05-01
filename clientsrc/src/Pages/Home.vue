@@ -135,7 +135,8 @@ export default {
     };
   },
   components: {
-    Modal
+    Modal,
+    CustomerReg
   }
 };
 </script>
