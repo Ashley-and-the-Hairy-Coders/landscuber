@@ -18,8 +18,8 @@
             required
           />
           <input
-            type=""
             class="form-group"
+            maxlength="5"
             placeholder="Zip Code"
             v-model="newCustomer.location"
             required
@@ -28,8 +28,8 @@
         <button
           type="submit"
           data-dismiss="modal"
-          @click="Register()"
-          class="btn btn-sm btn-dark"
+          @click.prevent="registerCust()"
+          class="btn btn-sm btn-success"
         >Register Now</button>
       </form>
     </div>
@@ -46,7 +46,12 @@ export default {
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    registerCust() {
+       this.$store.dispatch('registerCust', this.newCustomer)
+      console.log(this.newCustomer);
+    }
+  },
   components: {}
 };
 </script>
