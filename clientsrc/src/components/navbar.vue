@@ -14,32 +14,32 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
+    <div class="collapse navbar-collapse justify-content-end" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" :class="{ active: $route.name == 'Home' }">
+        <li class="nav-item ml-auto" :class="{ active: $route.name == 'Home' }">
           <router-link :to="{ name: 'Home' }" class="nav-link"
             >Home</router-link
           >
         </li>
         <li
-          class="nav-item"
+          class="nav-item ml-auto"
           v-if="$auth.isAuthenticated"
           :class="{ active: $route.name == 'Profile' }"
         >
-          <router-link class="nav-link" :to="{ name: 'Profile' }"
+          <router-link class="nav-link ml-auto" :to="{ name: 'Profile' }"
             >Profile</router-link
           >
         </li>
       </ul>
-      <span class="navbar-text">
+      <span class="navbar-text d-flex ml-auto">
         <button
-          class="btn text-info btn-link"
+          class="btn ml-auto text-info btn-link nav-button"
           @click="login"
           v-if="!$auth.isAuthenticated"
         >
           Login
         </button>
-        <button class="btn btn-link" @click="logout" v-else>logout</button>
+        <button class="btn ml-auto btn-link nav-button" @click="logout" v-else>logout</button>
       </span>
     </div>
   </nav>
@@ -66,9 +66,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .bg-plat{
   background-color: #E8E9EB;
 }
-
+.nav-button {
+  margin: 0;
+  padding: 0;
+}
 </style>
