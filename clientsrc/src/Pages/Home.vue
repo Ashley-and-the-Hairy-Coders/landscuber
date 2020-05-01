@@ -1,17 +1,13 @@
 <template>
   <div class="home container-fluid bg-home">
-    <div class="row top-row mb-0">
-      <div class="col-5 offset-1 align-middle text-center my-auto">
-        <button
-          type="button"
-          @click="landscaper = false"
-          class="btn mx-2 btn-link"
-        ><strong>Hire a Landscüber</strong></button>
-        <button
-          type="button"
-          @click="landscaper = true"
-          class="btn mx-2 btn-link"
-        ><strong>Find Clients</strong></button>
+    <div class="row top-row justify-content-center mb-0">
+      <div class="col-12 col-md-8 col-lg-5 align-middle text-center my-auto">
+        <button type="button" @click="landscaper = false" class="btn mx-2 btn-link">
+          <strong>Hire a Landscüber</strong>
+        </button>
+        <button type="button" @click="landscaper = true" class="btn mx-2 btn-link">
+          <strong>Find Clients</strong>
+        </button>
 
         <div v-if="!landscaper">
           <h4 class="mx-5">We take the worry out of yard work!</h4>
@@ -38,17 +34,18 @@
         </div>
       </div>
 
-      <div class="col-5 align-self-end text-center mt-2">
-        <img class="img-fluid text-bottom mb-0 mx-auto" src="../assets/Home-Landscuber.png" />
+      <div class="col-8 col-lg-5 align-self-end text-center mt-2">
+        <img class="img-fluid text-bottom mt-lg-5 mb-0 mx-auto" src="../assets/Home-Landscuber.png" />
       </div>
     </div>
-    <div class="row bg-home-mid bg-secondary py-5">
-      <div class="col-5 text-center py-4 mx-auto">
+
+    <div class="row bg-home-mid justify-content-around bg-secondary py-5">
+      <div class="col-12 col-md-8 col-lg-6 text-center py-4">
         <h4>When you need your lawn mowed today, Landscüber will get it done!</h4>
         <p>Name your price and immediately connect with local lawn care professionals.</p>
         <button class="btn btn-success">Join Now</button>
       </div>
-      <div class="col-5 text-center py-4 mx-auto">
+      <div class="col-12 col-md-8 col-lg-6 text-center py-4">
         <h4>Ready to get a job now? Join as a provider</h4>
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex reprehenderit aut incidunt. Sapiente tenetur unde corrupti dolorum, placeat officiis praesentium, perferendis at, illum architecto aspernatur accusamus distinctio fugiat iste alias.</p>
         <button class="btn btn-success">Get Started</button>
@@ -56,9 +53,9 @@
     </div>
     <div class="row bg-home py-2">
       <div class="col-12 text-center">
-        <h2 class="mb-5">What your neighbors are saying...</h2>
+        <h2 class="mb-5 my-md-5">What your neighbors are saying...</h2>
       </div>
-      <div class="card col-3 mx-auto shadow p-3 mb-5 bg-white rounded">
+      <div class="card col-lg-3 col-md-5 col-10 mx-auto shadow p-3 mb-5 bg-white rounded">
         <img
           src="../assets/lady.png"
           width="120"
@@ -74,7 +71,10 @@
           <p>We couldn't be happier with Landscüber! Our lawn was mowed the same day we scheduled the job and the landscaper was great. He was very professional and actually did a better job than my husband would do! haha! I'm very pleased and will be using Landscüber all summer long!</p>
         </div>
       </div>
-      <div class="card col-3 mx-auto shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+      <div
+        class="card col-lg-3 col-md-5 col-10 mx-auto shadow p-3 mb-5 bg-white rounded"
+        style="width: 18rem;"
+      >
         <img
           src="../assets/man.png"
           width="120"
@@ -90,7 +90,10 @@
           <p>I had some deadlines at work that I had to meet and didn't have time to mow before our 4th of July party. I hired Landscüber in the morning and by the time I got home, the lawn was done and ready for the party! Thanks for keeping me out of the doghouse!</p>
         </div>
       </div>
-      <div class="card col-3 mx-auto shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+      <div
+        class="card col-lg-3 col-md-5 col-10 mx-auto shadow p-3 mb-5 bg-white rounded"
+        style="width: 18rem;"
+      >
         <img
           src="../assets/lady2.png"
           width="120"
@@ -133,12 +136,8 @@ export default {
     rgba(232, 233, 235, 1) 0%,
     rgba(224, 223, 213, 1) 38%
   );
-  height: 60vh;
-}
-.top-row {
-  height: 90vh;
 }
 .btn-link:focus {
-  color: #85CF4B;
+  color: #85cf4b;
 }
 </style>
