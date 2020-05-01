@@ -21,10 +21,10 @@ let addressSchema = new Schema({
 const Customer = new Schema(
   {
     // We need to figure out how we are converting/storing location data below
-    location: { type: Number, required: true },
+    location: { type: String, maxlength: 5, minlength: 5, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    customerEmail: { type: String, required: true },
+    customerEmail: { type: String, },
     picture: {
       type: String,
       default:
