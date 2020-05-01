@@ -17,15 +17,19 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    profile: {}
+    profile: {},
+    customer: {}
   },
   mutations: {
     setProfile(state, profile) {
       state.profile = profile;
+    },
+    setCustomer(state, customer) {
+      state.customer = customer;
     }
   },
   actions: {
-    setBearer({}, bearer) {
+    setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;
     },
     resetBearer() {
@@ -37,6 +41,16 @@ export default new Vuex.Store({
         commit("setProfile", res.data);
       } catch (error) {
         console.error(error);
+      }
+    },
+    //NOTE Review once backend complete
+    async registerCust({ commit, dispatch }, newCustomer) {
+      try {
+        let res = await api.post('customers', newCustomer)
+        commit("customer", newCustomer)
+      } catch (error) {
+        console.error(error);
+        
       }
     }
   }

@@ -1,5 +1,6 @@
 <template>
   <div class="home container-fluid bg-home">
+    <!-- Top Home Row -->
     <div class="row top-row justify-content-center mb-0">
       <div class="col-12 col-md-8 col-lg-5 align-middle text-center my-auto">
         <button type="button" @click="landscaper = false" class="btn mx-2 btn-link">
@@ -39,11 +40,19 @@
       </div>
     </div>
 
+    <!-- Customer/Partner Join Now Row -->
     <div class="row bg-home-mid justify-content-around bg-secondary py-5">
       <div class="col-12 col-md-8 col-lg-6 text-center py-4">
         <h4>When you need your lawn mowed today, Landscüber will get it done!</h4>
         <p>Name your price and immediately connect with local lawn care professionals.</p>
-        <button class="btn btn-success">Join Now</button>
+        <button
+          class="btn btn-success"
+          data-toggle="modal"
+          data-target="#customerRegModal"
+        >Join Now</button>
+        <Modal title="Join Today!" id="customerRegModal">
+          <CustomerReg></CustomerReg>
+        </Modal>
       </div>
       <div class="col-12 col-md-8 col-lg-6 text-center py-4">
         <h4>Ready to get a job now? Join as a provider</h4>
@@ -51,6 +60,8 @@
         <button class="btn btn-success">Get Started</button>
       </div>
     </div>
+
+    <!-- Customer Review Row -->
     <div class="row bg-home py-2">
       <div class="col-12 text-center">
         <h2 class="mb-5 my-md-5">What your neighbors are saying...</h2>
@@ -114,12 +125,18 @@
 </template>
 
 <script>
+import Modal from "../components/Modal"
+import CustomerReg from "../components/CustomerReg"
 export default {
   name: "home",
   data() {
     return {
       landscaper: false
     };
+  },
+  components: {
+    Modal,
+    CustomerReg
   }
 };
 </script>
