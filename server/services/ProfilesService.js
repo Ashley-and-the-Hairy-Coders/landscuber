@@ -67,7 +67,7 @@ class ProfileService {
   async getProfile(user) {
     let profile = await dbContext.Profile.findOne({
       email: user.email
-    });
+    }).populate("customerProfile providerProfile");
     profile = await createProfileIfNeeded(profile, user);
     await mergeSubsIfNeeded(profile, user);
     return profile;
@@ -85,6 +85,16 @@ class ProfileService {
       { runValidators: true, setDefaultsOnInsert: true, new: true }
     );
     return profile;
+  }
+  async edit(profileId, update) {
+    let data = await dbContext.Profile.findOneAndUpdate(
+
+      { _id: profileId },
+      update,
+      { new: true }
+
+    )
+    return data
   }
 }
 export const profilesService = new ProfileService();

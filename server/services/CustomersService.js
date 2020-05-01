@@ -13,9 +13,10 @@ class CustomersService {
     }
     return customer;
   }
-  async getJobsByCustomerId(customerId) {
-    return await dbContext.Jobs.find({ customerId: customerId });
-  }
+  // async getJobsByCustomerId(customerId) {
+  //   return await dbContext.Jobs.find({ customerId: customerId });
+  // }
+
   //!SECTION
   //SECTION Create requests
   async createCustomer(rawData) {
@@ -64,7 +65,15 @@ class CustomersService {
       throw new BadRequest("Invalid ID or this is not your account!")
     }
   }
-  //TODO Still need to delete customer addresses
+
+  async deleteAddress(customerId, addressId, userEmail) {
+    let data = await dbContext.Customer.findOneAndUpdate(
+      { _id: customerId, customerEmail: userEmail },
+      { $pull: { addresses: { _id: addressId } } },
+      { new: true }
+    )
+    return data
+  }
   //!SECTION
 }
 

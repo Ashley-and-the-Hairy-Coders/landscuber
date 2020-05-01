@@ -2,6 +2,7 @@ import express from "express";
 import BaseController from "../utils/BaseController";
 import { customersService } from "../services/CustomersService";
 import auth0Provider from "@bcwdev/auth0provider";
+import { profilesService } from '../services/ProfilesService';
 
 export class CustomersController extends BaseController {
   constructor() {
@@ -12,8 +13,8 @@ export class CustomersController extends BaseController {
       .use(auth0Provider.getAuthorizedUserInfo)
       .get("", this.getAllCustomers)
       .get("/:id", this.getCustomerById)
-      .get("/:id/jobs", this.getJobsByCustomerId)
-      .get("/:id/ratings", this.getRatingsByCustomerId)
+      // .get("/:id/jobs", this.getJobsByCustomerId)
+      // .get("/:id/ratings", this.getRatingsByCustomerId)
       .post("", this.createCustomer)
       .post("/:id/addresses", this.createAddress)
       .put("/:id", this.editCustomer)
@@ -38,29 +39,34 @@ export class CustomersController extends BaseController {
       next(error);
     }
   }
-  async getJobsByCustomerId(req, res, next) {
-    try {
-      let data = await customersService.getJobsByCustomerId(req.params.id);
-      return res.send(data);
-    } catch (error) {
-      next(error);
-    }
-  }
+  // async getJobsByCustomerId(req, res, next) {
+  //   try {
+  //     let data = await customersService.getJobsByCustomerId(req.params.id);
+  //     return res.send(data);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
+
   // NOTE The below function will target the Ratings service and pull back an array of ratings tied to the specific customer ID we are passing in
-  async getRatingsByCustomerId(req, res, next) {
-    try {
-      let data = await ratingsService.getRatingsByCustomerId(req.params.id);
-      return res.send(data);
-    } catch (error) {
-      next(error);
-    }
-  }
+  // async getRatingsByCustomerId(req, res, next) {
+  //   try {
+  //     let data = await ratingsService.getRatingsByCustomerId(req.params.id);
+  //     return res.send(data);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
+
   //!SECTION
   //SECTION Post requests
   async createCustomer(req, res, next) {
     try {
-      req.body.customerEmail = req.user.email;
+      let profile = await profilesService.getProfile(req.userInfo)
+      req.body.profileId = profile.id
+      // req.body.customerEmail = req.userInfo.email;
       let data = await customersService.createCustomer(req.body);
+
       return res.send(data);
     } catch (error) {
       next(error);
@@ -69,7 +75,7 @@ export class CustomersController extends BaseController {
 
   async createAddress(req, res, next) {
     try {
-      req.body.customerEmail = req.user.email;
+      req.body.customerEmail = req.userInfo.email;
       let data = await customersService.createAddress(req.params.id, req.body);
       return res.send(data);
     } catch (error) {

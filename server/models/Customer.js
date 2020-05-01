@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import RatingSchema from "./Rating";
 const Schema = mongoose.Schema;
-// let ObjectId = Schema.Types.ObjectId;
+let ObjectId = Schema.Types.ObjectId;
 
 // NOTE FYI - addressSchema is a sub-doc of Customer
 let addressSchema = new Schema({
@@ -10,7 +10,7 @@ let addressSchema = new Schema({
   city: { type: String, required: true },
   state: { type: String, required: true },
   zipCode: { type: Number, required: true },
-  nickname: { type: String },
+  contactName: { type: String },
   yardSize: {
     type: String,
     required: true,
@@ -25,6 +25,7 @@ const Customer = new Schema(
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     customerEmail: { type: String, },
+    profileId: { type: ObjectId, ref: "Profile" },
     picture: {
       type: String,
       default:

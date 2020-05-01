@@ -21,8 +21,9 @@ export class ProfilesController extends BaseController {
   }
   async edit(req, res, next) {
     try {
-      req.body.creatorId = req.user.sub;
-      res.send(req.body);
+      // req.body.creatorId = req.user.sub;
+      let data = await profilesService.edit(req.params.id, req.body)
+      res.send(data)
     } catch (error) {
       next(error);
     }
