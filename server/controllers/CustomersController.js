@@ -8,6 +8,7 @@ export class CustomersController extends BaseController {
     super("api/customers");
     this.router
       // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
+      // TODO Finish route for JobsByCustomerId and RatingsByCustomerId
       .use(auth0Provider.getAuthorizedUserInfo)
       .get("", this.getAllCustomers)
       .get("/:id", this.getCustomerById)

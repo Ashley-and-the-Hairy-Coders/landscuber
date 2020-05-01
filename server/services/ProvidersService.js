@@ -38,6 +38,12 @@ class ProvidersService {
   }
   //!SECTION
   //SECTION Delete requests
+  async deleteProvider(providerId, userEmail) {
+    let data = await dbContext.Provider.findOneAndRemove({ _id: providerId, creatorEmail: userEmail })
+    if (!data) {
+      throw new BadRequest("Invalid ID or this is not your account!")
+    }
+  }
   //!SECTION
 }
 

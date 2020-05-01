@@ -57,7 +57,14 @@ class CustomersService {
   }
   //!SECTION
   //SECTION Delete requests
-  //TODO Finish delete requests
+
+  async deleteCustomer(customerId, userEmail) {
+    let data = await dbContext.Customer.findOneAndRemove({ _id: customerId, creatorEmail: userEmail })
+    if (!data) {
+      throw new BadRequest("Invalid ID or this is not your account!")
+    }
+  }
+  //TODO Still need to delete customer addresses
   //!SECTION
 }
 

@@ -13,6 +13,7 @@ export class ProvidersController extends BaseController {
       .get("/:id", this.getProviderById)
       .post("", this.createProvider)
       .put("/:id", this.editProvider)
+      .delete("/:id", this.deleteProvider)
   }
   //SECTION Get requests
   async getAllProviders(req, res, next) {
@@ -60,5 +61,16 @@ export class ProvidersController extends BaseController {
   }
   //!SECTION
   //SECTION Delete requests
+  async deleteProvider(req, res, next) {
+    try {
+      let data = await providersService.deleteProvider(
+        req.params.id,
+        req.userInfo.email
+      );
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
   //!SECTION
 }
