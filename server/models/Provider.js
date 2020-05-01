@@ -4,14 +4,17 @@ const Schema = mongoose.Schema;
 
 const Provider = new Schema(
   {
-    subs: [{ type: String, unique: true }],
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    email: { type: String, lowercase: true, unique: true },
+    providerEmail: { type: String, lowercase: true, unique: true },
     // We need to figure out how we are converting/storing location data below
-    location: { type: Number, required: true },
-    picture: { type: String, required: true },
-    phone: { type: Number, required: true },
+    // For now this is just a string with a max length of 5 so we can test signups
+    location: { type: String, required: true, minlength: 5, maxlength: 5 },
+    picture: {
+      type: String, default:
+        "https://cdn.pixabay.com/photo/2016/08/31/11/54/user-1633249_960_720.png",
+    },
+    phone: { type: String, required: true },
     paymentInfo: { type: String, default: "Billing Info will be stored here" },
     availableNow: { type: Boolean, default: false },
     ratings: [RatingSchema],
@@ -19,7 +22,7 @@ const Provider = new Schema(
 
 
 
-    // NOTE If you wish to add additional public properties for profiles do so here
+
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );
