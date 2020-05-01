@@ -18,51 +18,49 @@ export class CustomersController extends BaseController {
       .put("/:id", this.editCustomer)
       .put("/:customerId/addresses/:addressId", this.editAddress)
       .delete("/:id", this.deleteCustomer)
-      .delete("/:customerId/addresses/:addressId", this.deleteAddress)
+      .delete("/:customerId/addresses/:addressId", this.deleteAddress);
   }
   //SECTION Get requests
   async getAllCustomers(req, res, next) {
     try {
-      let data = await customersService.getAllCustomers()
-      return res.send(data)
+      let data = await customersService.getAllCustomers();
+      return res.send(data);
     } catch (error) {
       next(error);
     }
   }
   async getCustomerById(req, res, next) {
     try {
-      let data = await customersService.getCustomerById(req.params.id)
-      return res.send(data)
+      let data = await customersService.getCustomerById(req.params.id);
+      return res.send(data);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
-  // REVIEW Do we need to include this here, or can we target these via the Jobs Controller? 
   async getJobsByCustomerId(req, res, next) {
     try {
-      let data = await customersService.getJobsByCustomerId(req.params.id)
-      return res.send(data)
+      let data = await customersService.getJobsByCustomerId(req.params.id);
+      return res.send(data);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
   // NOTE The below function will target the Ratings service and pull back an array of ratings tied to the specific customer ID we are passing in
   async getRatingsByCustomerId(req, res, next) {
     try {
-      let data = await ratingsService.getRatingsByCustomerId(req.params.id)
-      return res.send(data)
+      let data = await ratingsService.getRatingsByCustomerId(req.params.id);
+      return res.send(data);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
   //!SECTION
   //SECTION Post requests
   async createCustomer(req, res, next) {
     try {
-      // NOTE NEVER TRUST THE CLIENT TO ADD THE CREATOR ID
-      req.body.creator = req.user.email;
-      let data = await customersService.createCustomer(req.body)
-      return res.send(data)
+      req.body.customerEmail = req.user.email;
+      let data = await customersService.createCustomer(req.body);
+      return res.send(data);
     } catch (error) {
       next(error);
     }
@@ -70,19 +68,65 @@ export class CustomersController extends BaseController {
 
   async createAddress(req, res, next) {
     try {
-      req.body.creator = req.user.email
-      let data = await customersService.createAddress(req.params.id, req.body)
+      req.body.customerEmail = req.user.email;
+      let data = await customersService.createAddress(req.params.id, req.body);
+      return res.send(data);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
   //TODO Do we need anything else here?
   //!SECTION
   //SECTION Put requests
-  //TODO Finish these put requests
+  async editCustomer(req, res, next) {
+    try {
+      let data = await customersService.editCustomer(
+        req.params.id,
+        req.userInfo.email,
+        req.body
+      );
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async editAddress(req, res, next) {
+    try {
+      let data = await customersService.editAddress(
+        req.params.customerId,
+        req.params.addressId,
+        req.body,
+        req.userInfo.email
+      );
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
   //!SECTION
   //SECTION Delete requests
-  //TODO Finish these delete requests
+  async deleteCustomer(req, res, next) {
+    try {
+      let data = await customersService.deleteCustomer(
+        req.params.id,
+        req.userInfo.email
+      );
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async deleteAddress(req, res, next) {
+    try {
+      await customersService.deleteAddress(
+        req.params.customerId,
+        req.params.addressId,
+        req.userInfo.email
+      );
+      return res.send("Address Deleted");
+    } catch (error) {
+      next(error);
+    }
+  }
   //!SECTION
 }
-
