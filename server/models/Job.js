@@ -4,7 +4,6 @@ let ObjectId = Schema.Types.ObjectId
 
 // NOTE we will be creating a sub-doc here for Messages so the Provider and Customer can communicate.
 
-// REVIEW Do we want to only have customerId and providerId at the start to make sure we can get them linked up? 
 const Job = new Schema(
   {
     customerId: { type: ObjectId, ref: "Customer", required: true },
