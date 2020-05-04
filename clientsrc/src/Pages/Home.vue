@@ -45,11 +45,12 @@
       <div class="col-12 col-md-8 col-lg-6 text-center py-4">
         <h4>When you need your lawn mowed today, Landscüber will get it done!</h4>
         <p>Name your price and immediately connect with local lawn care professionals.</p>
-        <button
+        <button v-if="!this.$store.state.profile.customerProfile"
           class="btn btn-success"
           data-toggle="modal"
           data-target="#customerRegModal"
         >Join Now</button>
+        
         <Modal title="Join Today!" id="customerRegModal">
           <CustomerReg></CustomerReg>
         </Modal>
