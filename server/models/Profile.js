@@ -9,6 +9,7 @@ const Profile = new Schema(
     name: { type: String, required: true },
     picture: { type: String },
     // NOTE If you wish to add additional public properties for profiles do so here
+    // TODO Need to restrict these so profile can only have ONE customer and provider profile.
     customerProfile: { type: ObjectId, ref: "Customer" },
     providerProfile: { type: ObjectId, ref: "Provider" }
   },
