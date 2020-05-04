@@ -1,7 +1,8 @@
 import express from "express";
 import BaseController from "../utils/BaseController";
-// import { jobsService } from "../services/JobsService";
+import { jobsService } from "../services/JobsService";
 import auth0Provider from "@bcwdev/auth0provider";
+import { customersService } from '../services/CustomersService';
 
 export class JobsController extends BaseController {
   constructor() {
@@ -12,7 +13,7 @@ export class JobsController extends BaseController {
       .get("", this.getAllJobs)
       .get("/:id", this.getJobById)
       .post("", this.createJob)
-    // .put("/:id", this.editJob)
+      .put("/:id", this.editJob)
     // .put("/:id", this.acceptJob)
     // We will probably need more routes for when Providers or Customers cancel jobs after they have been accepted
     // .delete("/:id", this.deleteJob)
@@ -21,8 +22,8 @@ export class JobsController extends BaseController {
   //SECTION Get requests
   async getAllJobs(req, res, next) {
     try {
-      // let data = await jobsService.getAllJobs();
-      // return res.send(data);
+      let data = await jobsService.getAllJobs();
+      return res.send(data);
     } catch (error) {
       next(error);
     }
@@ -40,10 +41,8 @@ export class JobsController extends BaseController {
 
   async createJob(req, res, next) {
     try {
-      // NOTE How will we be verifying that the customer is only creating a job for their own account?
-      // req.body.customerId = req.user.id ?
-      // let data = await jobsService.createJob(req.body);
-      // return res.send(data);
+      let data = await jobsService.createJob(req.body);
+      return res.send(data);
     } catch (error) {
       next(error);
     }
@@ -53,18 +52,17 @@ export class JobsController extends BaseController {
   //SECTION Put requests
 
 
-  // async editJob(req, res, next) {
-  //   try {
-  //     let data = await jobsService.editJob(
-  //       req.params.id,
-  //       // req.params.customerId?
-  //       req.body
-  //     );
-  //     return res.send(data);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  async editJob(req, res, next) {
+    try {
+      let data = await jobsService.editJob(
+        req.params.id,
+        req.body
+      );
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
   //!SECTION
   //SECTION Delete requests
   //!SECTION
