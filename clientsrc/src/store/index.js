@@ -18,7 +18,8 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     profile: {},
-    customer: {}
+    customer: {},
+    myJobs: []
   },
   mutations: {
     setProfile(state, profile) {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     setCustomer(state, customer) {
       state.customer = customer;
+    },
+    setMyJobs(state, payload) {
+      state.myJobs = payload
     }
   },
   actions: {
@@ -52,7 +56,25 @@ export default new Vuex.Store({
         router.push('/custdashboard')
       } catch (error) {
         console.error(error);
-        
+      }
+    },
+
+    async saveAddress({commit, dispatch}, addressData) {
+      try {
+        let res = await api.post(`customers/${this.state.profile.customerProfile._id}/addresses`, addressData)
+        console.log(res.data)
+        dispatch('getProfile')
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async createJob({commit, dispatch}, jobData) {
+      try {
+        let res = await api.post(`jobs`, jobData)
+        console.log(res.data)
+        commit('setMyJobs', res.data)
+      } catch (error) {
+        console.error(error)
       }
     }
   }

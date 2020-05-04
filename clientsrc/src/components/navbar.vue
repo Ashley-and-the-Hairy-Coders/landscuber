@@ -30,16 +30,26 @@
             >Profile</router-link
           >
         </li>
+        <li
+          class="nav-item ml-auto"
+          v-if="$auth.isAuthenticated "
+          :class="{ active: $route.name == 'CustDashboard' }"
+        >
+          <router-link class="nav-link ml-auto" :to="{ name: 'CustDashboard' }"
+            >Dashboard</router-link
+          >
+        </li>
       </ul>
       <span class="navbar-text d-flex ml-auto">
+        <img :src="this.profile.picture" height="50px" class="mx-2 ml-auto rounded rounded-circle">
         <button
-          class="btn ml-auto text-info btn-link nav-button"
+          class="btn text-info btn-link nav-button"
           @click="login"
           v-if="!$auth.isAuthenticated"
         >
           Login
         </button>
-        <button class="btn ml-auto btn-link nav-button" @click="logout" v-else>logout</button>
+        <button class="btn btn-link nav-button" @click="logout" v-else>logout</button>
       </span>
     </div>
   </nav>
@@ -50,6 +60,11 @@ import axios from "axios";
 import { getUserData } from "@bcwdev/auth0-vue";
 export default {
   name: "Navbar",
+  computed: {
+    profile() {
+      return this.$store.state.profile
+    }
+  },
   methods: {
     async login() {
       await this.$auth.loginWithPopup();
