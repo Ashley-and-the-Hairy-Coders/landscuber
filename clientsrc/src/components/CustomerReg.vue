@@ -1,30 +1,30 @@
 <template>
-  <div class="CustomerReg">
-    <div class="createNote">
-      <form>
-        <div class="form-group">
+      <form class="CustomerReg">
+        <div class="input-group">
           <input
             type="text"
-            class="form-group m-2"
+            class="form-control w-75 m-2"
             placeholder="First Name"
             v-model="newCustomer.firstName"
             required
           />
+        </div>
+        <div class="input-group">
           <input
             type="text"
-            class="form-group m-2"
+            class="form-control m-2"
             placeholder="Last Name"
             v-model="newCustomer.lastName"
             required
           />
+        </div>
           <input
-            class="form-group"
+            class="form-control w-25 mx-auto m-2"
             maxlength="5"
             placeholder="Zip Code"
             v-model="newCustomer.location"
             required
             inputmode="numeric" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$">
-        </div>
         <button
           type="submit"
           data-dismiss="modal"
@@ -32,8 +32,6 @@
           class="btn btn-sm btn-success"
         >Register Now</button>
       </form>
-    </div>
-  </div>
 </template>
 
 
