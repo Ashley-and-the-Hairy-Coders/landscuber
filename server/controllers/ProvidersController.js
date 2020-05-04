@@ -3,6 +3,7 @@ import BaseController from "../utils/BaseController";
 import { providersService } from "../services/ProvidersService";
 import auth0Provider from "@bcwdev/auth0provider";
 import { jobsService } from '../services/JobsService'
+import { profilesService } from "../services/ProfilesService"
 
 export class ProvidersController extends BaseController {
   constructor() {
@@ -48,9 +49,16 @@ export class ProvidersController extends BaseController {
 
   async createProvider(req, res, next) {
     try {
-      req.body.providerEmail = req.user.email;
-      let data = await providersService.createProvider(req.body);
-      return res.send(data);
+      let profile = await profilesService.getProfile(req.userInfo)
+
+      // @ts-ignore
+      if (!profile.providerProfile) {
+        req.body.profileId = profile.id
+        let data = await providersService.createProvider(req.body);
+        return res.send(data);
+      } else {
+        res.send("You already have a provider profile")
+      }
     } catch (error) {
       next(error);
     }

@@ -10,6 +10,7 @@ let addressSchema = new Schema({
   city: { type: String, required: true },
   state: { type: String, required: true },
   zipCode: { type: Number, required: true },
+  nickname: { type: String },
   contactName: { type: String },
   yardSize: {
     type: String,

@@ -64,11 +64,14 @@ export class CustomersController extends BaseController {
   async createCustomer(req, res, next) {
     try {
       let profile = await profilesService.getProfile(req.userInfo)
-      req.body.profileId = profile.id
-      // req.body.customerEmail = req.userInfo.email;
-      let data = await customersService.createCustomer(req.body);
-
-      return res.send(data);
+      // @ts-ignore
+      if (!profile.customerProfile) {
+        req.body.profileId = profile.id
+        let data = await customersService.createCustomer(req.body);
+        return res.send(data);
+      } else {
+        res.send("You already have a customer profile")
+      }
     } catch (error) {
       next(error);
     }
@@ -76,7 +79,7 @@ export class CustomersController extends BaseController {
 
   async createAddress(req, res, next) {
     try {
-      req.body.customerEmail = req.userInfo.email;
+      // req.body.customerEmail = req.userInfo.email;
       let data = await customersService.createAddress(req.params.id, req.body);
       return res.send(data);
     } catch (error) {
