@@ -3,6 +3,7 @@ import BaseController from "../utils/BaseController";
 import { customersService } from "../services/CustomersService";
 import auth0Provider from "@bcwdev/auth0provider";
 import { profilesService } from '../services/ProfilesService';
+import { jobsService } from '../services/JobsService'
 
 export class CustomersController extends BaseController {
   constructor() {
@@ -13,7 +14,7 @@ export class CustomersController extends BaseController {
       .use(auth0Provider.getAuthorizedUserInfo)
       .get("", this.getAllCustomers)
       .get("/:id", this.getCustomerById)
-      // .get("/:id/jobs", this.getJobsByCustomerId)
+      .get("/:id/jobs", this.getJobsByCustomerId)
       // .get("/:id/ratings", this.getRatingsByCustomerId)
       .post("", this.createCustomer)
       .post("/:id/addresses", this.createAddress)
@@ -39,14 +40,14 @@ export class CustomersController extends BaseController {
       next(error);
     }
   }
-  // async getJobsByCustomerId(req, res, next) {
-  //   try {
-  //     let data = await customersService.getJobsByCustomerId(req.params.id);
-  //     return res.send(data);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  async getJobsByCustomerId(req, res, next) {
+    try {
+      let data = await jobsService.getJobsByCustomerId(req.params.id);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
 
   // NOTE The below function will target the Ratings service and pull back an array of ratings tied to the specific customer ID we are passing in
   // async getRatingsByCustomerId(req, res, next) {
