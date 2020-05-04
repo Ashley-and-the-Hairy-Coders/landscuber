@@ -52,7 +52,6 @@ export default new Vuex.Store({
         router.push('/custdashboard')
       } catch (error) {
         console.error(error);
-        
       }
     }
   }

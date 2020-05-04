@@ -24,7 +24,7 @@
             placeholder="Zip Code"
             v-model="newCustomer.location"
             required
-            inputmode="numeric" pattern="^(?(^00000(|-0000))|(\d{5}(|-\d{4})))$">
+            type="number">
         <button
           type="submit"
           data-dismiss="modal"
@@ -47,7 +47,6 @@ export default {
   methods: {
     registerCust() {
        this.$store.dispatch('registerCust', this.newCustomer)
-      console.log(this.newCustomer);
     }
   },
   components: {}

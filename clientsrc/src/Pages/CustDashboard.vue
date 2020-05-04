@@ -6,10 +6,15 @@
   </div>
   <div class="col-12 col-md-6 ">
         <button
-          type="submit"
-          @click.prevent="postJob()"
+          data-toggle="modal"
+          data-target="#createJobModal"
           class="btn btn-sm btn-success"
         >Request Lawn Service</button> 
+        
+        <Modal title="Request Lawn Service" id="createJobModal">
+          <CreateJob></CreateJob>
+        </Modal>
+
   </div>
 </div>
 
@@ -18,6 +23,8 @@
 
 
 <script>
+import Modal from "../components/Modal"
+import CreateJob from "../components/CreateJob"
 export default {
   name: 'custDashboard',
   data(){
@@ -25,7 +32,10 @@ export default {
   },
   computed:{},
   methods:{},
-  components:{}
+  components:{
+    Modal,
+    CreateJob
+  }
 }
 </script>
 
