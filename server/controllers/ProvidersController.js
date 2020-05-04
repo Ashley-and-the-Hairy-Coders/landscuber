@@ -2,6 +2,7 @@ import express from "express";
 import BaseController from "../utils/BaseController";
 import { providersService } from "../services/ProvidersService";
 import auth0Provider from "@bcwdev/auth0provider";
+import { jobsService } from '../services/JobsService'
 
 export class ProvidersController extends BaseController {
   constructor() {
@@ -11,6 +12,7 @@ export class ProvidersController extends BaseController {
       .use(auth0Provider.getAuthorizedUserInfo)
       .get("", this.getAllProviders)
       .get("/:id", this.getProviderById)
+      .get("/:id/jobs", this.getJobsByProviderId)
       .post("", this.createProvider)
       .put("/:id", this.editProvider)
       .delete("/:id", this.deleteProvider)
@@ -27,6 +29,14 @@ export class ProvidersController extends BaseController {
   async getProviderById(req, res, next) {
     try {
       let data = await providersService.getProviderById(req.params.id);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async getJobsByProviderId(req, res, next) {
+    try {
+      let data = await jobsService.getJobsByProviderId(req.params.id);
       return res.send(data);
     } catch (error) {
       next(error);

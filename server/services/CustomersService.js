@@ -13,9 +13,6 @@ class CustomersService {
     }
     return customer;
   }
-  // async getJobsByCustomerId(customerId) {
-  //   return await dbContext.Jobs.find({ customerId: customerId });
-  // }
 
   //!SECTION
   //SECTION Create requests
