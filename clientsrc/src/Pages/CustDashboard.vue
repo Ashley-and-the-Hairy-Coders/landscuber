@@ -14,6 +14,9 @@
         <Modal title="Request Lawn Service" id="createJobModal">
           <CreateJob></CreateJob>
         </Modal>
+<UtilModal>
+  <custActiveTable></custActiveTable>
+</UtilModal>
 
   </div>
 </div>
@@ -25,6 +28,7 @@
 <script>
 import Modal from "../components/Modal"
 import CreateJob from "../components/CreateJob"
+import UtilTable from "../components/UtilTable"
 export default {
   name: 'custDashboard',
   data(){
@@ -34,7 +38,8 @@ export default {
   methods:{},
   components:{
     Modal,
-    CreateJob
+    CreateJob,
+    UtilTable
   }
 }
 </script>
