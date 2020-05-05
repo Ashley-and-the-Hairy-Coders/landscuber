@@ -54,6 +54,7 @@ export class ProvidersController extends BaseController {
       // @ts-ignore
       if (!profile.providerProfile) {
         req.body.profileId = profile.id
+        req.body.providerEmail = req.userInfo.email;
         let data = await providersService.createProvider(req.body);
         return res.send(data);
       } else {

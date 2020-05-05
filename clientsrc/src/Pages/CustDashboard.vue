@@ -1,5 +1,10 @@
 <template>
   <div class="custDashboard container-fluid">
+    <div class="row my-3">
+      <div class="col-12 text-center text-success">
+        <h2>Welcome back, {{profile.customerProfile.firstName}}!</h2>
+      </div>
+    </div>
     <div class="row text-center">
       <div class="col-12 col-md-6">
         <!-- <h1>There are {{NumOfProvidersAvail}} active in your area!</h1> -->
@@ -44,6 +49,9 @@ export default {
   computed: {
     customerJobs() {
       return this.$store.state.customerJobs;
+    },
+    profile() {
+      return this.$store.state.profile;
     }
   },
   methods: {},

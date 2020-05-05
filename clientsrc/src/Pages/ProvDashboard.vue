@@ -1,6 +1,6 @@
 <template>
   <div class="provdashboard bg-warning bg-h">
-    <div class="container-fluid m-0">
+    <div class="container-fluid m-0 text-center">
       <div class="row py-5">
         <div class="col-11">
           <h4 class="text-right">I AM AVAILABLE</h4>
@@ -96,11 +96,11 @@ export default {
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: #85cf4b;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+  box-shadow: 0 0 1px #85cf4b;
 }
 
 input:checked + .slider:before {
@@ -119,6 +119,6 @@ input:checked + .slider:before {
 }
 
 .bg-h {
-  height: 100vh
+  height: 100vh;
 }
 </style>
