@@ -32,26 +32,10 @@
           :class="{ active: $route.name == 'CustDashboard' }"
         >
           <router-link
-<<<<<<< HEAD
-            class="nav-link ml-auto"
-            :to="{ name: 'CustDashboard', params: { customerId: profile.customerProfile._id } }"
-          >Customer Dashboard</router-link>
-        </li>
-        <li
-          class="nav-item ml-auto"
-          v-if="$auth.isAuthenticated "
-          :class="{ active: $route.name == 'ProvDashboard' }"
-        >
-          <router-link
-            class="nav-link ml-auto"
-            :to="{ name: 'ProvDashboard', params: { providerId: profile.providerProfile._id } }"
-          >Provider Dashboard</router-link>
-=======
             v-if="profile.customerProfile"
             class="nav-link ml-auto"
             :to="{ name: 'CustDashboard', params: { customerId: profile.customerProfile._id } }"
           >Dashboard</router-link>
->>>>>>> 41d3f57d39a3ad61b272d091af45440bb6afb239
         </li>
       </ul>
       <span class="navbar-text d-flex ml-auto">
