@@ -4,8 +4,8 @@ import { BadRequest } from "../utils/Errors";
 class JobsService {
   //SECTION Get requests
   async getAllJobs() {
-    let data = await dbContext.Job.find()
-    return data;
+    let jobData = await dbContext.Job.find()
+    return jobData;
   }
   async getJobsByCustomerId(customerId) {
     let jobData = await dbContext.Job.find({ customerId: customerId })
@@ -15,6 +15,13 @@ class JobsService {
     return jobData
   }
 
+  async getJobsByStatus(status) {
+    let jobData = await dbContext.Job.find({ jobStatus: status })
+    if (!jobData) {
+      throw new BadRequest("There are no active jobs at this time!")
+    }
+    return jobData
+  }
   async getJobById(jobId) {
     let job = await dbContext.Job.findById(jobId);
     if (!job) {
@@ -34,6 +41,15 @@ class JobsService {
   async createJob(rawData) {
     let data = await dbContext.Job.create(rawData)
     return data;
+  }
+  async createMessage(jobId, rawData) {
+    delete rawData._id;
+    let messageData = await dbContext.Job.findOneAndUpdate(
+      { _id: jobId },
+      { $addToSet: { messages: rawData } },
+      { new: true }
+    );
+    return messageData;
   }
   //!SECTION
   //SECTION Edit requests

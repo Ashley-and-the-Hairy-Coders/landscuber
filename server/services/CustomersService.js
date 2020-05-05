@@ -13,6 +13,12 @@ class CustomersService {
     }
     return customer;
   }
+  async getCustomerByEmail(user) {
+    let customer = await dbContext.Customer.findOne(
+      { customerEmail: user.email }
+    ).populate("customerEmail")
+    return customer;
+  }
 
   //!SECTION
   //SECTION Create requests
@@ -32,9 +38,9 @@ class CustomersService {
 
   //!SECTION
   //SECTION Edit requests
-  async editCustomer(customerId, email, rawData) {
+  async editCustomer(customerId, rawData) {
     let customerData = await dbContext.Customer.findOneAndUpdate(
-      { _id: customerId, customerEmail: email },
+      { _id: customerId },
       rawData,
       { new: true }
     );

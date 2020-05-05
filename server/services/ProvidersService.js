@@ -31,9 +31,9 @@ class ProvidersService {
   //SECTION Edit requests
 
 
-  async editProvider(providerId, email, rawData) {
+  async editProvider(providerId, rawData) {
     let providerData = await dbContext.Provider.findOneAndUpdate(
-      { _id: providerId, providerEmail: email },
+      { _id: providerId },
       rawData,
       { new: true }
     );

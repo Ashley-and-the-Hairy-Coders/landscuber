@@ -69,7 +69,6 @@ export class ProvidersController extends BaseController {
     try {
       let data = await providersService.editProvider(
         req.params.id,
-        req.userInfo.email,
         req.body
       );
       return res.send(data);
