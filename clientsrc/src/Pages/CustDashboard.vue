@@ -1,5 +1,10 @@
 <template>
   <div class="custDashboard container-fluid">
+    <div class="row my-3">
+      <div class="col-12 text-center text-success">
+        <h2>Welcome back, {{profile.customerProfile.firstName}}!</h2>
+      </div>
+    </div>
     <div class="row text-center">
       <div class="col-12 col-md-6">
         <!-- <h1>There are {{NumOfProvidersAvail}} active in your area!</h1> -->
@@ -23,12 +28,17 @@
           <custActiveTable v-for="Job in customerJobs" :jobData="Job" :key="Job._id"></custActiveTable>
         </UtilTable>
         <div class="progress">
-  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
+          <div
+            class="progress-bar progress-bar-striped bg-success"
+            role="progressbar"
+            style="width: 25%"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
       </div>
-
     </div>
-
   </div>
 </template>
 
@@ -36,7 +46,7 @@
 <script>
 import Modal from "../components/Modal";
 import CreateJob from "../components/CreateJob";
-import custActiveTable from "../components/custActiveTable"
+import custActiveTable from "../components/custActiveTable";
 import UtilTable from "../components/UtilTable";
 export default {
   name: "custDashboard",
@@ -49,6 +59,9 @@ export default {
   computed: {
     customerJobs() {
       return this.$store.state.customerJobs;
+    },
+    profile() {
+      return this.$store.state.profile;
     }
   },
   methods: {},

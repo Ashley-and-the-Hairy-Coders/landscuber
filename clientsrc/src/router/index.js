@@ -33,7 +33,7 @@ const routes = [
     beforeEnter: authGuard,
   },
   {
-    path: "/provdashboard",
+    path: "/provdashboard/:providerId",
     name: "ProvDashboard",
     component: ProvDashboard,
     beforeEnter: authGuard,

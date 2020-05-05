@@ -45,12 +45,14 @@
       <div class="col-12 col-md-8 col-lg-6 text-center py-4">
         <h4>When you need your lawn mowed today, Landscüber will get it done!</h4>
         <p>Name your price and immediately connect with local lawn care professionals.</p>
-        <button v-if="!this.$store.state.profile.customerProfile"
+        <button
+          v-if="!this.$store.state.profile.customerProfile"
           class="btn btn-success"
           data-toggle="modal"
           data-target="#customerRegModal"
         >Join Now</button>
-        
+        <button v-else class="btn btn-success" @click="goToCustomerDash()">Go to Dashboard</button>
+
         <Modal title="Join Today!" id="customerRegModal">
           <CustomerReg></CustomerReg>
         </Modal>
@@ -58,11 +60,21 @@
       <div class="col-12 col-md-8 col-lg-6 text-center py-4">
         <h4>Ready to get a job now? Join as a provider</h4>
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex reprehenderit aut incidunt. Sapiente tenetur unde corrupti dolorum, placeat officiis praesentium, perferendis at, illum architecto aspernatur accusamus distinctio fugiat iste alias.</p>
-        <button class="btn btn-success">Get Started</button>
+        <button
+          class="btn btn-success"
+          v-if="!this.$store.state.profile.providerProfile"
+          data-toggle="modal"
+          data-target="#providerRegModal"
+        >Get Started</button>
+        <button v-else class="btn btn-success" @click="goToProviderDash()">Make some $$$</button>
+        <Modal title="Sign up to start Scübing!" id="providerRegModal">
+          <ProviderReg></ProviderReg>
+        </Modal>
       </div>
     </div>
 
     <!-- Customer Review Row -->
+    <!-- NOTE Do we want to make this a separate component? -->
     <div class="row bg-home py-2">
       <div class="col-12 text-center">
         <h2 class="mb-5 my-md-5">What your neighbors are saying...</h2>
@@ -126,8 +138,9 @@
 </template>
 
 <script>
-import Modal from "../components/Modal"
-import CustomerReg from "../components/CustomerReg"
+import Modal from "../components/Modal";
+import CustomerReg from "../components/CustomerReg";
+import ProviderReg from "../components/ProviderReg";
 export default {
   name: "home",
   data() {
@@ -135,9 +148,29 @@ export default {
       landscaper: false
     };
   },
+  computed: {
+    profile() {
+      return this.$store.state.profile;
+    }
+  },
+  methods: {
+    goToCustomerDash() {
+      this.$router.push({
+        name: "CustDashboard",
+        params: { customerId: this.profile.customerProfile._id }
+      });
+    },
+    goToProviderDash() {
+      this.$router.push({
+        name: "ProvDashboard",
+        params: { providerId: this.profile.providerProfile._id }
+      });
+    }
+  },
   components: {
     Modal,
-    CustomerReg
+    CustomerReg,
+    ProviderReg
   }
 };
 </script>

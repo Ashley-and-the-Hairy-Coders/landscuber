@@ -19,6 +19,7 @@ export default new Vuex.Store({
   state: {
     profile: {},
     customer: {},
+    provider: {},
     customerJobs: []
   },
   mutations: {
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     setCustomer(state, customer) {
       state.customer = customer;
+    },
+    setProvider(state, provider) {
+      state.provider = provider;
     },
     // setMyJobs(state, payload) {
     //   state.myJobs = payload
@@ -43,7 +47,7 @@ export default new Vuex.Store({
       api.defaults.headers.authorization = "";
     },
 
-    //#region --Registration--
+    //SECTION --Registration--
     async getProfile({ commit }) {
       try {
         let res = await api.get("profile");
@@ -56,12 +60,24 @@ export default new Vuex.Store({
     async registerCust({ commit, dispatch }, newCustomer) {
       try {
         let res = await api.post('customers', newCustomer)
-        await api.put(`profile/${this.state.profile._id}`, {customerProfile: res.data._id})
+        await api.put(`profile/${this.state.profile._id}`, { customerProfile: res.data._id })
         commit('setCustomer', res.data)
         dispatch('getProfile')
-        router.push( `/custdashboard/${res.data._id}` )
+        router.push(`/custdashboard/${res.data._id}`)
       } catch (error) {
         console.error(error);
+      }
+    },
+
+    async registerProvider({ commit, dispatch }, newProvider) {
+      try {
+        let res = await api.post('providers', newProvider)
+        await api.put(`profile/${this.state.profile._id}`, { providerProfile: res.data._id })
+        commit('setProvider', res.data)
+        dispatch('getProfile')
+        router.push(`/provdashboard/${res.data._id}`)
+      } catch (error) {
+        console.error(error)
       }
     },
     async getCustomer({ commit, dispatch }) {
@@ -73,10 +89,10 @@ export default new Vuex.Store({
       }
     },
 
-    //#endregion
+    //!SECTION
 
-    //#region --Addresses and Jobs--
-    async saveAddress({commit, dispatch}, addressData) {
+    //SECTION --Addresses and Jobs--
+    async saveAddress({ commit, dispatch }, addressData) {
       try {
         let res = await api.post(`customers/${this.state.profile.customerProfile._id}/addresses`, addressData)
         console.log(res.data)
@@ -85,7 +101,7 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    async createJob({commit, dispatch}, jobData) {
+    async createJob({ commit, dispatch }, jobData) {
       try {
         let res = await api.post(`jobs`, jobData)
         console.log(res.data)
@@ -95,13 +111,14 @@ export default new Vuex.Store({
       }
     },
 
-    async getCustomerJobs({commit, dispatch}, customerId) {
+    async getCustomerJobs({ commit, dispatch }, customerId) {
       try {
         let res = await api.get(`customers/${customerId}/jobs`)
         commit('setCustomerJobs', res.data)
       } catch (error) {
-        console.error(error)  
+        console.error(error)
       }
     }
   }
 });
+//!SECTION
