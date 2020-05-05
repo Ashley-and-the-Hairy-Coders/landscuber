@@ -39,6 +39,7 @@ class JobsService {
   //!SECTION
   //SECTION Create requests
   async createJob(rawData) {
+    delete rawData._id
     let data = await dbContext.Job.create(rawData)
     return data;
   }
