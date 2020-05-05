@@ -13,7 +13,7 @@
           <div
             class="progress-bar progress-bar-striped bg-success text-capitalize"
             role="progressbar"
-            id="jobProgress"
+            :style="{width: status}"
           >{{jobData.jobStatus}}</div>
         </div>
       </td>
@@ -29,32 +29,27 @@ export default {
   data() {
     return {};
   },
-  computed: {},
-  mounted() {
-    status();
+  computed: {
+    status() {
+      if (this.jobData.jobStatus == "posted") {
+        return "25%";
+      }
+      if (this.jobData.jobStatus == "accepted") {
+        return "50%";
+      }
+      if (this.jobData.jobStatus == "active") {
+        return "75%";
+      }
+      if (this.jobData.jobStatus == "completed") {
+        return "100%";
+      }
+      return "0%";
+    }
   },
+  mounted() {},
   methods: {
     editJob() {
       console.log("Assuming we want the job editable...");
-    },
-    status() {
-      if (jobData.jobStatus == "posted") {
-        document
-          .getElementById("jobProgress")
-          .setAttribute("style", "width: 25%");
-      } else if (jobData.jobStatus == "accepted") {
-        document
-          .getElementById("jobProgress")
-          .setAttribute("style", "width: 50%");
-      } else if (jobData.jobStatus == "active") {
-        document
-          .getElementById("jobProgress")
-          .setAttribute("style", "width: 75%");
-      } else {
-        document
-          .getElementById("jobProgress")
-          .setAttribute("style", "width: 100%");
-      }
     }
   },
   components: {}
