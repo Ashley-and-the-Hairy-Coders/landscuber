@@ -5,7 +5,7 @@
         <tr>
           <th scope="col">Address</th>
           <th scope="col">Date and Time</th>
-          <th scope="col">Pice</th>
+          <th scope="col">Price</th>
           <th scope="col">Yard Size</th>
         </tr>
       </thead>

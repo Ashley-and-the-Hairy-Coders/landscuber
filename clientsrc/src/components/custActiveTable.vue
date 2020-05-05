@@ -1,7 +1,7 @@
 
 <template>
   <tr class="custActiveTable">
-    <th scope="row" type="button" @click="editJob()">{{jobData.streetAddress}}</th>
+    <td scope="row" type="button" @click="editJob()">{{jobData.streetAddress}}</td>
     <td>ASAP</td>
     <td>{{jobData.price}}</td>
     <td>{{jobData.yardSize}}</td>

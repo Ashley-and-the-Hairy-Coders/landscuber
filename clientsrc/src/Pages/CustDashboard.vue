@@ -22,7 +22,11 @@
         <UtilTable>
           <custActiveTable v-for="Job in customerJobs" :jobData="Job" :key="Job._id"></custActiveTable>
         </UtilTable>
+        <div class="progress">
+  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
       </div>
+
     </div>
 
   </div>
