@@ -21,6 +21,7 @@ class CustomersService {
     return data;
   }
   async createAddress(customerId, rawData) {
+    delete rawData._id;
     let addressData = await dbContext.Customer.findOneAndUpdate(
       { _id: customerId },
       { $addToSet: { addresses: rawData } },
