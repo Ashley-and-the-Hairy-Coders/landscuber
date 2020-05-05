@@ -27,6 +27,7 @@
         <UtilTable>
           <custActiveTable v-for="Job in customerJobs" :jobData="Job" :key="Job._id"></custActiveTable>
         </UtilTable>
+<<<<<<< HEAD
         <div class="progress">
           <div
             class="progress-bar progress-bar-striped bg-success"
@@ -37,6 +38,8 @@
             aria-valuemax="100"
           ></div>
         </div>
+=======
+>>>>>>> 41d3f57d39a3ad61b272d091af45440bb6afb239
       </div>
     </div>
   </div>

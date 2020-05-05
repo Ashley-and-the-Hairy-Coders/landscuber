@@ -9,9 +9,8 @@
           <th scope="col">Yard Size</th>
         </tr>
       </thead>
-      <tbody>
-        <slot></slot>
-      </tbody>
+
+      <slot></slot>
     </table>
   </div>
 </template>
@@ -25,9 +24,9 @@ export default {
   data() {
     return {};
   },
-  computed:{},
-  methods:{},
-  components:{
+  computed: {},
+  methods: {},
+  components: {
     // 'PendingJobs': custActiveTable,
     // 'PrevJobs': custPrevTable,
   }
