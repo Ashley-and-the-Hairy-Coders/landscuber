@@ -1,11 +1,14 @@
 
 <template>
-  <tr class="ActiveJobs">
-    <th scope="row" type="button" @click="editJob()">{{jobData.address}}</th>
-    <td>ASAP</td>
-    <td>{{jobData.price}}</td>
-    <td>{{jobData.yardSize}}</td>
-  </tr>
+  <div class="custActiveTable">
+    <p>hello, world!</p>
+    <tr>
+      <th scope="row" type="button" @click="editJob()">{{jobData.address}}</th>
+      <td>ASAP</td>
+      <td>{{jobData.price}}</td>
+      <td>{{jobData.yardSize}}</td>
+    </tr>
+  </div>
 </template>
 
 
@@ -15,6 +18,9 @@ export default {
   props: ["jobData"],
   data(){
     return {}
+  },
+  mounted(){
+    console.log('mounted!')
   },
   computed:{},
   methods:{

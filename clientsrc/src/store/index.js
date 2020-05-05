@@ -19,7 +19,7 @@ export default new Vuex.Store({
   state: {
     profile: {},
     customer: {},
-    myJobs: []
+    customerJobs: []
   },
   mutations: {
     setProfile(state, profile) {
@@ -28,8 +28,11 @@ export default new Vuex.Store({
     setCustomer(state, customer) {
       state.customer = customer;
     },
-    setMyJobs(state, payload) {
-      state.myJobs = payload
+    // setMyJobs(state, payload) {
+    //   state.myJobs = payload
+    // },
+    setCustomerJobs(state, payload) {
+      state.customerJobs = payload
     }
   },
   actions: {
@@ -39,6 +42,8 @@ export default new Vuex.Store({
     resetBearer() {
       api.defaults.headers.authorization = "";
     },
+
+    //#region --Registration--
     async getProfile({ commit }) {
       try {
         let res = await api.get("profile");
@@ -53,12 +58,15 @@ export default new Vuex.Store({
         let res = await api.post('customers', newCustomer)
         await api.put(`profile/${this.state.profile._id}`, {customerProfile: res.data._id})
         dispatch('getProfile')
-        router.push('/custdashboard')
+        router.push( `/custdashboard/${res.data._id}` )
       } catch (error) {
         console.error(error);
       }
     },
 
+    //#endregion
+
+    //#region --Addresses and Jobs--
     async saveAddress({commit, dispatch}, addressData) {
       try {
         let res = await api.post(`customers/${this.state.profile.customerProfile._id}/addresses`, addressData)
@@ -72,9 +80,18 @@ export default new Vuex.Store({
       try {
         let res = await api.post(`jobs`, jobData)
         console.log(res.data)
-        commit('setMyJobs', res.data)
+        dispatch('getCustomerJobs')
       } catch (error) {
         console.error(error)
+      }
+    },
+
+    async getCustomerJobs({commit, dispatch}, customerId) {
+      try {
+        let res = await api.get(`customers/${customerId}/jobs`)
+        commit('setCustomerJobs', res.data)
+      } catch (error) {
+        console.error(error)  
       }
     }
   }
