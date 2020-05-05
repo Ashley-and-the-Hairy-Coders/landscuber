@@ -14,9 +14,9 @@
         <Modal title="Request Lawn Service" id="createJobModal">
           <CreateJob></CreateJob>
         </Modal>
-<UtilModal>
+<UtilTable>
   <custActiveTable></custActiveTable>
-</UtilModal>
+</UtilTable>
 
   </div>
 </div>
