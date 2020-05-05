@@ -35,7 +35,7 @@
           v-if="$auth.isAuthenticated "
           :class="{ active: $route.name == 'CustDashboard' }"
         >
-          <router-link class="nav-link ml-auto" :to="{ name: 'CustDashboard' }"
+          <router-link class="nav-link ml-auto" :to="{ name: 'CustDashboard', params: { customerId: profile.customerProfile._id } }"
             >Dashboard</router-link
           >
         </li>
@@ -62,7 +62,7 @@ export default {
   name: "Navbar",
   computed: {
     profile() {
-      return this.$store.state.profile
+      return this.$store.state.profile;
     }
   },
   methods: {

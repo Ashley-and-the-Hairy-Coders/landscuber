@@ -27,7 +27,7 @@ const routes = [
     beforeEnter: authGuard,
   },
   {
-    path: "/custdashboard",
+    path: "/custdashboard/:customerId",
     name: "CustDashboard",
     component: CustDashboard,
     beforeEnter: authGuard,

@@ -1,7 +1,7 @@
 
 <template>
-  <tr class="ActiveJobs">
-    <th scope="row" type="button" @click="editJob()">{{jobData.address}}</th>
+  <tr class="custActiveTable">
+    <td scope="row" type="button" @click="editJob()">{{jobData.streetAddress}}</td>
     <td>ASAP</td>
     <td>{{jobData.price}}</td>
     <td>{{jobData.yardSize}}</td>
@@ -11,22 +11,21 @@
 
 <script>
 export default {
-  name: 'custActiveTable',
+  name: "custActiveTable",
   props: ["jobData"],
-  data(){
-    return {}
+  data() {
+    return {};
   },
-  computed:{},
-  methods:{
-    editJob(){
+  computed: {},
+  methods: {
+    editJob() {
       console.log("Assuming we want the job editable...");
     }
   },
-  components:{}
-}
+  components: {}
+};
 </script>
 
 
 <style scoped>
-
 </style>
