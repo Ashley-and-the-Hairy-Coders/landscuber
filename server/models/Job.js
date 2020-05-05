@@ -30,7 +30,7 @@ const Job = new Schema(
     timeWindow: { type: String },
     confirmedTime: { type: String },
     jobNote: { type: String },
-    jobStatus: { type: String, enum: ["posted", "accepted", "active", "completed"], default: "posted" }, // NOTE Can only delete a job if it has a status of "Posted"
+    jobStatus: { type: String, enum: ["posted", "accepted", "scheduled", "active", "completed"], default: "posted" }, // NOTE Can only delete a job if it has a status of "Posted"
     messages: [messageSchema]
   }
 )
