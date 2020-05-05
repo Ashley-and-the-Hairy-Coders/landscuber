@@ -6,6 +6,10 @@ import Home from "../Pages/Home.vue";
 import Profile from "../Pages/Profile.vue";
 // @ts-ignore
 import CustDashboard from "../Pages/CustDashboard.vue"
+// @ts-ignore
+import ProvDashboard from "../Pages/ProvDashboard.vue"
+// @ts-ignore
+import ActiveJob from "../Pages/ActiveJob.vue"
 import { authGuard } from "@bcwdev/auth0-vue";
 
 Vue.use(VueRouter);
@@ -28,6 +32,18 @@ const routes = [
     component: CustDashboard,
     beforeEnter: authGuard,
   },
+  {
+    path: "/provdashboard",
+    name: "ProvDashboard",
+    component: ProvDashboard,
+    beforeEnter: authGuard,
+  },
+  {
+    path: "/activejob",
+    name: "ActiveJob",
+    component: ActiveJob,
+    beforeEnter: authGuard,
+  }
 ];
 
 const router = new VueRouter({
