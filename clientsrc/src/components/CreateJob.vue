@@ -100,7 +100,12 @@
         <label class="custom-control-label" for="customCheck1">Save This Address</label>
       </div>
 
-      <button type="submit" @click.prevent="createJob" class="btn btn-success btn-small">Scübe!</button>
+      <button
+        type="submit"
+        @click.prevent="createJob"
+        class="btn btn-success btn-small"
+        data-dismiss="modal"
+      >Scübe!</button>
     </form>
   </div>
 </template>
@@ -140,7 +145,7 @@ export default {
         this.$store.dispatch("saveAddress", this.newAddress);
       }
       let job = Object.assign(this.newJob, this.newAddress);
-      job.customerId = this.Customer._id;
+      job.customerId = this.Customer.id;
       console.log(job, this.save);
       this.$store.dispatch("createJob", job);
       this.newAddress = {};

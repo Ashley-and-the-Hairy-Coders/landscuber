@@ -1,9 +1,9 @@
 <template>
-  <div class="provdashboard bg-warning bg-h">
+  <div class="provdashboard bg-warning">
     <div class="container-fluid m-0 text-center">
       <div class="row py-5">
         <div class="col-11">
-          <h4 class="text-right">I AM AVAILABLE</h4>
+          <h4 class="text-right text-info">I AM AVAILABLE</h4>
         </div>
         <div class="m-auto">
           <label class="switch">
@@ -13,25 +13,35 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 pt-3 text-success">
+        <div class="col-12 pt-3 text-info">
           <h5>My Active Jobs</h5>
         </div>
         <!-- NOTE Insert ACTIVE jobs table -->
         <!-- <UtilTable></UtilTable> -->
       </div>
       <div class="row">
-        <div class="col-12 pt-3 text-success">
+        <div class="col-12 pt-3 text-info">
           <h5>My Scheduled Jobs</h5>
         </div>
         <!-- NOTE Insert SCHEDULED jobs table -->
         <!-- <UtilTable></UtilTable> -->
       </div>
       <div class="row">
-        <div class="col-12 pt-3 text-success">
-          <h5>Available Jobs</h5>
+        <div class="col-12 pt-3 text-info">
+          <div class="d-flex justify-content-center">
+            <h5>Available Jobs</h5>
+            <button class="btn btn-sm btn-success ml-2" @click="getPostedJobs()">Refresh Job Board</button>
+          </div>
+          <UtilTable>
+            <ProviderPostedTable
+              v-for="Job in PostedJobs"
+              :jobData="Job"
+              :key="Job._id"
+              class="table-row"
+            ></ProviderPostedTable>
+          </UtilTable>
         </div>
         <!-- NOTE Insert AVAILABLE jobs table -->
-        <!-- <UtilTable></UtilTable> -->
       </div>
     </div>
   </div>
@@ -39,16 +49,29 @@
 
 
 <script>
-// import UtilTable from "../components/UtilTable"
+import UtilTable from "../components/UtilTable";
+import ProviderPostedTable from "../components/ProviderPostedTable";
 export default {
   name: "provDashboard",
   data() {
     return {};
   },
-  computed: {},
-  methods: {},
+  mounted() {
+    this.$store.dispatch("getPostedJobs");
+  },
+  computed: {
+    PostedJobs() {
+      return this.$store.state.postedJobs;
+    }
+  },
+  methods: {
+    getPostedJobs() {
+      this.$store.dispatch("getPostedJobs");
+    }
+  },
   components: {
-    // UtilTable
+    UtilTable,
+    ProviderPostedTable
   }
 };
 </script>
@@ -117,8 +140,10 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-
-.bg-h {
-  height: 100vh;
+.table-row {
+  background-color: #e8e9eb;
+}
+.table-row:not(:last-of-type) {
+  border-bottom: 1px solid #6c7579;
 }
 </style>

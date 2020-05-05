@@ -20,7 +20,8 @@ export default new Vuex.Store({
     profile: {},
     customer: {},
     provider: {},
-    customerJobs: []
+    customerJobs: [],
+    postedJobs: []
   },
   mutations: {
     setProfile(state, profile) {
@@ -37,7 +38,11 @@ export default new Vuex.Store({
     // },
     setCustomerJobs(state, payload) {
       state.customerJobs = payload
+    },
+    setPostedJobs(state, postedJobs) {
+      state.postedJobs = postedJobs
     }
+
   },
   actions: {
     setBearer({ }, bearer) {
@@ -106,7 +111,7 @@ export default new Vuex.Store({
       try {
         let res = await api.post(`jobs`, jobData)
         console.log(res.data)
-        dispatch('getCustomerJobs')
+        dispatch('getCustomerJobs', jobData.customerId)
       } catch (error) {
         console.error(error)
       }
@@ -116,6 +121,14 @@ export default new Vuex.Store({
       try {
         let res = await api.get(`customers/${customerId}/jobs`)
         commit('setCustomerJobs', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async getPostedJobs({ commit, dispatch }) {
+      try {
+        let res = await api.get(`jobs?status=posted`)
+        commit('setPostedJobs', res.data)
       } catch (error) {
         console.error(error)
       }

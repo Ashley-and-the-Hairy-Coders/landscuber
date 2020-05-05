@@ -1,6 +1,6 @@
 <template>
   <div class="UtilTable">
-    <table class="table table-borderless text-success">
+    <table class="table table-borderless text-info">
       <thead>
         <tr>
           <th scope="col">Address</th>
