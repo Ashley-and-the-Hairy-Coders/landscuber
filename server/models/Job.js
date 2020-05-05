@@ -3,6 +3,13 @@ const Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId
 
 // NOTE we will be creating a sub-doc here for Messages so the Provider and Customer can communicate.
+let messageSchema = new Schema({
+  body: { type: String, required: true },
+  providerId: { type: ObjectId, ref: "Provider" },
+  providerImg: { type: String, },
+  customerId: { type: ObjectId, ref: "Customer" },
+  customerImg: { type: String }
+})
 
 const Job = new Schema(
   {
@@ -17,13 +24,14 @@ const Job = new Schema(
     yardSize: {
       type: String,
       required: true,
-      enum: ["Small", "Medium", "Large", "X-Large"],
+      enum: ["small", "medium", "large", "x-large"],
     },
     price: { type: Number, },
     timeWindow: { type: String },
     confirmedTime: { type: String },
     jobNote: { type: String },
-    jobStatus: { type: String, enum: ["Posted", "Accepted", "Active", "Completed"] } // NOTE Can only delete a job if it has a status of "Posted"
+    jobStatus: { type: String, enum: ["posted", "accepted", "active", "completed"], default: "posted" }, // NOTE Can only delete a job if it has a status of "Posted"
+    messages: [messageSchema]
   }
 )
 

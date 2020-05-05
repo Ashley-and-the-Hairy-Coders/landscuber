@@ -23,10 +23,10 @@
         aria-expanded="false"
       >Yard Size</button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" @click.prevent="setYard('Small')" >Small &#8804; 5,000 sqft</a>
-        <a class="dropdown-item" @click.prevent="setYard('Medium')" >Medium - 10,000 sqft - 5,001 sqft</a>
-        <a class="dropdown-item" @click.prevent="setYard('Large')" >Large - 1/2 Acre - 10,000 sqft </a>
-        <a class="dropdown-item" @click.prevent="setYard('X-Large')" >Extra Large &#8805; 1/2 Acre</a>
+        <a class="dropdown-item" @click.prevent="setYard('small')" >Small &#8804; 5,000 sqft</a>
+        <a class="dropdown-item" @click.prevent="setYard('medium')" >Medium - 10,000 sqft - 5,001 sqft</a>
+        <a class="dropdown-item" @click.prevent="setYard('large')" >Large - 1/2 Acre - 10,000 sqft </a>
+        <a class="dropdown-item" @click.prevent="setYard('x-large')" >Extra Large &#8805; 1/2 Acre</a>
       </div>
     </div>
     <form>
@@ -107,7 +107,7 @@ export default {
         primary: false
       },
       newJob: {
-        jobStatus: "Posted"
+        jobStatus: "posted"
       },
       save: false
     };

@@ -1,38 +1,31 @@
 
 <template>
-  <div class="custActiveTable">
-    <p>hello, world!</p>
-    <tr>
-      <th scope="row" type="button" @click="editJob()">{{jobData.address}}</th>
-      <td>ASAP</td>
-      <td>{{jobData.price}}</td>
-      <td>{{jobData.yardSize}}</td>
-    </tr>
-  </div>
+  <tr class="custActiveTable">
+    <th scope="row" type="button" @click="editJob()">{{jobData.streetAddress}}</th>
+    <td>ASAP</td>
+    <td>{{jobData.price}}</td>
+    <td>{{jobData.yardSize}}</td>
+  </tr>
 </template>
 
 
 <script>
 export default {
-  name: 'custActiveTable',
+  name: "custActiveTable",
   props: ["jobData"],
-  data(){
-    return {}
+  data() {
+    return {};
   },
-  mounted(){
-    console.log('mounted!')
-  },
-  computed:{},
-  methods:{
-    editJob(){
+  computed: {},
+  methods: {
+    editJob() {
       console.log("Assuming we want the job editable...");
     }
   },
-  components:{}
-}
+  components: {}
+};
 </script>
 
 
 <style scoped>
-
 </style>

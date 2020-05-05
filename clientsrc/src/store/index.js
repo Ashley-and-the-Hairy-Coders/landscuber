@@ -57,10 +57,19 @@ export default new Vuex.Store({
       try {
         let res = await api.post('customers', newCustomer)
         await api.put(`profile/${this.state.profile._id}`, {customerProfile: res.data._id})
+        commit('setCustomer', res.data)
         dispatch('getProfile')
         router.push( `/custdashboard/${res.data._id}` )
       } catch (error) {
         console.error(error);
+      }
+    },
+    async getCustomer({ commit, dispatch }) {
+      try {
+        let res = await api.get(`customer/${this.state.profile._id}`)
+        commit('setCustomer', res.data)
+      } catch (error) {
+        console.error(error)
       }
     },
 

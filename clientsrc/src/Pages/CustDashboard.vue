@@ -2,7 +2,7 @@
   <div class="custDashboard container-fluid">
     <div class="row text-center">
       <div class="col-12 col-md-6">
-        <h1>There are {{NumOfProvidersAvail}} active in your area!</h1>
+        <!-- <h1>There are {{NumOfProvidersAvail}} active in your area!</h1> -->
       </div>
       <div class="col-12 col-md-6">
         <button
@@ -15,12 +15,16 @@
           <CreateJob></CreateJob>
         </Modal>
       </div>
-
-      <UtilTable>
-        <custActiveTable v-for="Job in customerJobs" :jobData="job" :key="Job._id"></custActiveTable>
-      </UtilTable>
-      
     </div>
+
+    <div class="row justify-content-center">
+      <div class="col-8">
+        <UtilTable>
+          <custActiveTable v-for="Job in customerJobs" :jobData="Job" :key="Job._id"></custActiveTable>
+        </UtilTable>
+      </div>
+    </div>
+
   </div>
 </template>
 
