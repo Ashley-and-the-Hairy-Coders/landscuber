@@ -70,6 +70,7 @@ export default new Vuex.Store({
     },
 
     async registerProvider({ commit, dispatch }, newProvider) {
+      debugger
       try {
         let res = await api.post('providers', newProvider)
         await api.put(`profile/${this.state.profile._id}`, { providerProfile: res.data._id })

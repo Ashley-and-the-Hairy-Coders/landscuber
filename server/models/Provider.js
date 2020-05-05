@@ -20,9 +20,6 @@ const Provider = new Schema(
     ratings: [RatingSchema],
     services: [{ type: String }]
 
-
-
-
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );
