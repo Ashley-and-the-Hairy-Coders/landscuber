@@ -67,6 +67,7 @@ export class CustomersController extends BaseController {
       // @ts-ignore
       if (!profile.customerProfile) {
         req.body.profileId = profile.id
+        req.body.customerEmail = req.userInfo.email;
         let data = await customersService.createCustomer(req.body);
         return res.send(data);
       } else {
@@ -79,7 +80,6 @@ export class CustomersController extends BaseController {
 
   async createAddress(req, res, next) {
     try {
-      // req.body.customerEmail = req.userInfo.email;
       let data = await customersService.createAddress(req.params.id, req.body);
       return res.send(data);
     } catch (error) {
@@ -93,7 +93,7 @@ export class CustomersController extends BaseController {
     try {
       let data = await customersService.editCustomer(
         req.params.id,
-        req.userInfo.email,
+        // req.userInfo.email,
         req.body
       );
       return res.send(data);

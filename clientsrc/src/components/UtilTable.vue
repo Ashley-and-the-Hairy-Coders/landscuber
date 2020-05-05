@@ -18,8 +18,8 @@
 
 
 <script>
-import custActiveTable from "../components/custActiveTable.vue"
-import custPrevTable from "../components/custPrevTable.vue"
+// import custActiveTable from "../components/custActiveTable.vue"
+// import custPrevTable from "../components/custPrevTable.vue"
 export default {
   name: 'UtilTable',
   data(){
@@ -28,8 +28,8 @@ export default {
   computed:{},
   methods:{},
   components:{
-    'PendingJobs': custActiveTable,
-    'PrevJobs': custPrevTable,
+    // 'PendingJobs': custActiveTable,
+    // 'PrevJobs': custPrevTable,
   }
 }
 </script>
