@@ -1,7 +1,7 @@
 <template>
   <tbody class="providerPostedTable">
     <tr>
-      <td scope="row">{{jobData.streetAddress}}</td>
+      <td scope="row">{{jobData.streetAddress}}  {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
       <td>
         <button class="btn btn-success" @click="AcceptJob()">Accept</button>
       </td>
