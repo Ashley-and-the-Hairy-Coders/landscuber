@@ -35,7 +35,17 @@
             v-if="profile.customerProfile"
             class="nav-link ml-auto"
             :to="{ name: 'CustDashboard', params: { customerId: profile.customerProfile._id } }"
-          >Dashboard</router-link>
+          >Customer Dashboard</router-link>
+        </li>
+                <li
+          class="nav-item ml-auto"
+          v-if="$auth.isAuthenticated "
+          :class="{ active: $route.name == 'ProvDashboard' }"
+        >
+          <router-link
+            class="nav-link ml-auto"
+            :to="{ name: 'ProvDashboard', params: { providerId: profile.providerProfile._id } }"
+          >Provider Dashboard</router-link>
         </li>
       </ul>
       <span class="navbar-text d-flex ml-auto">

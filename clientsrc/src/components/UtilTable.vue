@@ -3,10 +3,10 @@
     <table class="table table-borderless text-info">
       <thead>
         <tr>
-          <th scope="col">Address</th>
-          <th scope="col">Date and Time</th>
-          <th scope="col">Price</th>
-          <th scope="col">Yard Size</th>
+          <th scope="col" class="col-4">Address</th>
+          <th scope="col" class="col-2">Date and Time</th>
+          <th scope="col" class="col-2">Price</th>
+          <th scope="col" class="col-4">Yard Size</th>
         </tr>
       </thead>
 

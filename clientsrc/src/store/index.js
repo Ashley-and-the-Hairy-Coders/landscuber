@@ -18,11 +18,11 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    profile: {},
+    profile: { providerProfile: {}, customerProfile: {}},
     customer: {},
     provider: {},
     customerJobs: [],
-    postedJobs: []
+    allJobs: []
   },
   mutations: {
     setProfile(state, profile) {
@@ -40,11 +40,11 @@ export default new Vuex.Store({
     setCustomerJobs(state, payload) {
       state.customerJobs = payload
     },
-    setPostedJobs(state, postedJobs) {
-      state.postedJobs = postedJobs
+    setAllJobs(state, allJobs) {
+      state.allJobs = allJobs
     },
     addJob(state, data) {
-      state.postedJobs.push(data)
+      state.allJobs.push(data)
     }
 
   },
@@ -129,12 +129,29 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    async getPostedJobs({ commit, dispatch }) {
+    async getAllJobs({ commit, dispatch }) {
       try {
-        let res = await api.get(`jobs?status=posted`)
-        commit('setPostedJobs', res.data)
+        let res = await api.get(`jobs`)
+        commit('setAllJobs', res.data)
       } catch (error) {
         console.error(error)
+      }
+    },
+    async AcceptJob ({ commit, dispatch }, jobData) {
+      try {
+        let res = await api.put(`jobs/${jobData._id}?acceptJob=true`, jobData)
+      } catch (error) {
+        console.error(error)
+
+      }
+    },
+    async EditJobStatus ({ commit, dispatch }, jobData) {
+      try {
+        let res = await api.put(`jobs/${jobData._id}`, jobData)
+        // commit("setAllJobs")
+      } catch (error) {
+        console.error(error)
+
       }
     }
   },

@@ -15,23 +15,35 @@
       <div class="row">
         <div class="col-12 pt-3 text-info">
           <h5>My Active Jobs</h5>
+          <!-- NOTE Insert ACTIVE jobs table -->
+          <UtilTable>
+            <ProvActiveJob
+              v-for="Job in ActiveJobs"
+              :jobData="Job"
+              :key="Job._id"
+              class="table-row"
+            ></ProvActiveJob>
+          </UtilTable>
         </div>
-        <!-- NOTE Insert ACTIVE jobs table -->
-        <!-- <UtilTable></UtilTable> -->
       </div>
       <div class="row">
         <div class="col-12 pt-3 text-info">
           <h5>My Scheduled Jobs</h5>
+          <!-- NOTE Insert SCHEDULED jobs table -->
+          <UtilTable>
+            <ProvSchedJob
+              v-for="Job in AcceptedJobs"
+              :jobData="Job"
+              :key="Job._id"
+              class="table-row"
+            ></ProvSchedJob>
+          </UtilTable>
         </div>
-        <!-- NOTE Insert SCHEDULED jobs table -->
-        <!-- <UtilTable></UtilTable> -->
       </div>
       <div class="row">
         <div class="col-12 pt-3 text-info">
-          <div class="d-flex justify-content-center">
-            <h5>Available Jobs</h5>
-            <button class="btn btn-sm btn-success ml-2" @click="getPostedJobs()">Refresh Job Board</button>
-          </div>
+          <h5>Available Jobs</h5>
+          <!--        <button class="btn btn-sm btn-success ml-2" @click="getPostedJobs()">Refresh Job Board</button> -->
           <UtilTable>
             <ProviderPostedTable
               v-for="Job in PostedJobs"
@@ -51,13 +63,17 @@
 <script>
 import UtilTable from "../components/UtilTable";
 import ProviderPostedTable from "../components/ProviderPostedTable";
+import ProvSchedJob from "../components/ProvSchedJob";
+import ProvActiveJob from "../components/ProvActiveJob";
 export default {
   name: "provDashboard",
   data() {
-    return {};
+    return {
+      available: false
+    };
   },
   mounted() {
-    this.$store.dispatch("getPostedJobs");
+    this.$store.dispatch("getAllJobs");
     this.$store.dispatch("joinRoom", "jobs");
   },
   beforeDestroy() {
@@ -65,8 +81,29 @@ export default {
   },
   computed: {
     PostedJobs() {
-      return this.$store.state.postedJobs;
-    }
+      return this.$store.state.allJobs.filter(job => job.jobStatus == "posted");
+    },
+    AcceptedJobs() {
+      return this.$store.state.allJobs.filter(
+        job =>
+          job.jobStatus == "accepted" &&
+          job.providerId == this.$store.state.profile.providerProfile.id
+      );
+    },
+    ActiveJobs() {
+      return this.$store.state.allJobs.filter(
+        job =>
+          job.jobStatus == "active" &&
+          job.providerId == this.$store.state.profile.providerProfile.id
+      );
+    },
+    // CompletedJobs() {
+    //   return this.$store.state.allJobs.filter(
+    //     job =>
+    //       job.jobStatus == "completed" &&
+    //       job.providerId == this.$store.state.profile.providerProfile.id
+    //   );
+    // }
   },
   methods: {
     getPostedJobs() {
@@ -75,7 +112,9 @@ export default {
   },
   components: {
     UtilTable,
-    ProviderPostedTable
+    ProviderPostedTable,
+    ProvSchedJob,
+    ProvActiveJob
   }
 };
 </script>

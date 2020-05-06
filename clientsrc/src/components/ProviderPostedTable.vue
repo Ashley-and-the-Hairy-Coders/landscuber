@@ -1,9 +1,9 @@
 <template>
   <tbody class="providerPostedTable">
     <tr>
-      <td scope="row">{{jobData.streetAddress}}</td>
+      <td scope="row">{{jobData.streetAddress}}  {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
       <td>
-        <button class="btn btn-success">Accept</button>
+        <button class="btn btn-success" @click="AcceptJob()">Accept</button>
       </td>
       <td>{{jobData.price}}</td>
       <td>{{jobData.yardSize}}</td>
@@ -14,13 +14,22 @@
 
 <script>
 export default {
-  name: "component",
+  name: "providerPostedTable",
   props: ["jobData"],
   data() {
     return {};
   },
-  computed: {},
-  methods: {},
+  computed: {
+    provider(){
+      return this.$store.state.profile.providerProfile
+    }
+  },
+  methods: {
+    AcceptJob() {
+      this.$store.dispatch("AcceptJob", this.jobData)
+      
+    }
+  },
   components: {}
 };
 </script>
