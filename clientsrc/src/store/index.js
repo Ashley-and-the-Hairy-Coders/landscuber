@@ -18,7 +18,7 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    profile: {},
+    profile: { providerProfile: {}, customerProfile: {}},
     customer: {},
     provider: {},
     customerJobs: [],
