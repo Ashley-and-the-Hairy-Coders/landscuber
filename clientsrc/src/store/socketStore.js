@@ -5,6 +5,7 @@ let socket = {}
 export const socketStore = {
   actions: {
     initializeSocket({ commit, dispatch }) {
+      
       socket = io("//localhost:3000")
       socket.on("CONNECTED", data => {
         console.log("Socket connected")
