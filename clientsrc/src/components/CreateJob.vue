@@ -38,6 +38,7 @@
         <a class="dropdown-item" @click.prevent="setYard('x-large')">Extra Large &#8805; 1/2 Acre</a>
       </div>
     </div>
+    <p>{{yard}}</p>
     <form>
       <div class="form-group">
         <small id="helpId" class="text-muted">Setup Address</small>
@@ -122,7 +123,8 @@ export default {
       newJob: {
         jobStatus: "posted"
       },
-      save: false
+      save: false,
+      yard: "Select Size"
     };
   },
   computed: {
@@ -138,6 +140,7 @@ export default {
   },
   methods: {
     setYard(size) {
+      this.yard = size;
       this.newAddress.yardSize = size;
     },
     createJob() {

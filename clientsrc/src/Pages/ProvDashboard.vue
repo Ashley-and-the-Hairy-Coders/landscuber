@@ -58,6 +58,10 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getPostedJobs");
+    this.$store.dispatch("joinRoom", "jobs");
+  },
+  beforeDestroy() {
+    this.$store.dispatch("leaveRoom", "jobs");
   },
   computed: {
     PostedJobs() {

@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { socketStore } from "./socketStore"
 import Axios from "axios";
 import router from "../router";
 
@@ -41,6 +42,9 @@ export default new Vuex.Store({
     },
     setPostedJobs(state, postedJobs) {
       state.postedJobs = postedJobs
+    },
+    addJob(state, data) {
+      state.postedJobs.push(data)
     }
 
   },
@@ -133,6 +137,9 @@ export default new Vuex.Store({
         console.error(error)
       }
     }
+  },
+  modules: {
+    socketStore
   }
 });
 //!SECTION
