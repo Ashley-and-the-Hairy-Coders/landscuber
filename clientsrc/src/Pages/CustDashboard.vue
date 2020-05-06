@@ -23,9 +23,16 @@
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-8">
+      <div class="col-10">
         <UtilTable>
-          <custActiveTable v-for="Job in customerJobs" :jobData="Job" :key="Job._id"></custActiveTable>
+          <custActiveTable v-for="Job in incompleteJobs" :jobData="Job" :key="Job._id"></custActiveTable>
+        </UtilTable>
+      </div>
+
+      <div class="col-10">
+        <h3 class="text-center mt-5 text-success">Completed Jobs</h3>
+        <UtilTable>
+          <custCompleteTable v-for="Job in completeJobs" :jobData="Job" :key="Job._id"></custCompleteTable>
         </UtilTable>
       </div>
     </div>
@@ -34,6 +41,7 @@
 
 
 <script>
+import custCompleteTable from "../components/custCompleteTable";
 import Modal from "../components/Modal";
 import CreateJob from "../components/CreateJob";
 import custActiveTable from "../components/custActiveTable";
@@ -51,11 +59,21 @@ export default {
     this.$store.dispatch("leaveRoom", "jobs");
   },
   computed: {
-    customerJobs() {
-      return this.$store.state.customerJobs;
-    },
+    // customerJobs() {
+    //   return this.$store.state.customerJobs;
+    // },
     profile() {
       return this.$store.state.profile;
+    },
+    completeJobs() {
+      return this.$store.state.customerJobs.filter(
+        job => job.jobStatus == "completed"
+      );
+    },
+    incompleteJobs() {
+      return this.$store.state.customerJobs.filter(
+        job => job.jobStatus != "completed"
+      );
     }
   },
   methods: {},
@@ -63,7 +81,8 @@ export default {
     Modal,
     CreateJob,
     UtilTable,
-    custActiveTable
+    custActiveTable,
+    custCompleteTable
   }
 };
 </script>
