@@ -24,7 +24,7 @@
           <h5>My Scheduled Jobs</h5>
         </div>
         <!-- NOTE Insert SCHEDULED jobs table -->
-        <!-- <UtilTable></UtilTable> -->
+        <UtilTable></UtilTable>
       </div>
       <div class="row">
         <div class="col-12 pt-3 text-info">
@@ -54,7 +54,9 @@ import ProviderPostedTable from "../components/ProviderPostedTable";
 export default {
   name: "provDashboard",
   data() {
-    return {};
+    return {
+      available: false
+    };
   },
   mounted() {
     this.$store.dispatch("getPostedJobs");

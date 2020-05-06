@@ -136,6 +136,13 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
+    },
+    async AcceptJob ({ commit, dispatch }, jobData) {
+      try {
+        let res = await api.put(`jobs/${jobData._id}?acceptJob=true`, jobData)
+      } catch (error) {
+        
+      }
     }
   },
   modules: {

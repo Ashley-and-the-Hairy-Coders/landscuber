@@ -18,7 +18,7 @@ class ProvidersService {
   async getProviderByEmail(user) {
     let provider = await dbContext.Provider.findOne(
       { providerEmail: user.email }
-    ).populate("providerEmail")
+    ).populate("provider")
     return provider;
   }
   //!SECTION

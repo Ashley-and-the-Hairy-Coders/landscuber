@@ -90,6 +90,7 @@ export class JobsController extends BaseController {
       if (req.query.acceptJob) {
         let provider = await providersService.getProviderByEmail(req.userInfo)
         req.body.providerId = provider.id
+        req.body.jobStatus = "accepted"
         // Null check? If no provider data exists, let front end know?
       }
       let data = await jobsService.editJob(
