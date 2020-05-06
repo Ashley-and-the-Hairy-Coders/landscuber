@@ -2,7 +2,16 @@
 <template>
   <tbody class="custActiveTable">
     <tr>
-      <td scope="row" class="pb-1" type="button" @click="editJob()">{{jobData.streetAddress}}</td>
+      <td scope="row" class="pb-1">
+        <button
+          data-toggle="modal"
+          data-target="#editJobModal"
+          class="btn btn-sm btn-success"
+          @click="editJob()"
+          v-if="jobData.jobStatus == 'posted'"
+        >edit</button>
+        {{jobData.streetAddress}}
+      </td>
       <td class="pb-1">ASAP</td>
       <td class="pb-1">{{jobData.price}}</td>
       <td class="pb-1">{{jobData.yardSize}}</td>
@@ -18,11 +27,16 @@
         </div>
       </td>
     </tr>
+    <Modal title="Edit Job" id="editJobModal" class="text-center">
+      <EditJob :job="jobData"></EditJob>
+    </Modal>
   </tbody>
 </template>
 
 
 <script>
+import Modal from "../components/Modal";
+import EditJob from "../components/EditJob";
 export default {
   name: "custActiveTable",
   props: ["jobData"],
@@ -52,7 +66,10 @@ export default {
       console.log("Assuming we want the job editable...");
     }
   },
-  components: {}
+  components: {
+    Modal,
+    EditJob
+  }
 };
 </script>
 

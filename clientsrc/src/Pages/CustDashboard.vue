@@ -2,7 +2,9 @@
   <div class="custDashboard container-fluid">
     <div class="row my-3">
       <div class="col-12 text-center text-success">
-        <h2>Welcome back, {{profile.customerProfile.firstName}}!</h2>
+        <h2
+          v-if="profile.customerProfile.firstName"
+        >Welcome back, {{profile.customerProfile.firstName}}!</h2>
       </div>
     </div>
     <div class="row text-center">
