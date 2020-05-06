@@ -11,6 +11,7 @@ import { onAuth } from "@bcwdev/auth0-vue";
 export default {
   name: "App",
   async beforeCreate() {
+    this.$store.dispatch("initializeSocket");
     await onAuth();
     if (this.$auth.isAuthenticated) {
       this.$store.dispatch("setBearer", this.$auth.bearer);
@@ -18,8 +19,8 @@ export default {
     }
   },
   components: {
-    Navbar,
-  },
+    Navbar
+  }
 };
 </script>
 
