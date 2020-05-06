@@ -1,7 +1,8 @@
 import express from "express";
 import BaseController from "../utils/BaseController";
-import { jobsService } from "../services/JobsService";
 import auth0Provider from "@bcwdev/auth0provider";
+import socketService from '../services/SocketService';
+import { jobsService } from "../services/JobsService";
 import { customersService } from '../services/CustomersService';
 import { providersService } from '../services/ProvidersService';
 
@@ -49,8 +50,9 @@ export class JobsController extends BaseController {
 
   async createJob(req, res, next) {
     try {
-      let data = await jobsService.createJob(req.body);
-      return res.send(data);
+      let job = await jobsService.createJob(req.body);
+      socketService.messageRoom("jobs", "newJob", job);
+      return res.send(job);
     } catch (error) {
       next(error);
     }

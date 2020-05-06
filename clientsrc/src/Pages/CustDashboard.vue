@@ -45,6 +45,10 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getCustomerJobs", this.$route.params.customerId);
+    this.$store.dispatch("joinRoom", "jobs");
+  },
+  beforeDestroy() {
+    this.$store.dispatch("leaveRoom", "jobs");
   },
   computed: {
     customerJobs() {
