@@ -52,7 +52,6 @@ export class JobsController extends BaseController {
     try {
       let job = await jobsService.createJob(req.body);
       socketService.messageRoom("jobs", "newJob", job);
-      console.log("JobsController:", job)
       return res.send(job);
     } catch (error) {
       next(error);

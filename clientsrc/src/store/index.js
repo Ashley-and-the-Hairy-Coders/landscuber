@@ -43,7 +43,6 @@ export default new Vuex.Store({
     addJob(state, data) {
       state.jobs.push(data)
     },
-    // This may be going away
     updateJobs(state, data) {
       let index = state.jobs.findIndex(c => c.id == data.id)
       if (index > -1) {
@@ -143,7 +142,7 @@ export default new Vuex.Store({
     async acceptJob({ commit, dispatch }, jobData) {
       try {
         let res = await api.put(`jobs/${jobData._id}?acceptJob=true`, jobData)
-        commit('updateJobs')
+        commit('updateJobs', res.data)
       } catch (error) {
         console.error(error)
 
@@ -152,7 +151,7 @@ export default new Vuex.Store({
     async editJobStatus({ commit, dispatch }, jobData) {
       try {
         let res = await api.put(`jobs/${jobData._id}`, jobData)
-        commit('updateJobs')
+        commit('updateJobs', res.data)
       } catch (error) {
         console.error(error)
 
