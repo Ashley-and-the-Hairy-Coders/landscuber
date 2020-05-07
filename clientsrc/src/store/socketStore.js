@@ -6,7 +6,7 @@ export const socketStore = {
   actions: {
     initializeSocket({ commit, dispatch }) {
 
-      socket = io("//localhost:3000")
+      socket = io("https://landscuber.herokuapp.com/")
       socket.on("CONNECTED", data => {
         console.log("Socket connected")
       })
