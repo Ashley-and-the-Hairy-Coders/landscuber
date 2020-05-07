@@ -44,6 +44,7 @@ export default new Vuex.Store({
       state.jobs.push(data)
     },
     updateJobs(state, data) {
+      console.log("Jobs are updating?")
       let index = state.jobs.findIndex(c => c.id == data.id)
       if (index > -1) {
         state.jobs.splice(index, 1, data)
@@ -151,7 +152,6 @@ export default new Vuex.Store({
     async editJobStatus({ commit, dispatch }, jobData) {
       try {
         let res = await api.put(`jobs/${jobData._id}`, jobData)
-        commit('updateJobs', res.data)
       } catch (error) {
         console.error(error)
 
