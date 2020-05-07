@@ -69,11 +69,11 @@
       <div class="col-12 pt-5 d-flex justify-content-center">
         <button
           data-toggle="modal"
-          data-target="#editProviderModal"
+          data-target="#editProvider"
           class="btn btn-outline-success"
         >Edit Provider Profile</button>
 
-        <Modal title="Edit Provider Profile" id="editProviderModal">
+        <Modal title="Edit Provider Profile" id="editProvider">
           <editProvider></editProvider>
         </Modal>
       </div>
@@ -84,7 +84,7 @@
 <script>
 import Modal from "../components/Modal";
 import editCustomer from "../components/editCustomer";
-// import editProvider from "../components/editProvider";
+import editProvider from "../components/editProvider";
 export default {
   name: "Profile",
   computed: {
@@ -119,8 +119,8 @@ export default {
   methods: {},
   components: {
     Modal,
-    editCustomer
-    // editProvider
+    editCustomer,
+    editProvider
   }
 };
 </script>

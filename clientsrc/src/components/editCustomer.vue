@@ -63,7 +63,7 @@
           />
 
           <div class="d-flex ml-3">
-            Yard Size: {{Address.yardSize}}
+            <div class="align-self-center">Yard Size: {{Address.yardSize}}</div>
             <div class="dropdown">
               <button
                 class="btn ml-2 btn-secondary dropdown-toggle"
@@ -110,7 +110,7 @@ export default {
   props: ["customer"],
   data() {
     return {
-      newCustomer: {}
+      editedCustomer: {}
       // newAddress: {
       //   primary: false
       // },
