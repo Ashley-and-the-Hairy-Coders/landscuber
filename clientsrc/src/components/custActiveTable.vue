@@ -7,7 +7,7 @@
           data-toggle="modal"
           data-target="#editJobModal"
           class="btn btn-sm btn-success"
-          @click="editJob()"
+          @click="editJob(jobData)"
           v-if="jobData.jobStatus == 'posted'"
         >edit</button>
         {{jobData.streetAddress}}
@@ -63,7 +63,7 @@ export default {
   mounted() {},
   methods: {
     editJob() {
-      console.log("Assuming we want the job editable...");
+      this.$store.commit('setActiveJob', this.jobData)
     }
   },
   components: {

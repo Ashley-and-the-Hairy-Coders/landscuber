@@ -54,17 +54,13 @@ export default {
     return {};
   },
   mounted() {
-    this.$store.dispatch("getCustomerJobs", this.$route.params.customerId);
+    this.$store.dispatch("getAllJobs");
     this.$store.dispatch("joinRoom", "jobs");
   },
   beforeDestroy() {
     this.$store.dispatch("leaveRoom", "jobs");
   },
-  // Do we need to change these as well?
   computed: {
-    // customerJobs() {
-    //   return this.$store.state.customerJobs;
-    // },
     profile() {
       return this.$store.state.profile;
     },

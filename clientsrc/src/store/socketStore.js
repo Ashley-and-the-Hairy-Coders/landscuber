@@ -6,7 +6,8 @@ export const socketStore = {
   actions: {
     initializeSocket({ commit, dispatch }) {
 
-      socket = io("//localhost:3000")
+      socket = io("https://landscuber.herokuapp.com/")
+      // socket = io("//localhost:3000")
       socket.on("CONNECTED", data => {
         console.log("Socket connected")
       })
@@ -17,6 +18,7 @@ export const socketStore = {
 
       socket.on("jobUpdated", data => {
         commit("updateJobs", data)
+        dispatch("getAllJobs")
       })
     },
     joinRoom({ commit, dispatch }, roomName) {
