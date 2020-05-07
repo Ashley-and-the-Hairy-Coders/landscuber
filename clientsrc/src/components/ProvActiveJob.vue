@@ -26,7 +26,7 @@ export default {
     completedJob() {
       if (confirm("Are you sure you want to mark this job complete?")) {
         this.jobData.jobStatus = "completed";
-        this.$store.dispatch("editJobStatus", this.jobData);
+        this.$store.dispatch("editJob", this.jobData);
       }
     }
   },

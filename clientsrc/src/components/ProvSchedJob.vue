@@ -24,10 +24,8 @@ export default {
   computed: {},
   methods: {
     startJob() {
-      debugger;
       this.jobData.jobStatus = "active";
-      this.$store.dispatch("editJobStatus", this.jobData);
-      // this.$store.getters.postedJobs;
+      this.$store.dispatch("editJob", this.jobData);
     }
   },
   components: {}

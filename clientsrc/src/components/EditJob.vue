@@ -91,7 +91,6 @@
 <script>
 export default {
   name: "EditJob",
-  props: ["job"],
   data() {
     return {
       newAddress: {
@@ -102,7 +101,6 @@ export default {
       },
       save: false,
       yard: "Select Size"
-      // job: {}
     };
   },
   mounted() {},
@@ -115,6 +113,9 @@ export default {
         return this.$store.state.profile.customerProfile.addresses;
       }
       return [];
+    },
+    job() {
+      return this.$store.state.activeJob;
     }
   },
   methods: {
@@ -123,9 +124,8 @@ export default {
       this.job.yardSize = size;
     },
     editJob() {
-      if (job.jobStatus == "posted") {
-        console.log("need to dispatch update to store", this.job);
-        // this.$store.dispatch("editJob", this.job)
+      if (this.job.jobStatus == "posted") {
+        this.$store.dispatch("editJob", this.job)
       } else {
         console.log("Too late to edit because your job status is not posted");
       }
@@ -134,7 +134,6 @@ export default {
   components: {}
 };
 </script>
-
 
 <style scoped>
 </style>
