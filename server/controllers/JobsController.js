@@ -52,6 +52,7 @@ export class JobsController extends BaseController {
     try {
       let job = await jobsService.createJob(req.body);
       socketService.messageRoom("jobs", "newJob", job);
+      console.log("JobsController:", job)
       return res.send(job);
     } catch (error) {
       next(error);
@@ -93,11 +94,12 @@ export class JobsController extends BaseController {
         req.body.jobStatus = "accepted"
         // Null check? If no provider data exists, let front end know?
       }
-      let data = await jobsService.editJob(
+      let job = await jobsService.editJob(
         req.params.id,
         req.body
       );
-      return res.send(data);
+      socketService.messageRoom("jobs", "jobUpdated", job);
+      return res.send(job);
     } catch (error) {
       next(error);
     }

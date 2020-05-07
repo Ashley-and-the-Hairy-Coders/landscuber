@@ -18,7 +18,7 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    profile: { providerProfile: {}, customerProfile: {}},
+    profile: { providerProfile: {}, customerProfile: {} },
     customer: {},
     provider: {},
     customerJobs: [],
@@ -45,6 +45,14 @@ export default new Vuex.Store({
     },
     addJob(state, data) {
       state.allJobs.push(data)
+      console.log("addJob mutation working")
+    },
+    updateJobs(state, data) {
+      let index = state.allJobs.findIndex(c => c.id == data.id)
+      if (index > -1) {
+        state.allJobs.splice(index, 1, data)
+        console.log("updateJobs mutation working")
+      }
     }
 
   },
@@ -137,7 +145,7 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    async AcceptJob ({ commit, dispatch }, jobData) {
+    async AcceptJob({ commit, dispatch }, jobData) {
       try {
         let res = await api.put(`jobs/${jobData._id}?acceptJob=true`, jobData)
       } catch (error) {
@@ -145,8 +153,9 @@ export default new Vuex.Store({
 
       }
     },
-    async EditJobStatus ({ commit, dispatch }, jobData) {
+    async EditJobStatus({ commit, dispatch }, jobData) {
       try {
+        debugger
         let res = await api.put(`jobs/${jobData._id}`, jobData)
         // commit("setAllJobs")
       } catch (error) {

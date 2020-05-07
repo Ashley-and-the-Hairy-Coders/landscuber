@@ -1,7 +1,9 @@
 <template>
   <tbody class="ProvActiveJob">
     <tr>
-      <td scope="row">{{jobData.streetAddress}}  {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
+      <td
+        scope="row"
+      >{{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
       <td>
         <button class="btn btn-success" @click="CompletedJob()">Job Completed</button>
       </td>
@@ -14,25 +16,24 @@
 
 <script>
 export default {
-  name: 'ProvActiveJob',
-  props:["jobData"],
-  data(){
-    return {}
+  name: "ProvActiveJob",
+  props: ["jobData"],
+  data() {
+    return {};
   },
-  computed:{},
-  methods:{
+  computed: {},
+  methods: {
     CompletedJob() {
-      if(confirm("Are you sure you want to mark this job complete?")) {
-        this.jobData.jobStatus = "completed"
-        this.$store.dispatch("EditJobStatus", this.jobData)
+      if (confirm("Are you sure you want to mark this job complete?")) {
+        this.jobData.jobStatus = "completed";
+        this.$store.dispatch("EditJobStatus", this.jobData);
       }
     }
   },
-  components:{}
-}
+  components: {}
+};
 </script>
 
 
 <style scoped>
-
 </style>

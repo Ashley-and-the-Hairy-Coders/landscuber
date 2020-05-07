@@ -1,7 +1,9 @@
 <template>
   <tbody class="ProviderScheduledJobs">
     <tr>
-      <td scope="row">{{jobData.streetAddress}}  {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
+      <td
+        scope="row"
+      >{{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
       <td>
         <button class="btn btn-success" @click="ActiveJob()">Start Job</button>
       </td>
@@ -16,21 +18,20 @@
 export default {
   name: "ProviderScheduledJobs",
   props: ["jobData"],
-  data(){
-    return {}
+  data() {
+    return {};
   },
-  computed:{},
-  methods:{
+  computed: {},
+  methods: {
     ActiveJob() {
-      this.jobData.jobStatus = "active"
-      this.$store.dispatch("EditJobStatus", this.jobData)
+      this.jobData.jobStatus = "active";
+      this.$store.dispatch("EditJobStatus", this.jobData);
     }
   },
-  components:{}
-}
+  components: {}
+};
 </script>
 
 
 <style scoped>
-
 </style>

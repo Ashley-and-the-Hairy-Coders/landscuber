@@ -1,7 +1,9 @@
 <template>
   <tbody class="providerPostedTable">
     <tr>
-      <td scope="row">{{jobData.streetAddress}}  {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
+      <td
+        scope="row"
+      >{{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
       <td>
         <button class="btn btn-success" @click="AcceptJob()">Accept</button>
       </td>
@@ -20,14 +22,14 @@ export default {
     return {};
   },
   computed: {
-    provider(){
-      return this.$store.state.profile.providerProfile
+    provider() {
+      return this.$store.state.profile.providerProfile;
     }
   },
   methods: {
     AcceptJob() {
-      this.$store.dispatch("AcceptJob", this.jobData)
-      
+      this.jobData.jobStatus = "scheduled";
+      this.$store.dispatch("AcceptJob", this.jobData);
     }
   },
   components: {}

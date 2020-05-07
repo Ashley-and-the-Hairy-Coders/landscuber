@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 pt-3 text-info">
+        <div class="col-10 mx-auto pt-3 text-info">
           <h5>My Active Jobs</h5>
           <!-- NOTE Insert ACTIVE jobs table -->
           <UtilTable>
@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 pt-3 text-info">
+        <div class="col-10 mx-auto pt-3 text-info">
           <h5>My Scheduled Jobs</h5>
           <!-- NOTE Insert SCHEDULED jobs table -->
           <UtilTable>
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 pt-3 text-info">
+        <div class="col-10 mx-auto pt-3 text-info">
           <h5>Available Jobs</h5>
           <!--        <button class="btn btn-sm btn-success ml-2" @click="getPostedJobs()">Refresh Job Board</button> -->
           <UtilTable>
@@ -96,7 +96,7 @@ export default {
           job.jobStatus == "active" &&
           job.providerId == this.$store.state.profile.providerProfile.id
       );
-    },
+    }
     // CompletedJobs() {
     //   return this.$store.state.allJobs.filter(
     //     job =>
