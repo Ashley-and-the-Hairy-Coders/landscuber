@@ -16,27 +16,16 @@ export const socketStore = {
       })
 
       socket.on("jobUpdated", data => {
-        if (data.jobStatus == "accepted") {
-          commit("addAcceptedJob", data)
-          commit("removePostedJob", data)
-        }
-        if (data.jobStatus == "active") {
-          commit("addActiveJob", data)
-          commit("removeAcceptedJob", data)
-        }
-        if (data.jobStatus == "completed") {
-          commit("addCompletedJob", data)
-          commit("removeActiveJob", data)
-        }
+        commit("updateJobs", data)
       })
     },
     joinRoom({ commit, dispatch }, roomName) {
       socket.emit("dispatch", { action: "JoinRoom", data: roomName })
-      console.log("Joined room:", roomName)
+
     },
     leaveRoom({ commit, dispatch }, roomName) {
       socket.emit("dispatch", { action: "LeaveRoom", data: roomName })
-      console.log("Left room:", roomName)
+
     }
   }
 }

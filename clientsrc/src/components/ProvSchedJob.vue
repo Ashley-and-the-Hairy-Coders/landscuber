@@ -5,7 +5,7 @@
         scope="row"
       >{{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
       <td>
-        <button class="btn btn-success" @click="ActiveJob()">Start Job</button>
+        <button class="btn btn-success" @click="activeJob()">Start Job</button>
       </td>
       <td>{{jobData.price}}</td>
       <td>{{jobData.yardSize}}</td>
@@ -23,9 +23,9 @@ export default {
   },
   computed: {},
   methods: {
-    ActiveJob() {
+    activeJob() {
       this.jobData.jobStatus = "active";
-      this.$store.dispatch("EditJobStatus", this.jobData);
+      this.$store.dispatch("editJobStatus", this.jobData);
     }
   },
   components: {}

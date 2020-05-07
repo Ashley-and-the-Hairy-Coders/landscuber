@@ -143,8 +143,6 @@ export default new Vuex.Store({
     async acceptJob({ commit, dispatch }, jobData) {
       try {
         let res = await api.put(`jobs/${jobData._id}?acceptJob=true`, jobData)
-        // commit('addAcceptedJob', jobData)
-        // commit('removePostedJob', jobData)
       } catch (error) {
         console.error(error)
 
@@ -160,7 +158,9 @@ export default new Vuex.Store({
       }
     }
   },
+  //!SECTION
 
+  //NOTE Getters and Modules
   getters: {
     //Break down jobs by status
     //TODO Need to filter by ProviderID still so that Accepted, Active, and Completed jobs are only displayed if ID's match.
@@ -168,17 +168,22 @@ export default new Vuex.Store({
       return state.jobs.filter(j => j.jobStatus == "posted")
     },
     acceptedJobs(state, getters) {
-      return state.jobs.filter(j => j.jobStatus == "accepted")
+      return state.jobs.filter(j => j.jobStatus == "accepted" && j.providerId == state.profile.providerProfile.id)
     },
     activeJobs(state, getters) {
-      return state.jobs.filter(j => j.jobStatus == "active")
+      return state.jobs.filter(j => j.jobStatus == "active" && j.providerId == state.profile.providerProfile.id)
     },
     completedJobs(state, getters) {
-      return state.jobs.filter(j => j.jobStatus == "completed")
+      return state.jobs.filter(j => j.jobStatus == "completed" && j.providerId == state.profile.providerProfile.id)
+    },
+    customerCompletedJobs(state, getters) {
+      return state.customerJobs.filter(c => c.jobStatus == "completed")
+    },
+    customerIncompleteJobs(state, getters) {
+      return state.customerJobs.filter(c => c.jobStatus != "completed")
     }
   },
   modules: {
     socketStore
   }
 });
-//!SECTION

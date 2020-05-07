@@ -92,9 +92,9 @@ export default {
     }
   },
   methods: {
-    getPostedJobs() {
-      this.$store.dispatch("getPostedJobs");
-    }
+    // getPostedJobs() {
+    //   this.$store.dispatch("getPostedJobs");
+    // }
   },
   components: {
     UtilTable,

@@ -69,14 +69,10 @@ export default {
       return this.$store.state.profile;
     },
     completeJobs() {
-      return this.$store.state.customerJobs.filter(
-        job => job.jobStatus == "completed"
-      );
+      return this.$store.getters.customerCompletedJobs;
     },
     incompleteJobs() {
-      return this.$store.state.customerJobs.filter(
-        job => job.jobStatus != "completed"
-      );
+      return this.$store.getters.customerIncompleteJobs;
     }
   },
   methods: {},

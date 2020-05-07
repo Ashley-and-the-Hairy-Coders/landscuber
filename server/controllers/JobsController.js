@@ -98,7 +98,6 @@ export class JobsController extends BaseController {
         req.params.id,
         req.body
       );
-      socketService.messageRoom("jobs", "jobUpdated", job);
       return res.send(job);
     } catch (error) {
       next(error);
