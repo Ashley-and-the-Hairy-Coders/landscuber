@@ -60,6 +60,7 @@ export default {
   beforeDestroy() {
     this.$store.dispatch("leaveRoom", "jobs");
   },
+  // Do we need to change these as well?
   computed: {
     // customerJobs() {
     //   return this.$store.state.customerJobs;
@@ -68,14 +69,10 @@ export default {
       return this.$store.state.profile;
     },
     completeJobs() {
-      return this.$store.state.customerJobs.filter(
-        job => job.jobStatus == "completed"
-      );
+      return this.$store.getters.customerCompletedJobs;
     },
     incompleteJobs() {
-      return this.$store.state.customerJobs.filter(
-        job => job.jobStatus != "completed"
-      );
+      return this.$store.getters.customerIncompleteJobs;
     }
   },
   methods: {},

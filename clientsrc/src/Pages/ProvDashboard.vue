@@ -13,47 +13,45 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12 pt-3 text-info">
+        <div class="col-10 mx-auto pt-3 text-info">
           <h5>My Active Jobs</h5>
-          <!-- NOTE Insert ACTIVE jobs table -->
           <UtilTable>
             <ProvActiveJob
-              v-for="Job in ActiveJobs"
-              :jobData="Job"
-              :key="Job._id"
+              v-for="job in activeJobs"
+              :jobData="job"
+              :key="job._id"
               class="table-row"
             ></ProvActiveJob>
           </UtilTable>
         </div>
       </div>
       <div class="row">
-        <div class="col-12 pt-3 text-info">
+        <div class="col-10 mx-auto pt-3 text-info">
           <h5>My Scheduled Jobs</h5>
           <!-- NOTE Insert SCHEDULED jobs table -->
           <UtilTable>
             <ProvSchedJob
-              v-for="Job in AcceptedJobs"
-              :jobData="Job"
-              :key="Job._id"
+              v-for="job in acceptedJobs"
+              :jobData="job"
+              :key="job._id"
               class="table-row"
             ></ProvSchedJob>
           </UtilTable>
         </div>
       </div>
       <div class="row">
-        <div class="col-12 pt-3 text-info">
+        <div class="col-10 mx-auto pt-3 text-info">
           <h5>Available Jobs</h5>
           <!--        <button class="btn btn-sm btn-success ml-2" @click="getPostedJobs()">Refresh Job Board</button> -->
           <UtilTable>
             <ProviderPostedTable
-              v-for="Job in PostedJobs"
-              :jobData="Job"
-              :key="Job._id"
+              v-for="job in postedJobs"
+              :jobData="job"
+              :key="job._id"
               class="table-row"
             ></ProviderPostedTable>
           </UtilTable>
         </div>
-        <!-- NOTE Insert AVAILABLE jobs table -->
       </div>
     </div>
   </div>
@@ -80,35 +78,23 @@ export default {
     this.$store.dispatch("leaveRoom", "jobs");
   },
   computed: {
-    PostedJobs() {
-      return this.$store.state.allJobs.filter(job => job.jobStatus == "posted");
+    postedJobs() {
+      return this.$store.getters.postedJobs;
     },
-    AcceptedJobs() {
-      return this.$store.state.allJobs.filter(
-        job =>
-          job.jobStatus == "accepted" &&
-          job.providerId == this.$store.state.profile.providerProfile.id
-      );
+    acceptedJobs() {
+      return this.$store.getters.acceptedJobs;
     },
-    ActiveJobs() {
-      return this.$store.state.allJobs.filter(
-        job =>
-          job.jobStatus == "active" &&
-          job.providerId == this.$store.state.profile.providerProfile.id
-      );
+    activeJobs() {
+      return this.$store.getters.activeJobs;
     },
-    // CompletedJobs() {
-    //   return this.$store.state.allJobs.filter(
-    //     job =>
-    //       job.jobStatus == "completed" &&
-    //       job.providerId == this.$store.state.profile.providerProfile.id
-    //   );
-    // }
+    completedJobs() {
+      return this.$store.getters.completedJobs;
+    }
   },
   methods: {
-    getPostedJobs() {
-      this.$store.dispatch("getPostedJobs");
-    }
+    // getPostedJobs() {
+    //   this.$store.dispatch("getPostedJobs");
+    // }
   },
   components: {
     UtilTable,

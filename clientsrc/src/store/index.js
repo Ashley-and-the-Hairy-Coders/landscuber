@@ -18,11 +18,11 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    profile: { providerProfile: {}, customerProfile: {}},
+    profile: { providerProfile: {}, customerProfile: {} },
     customer: {},
     provider: {},
     customerJobs: [],
-    allJobs: []
+    jobs: [],
   },
   mutations: {
     setProfile(state, profile) {
@@ -34,17 +34,21 @@ export default new Vuex.Store({
     setProvider(state, provider) {
       state.provider = provider;
     },
-    // setMyJobs(state, payload) {
-    //   state.myJobs = payload
-    // },
     setCustomerJobs(state, payload) {
       state.customerJobs = payload
     },
-    setAllJobs(state, allJobs) {
-      state.allJobs = allJobs
+    setJobs(state, jobs) {
+      state.jobs = jobs
     },
     addJob(state, data) {
-      state.allJobs.push(data)
+      state.jobs.push(data)
+    },
+    // This may be going away
+    updateJobs(state, data) {
+      let index = state.jobs.findIndex(c => c.id == data.id)
+      if (index > -1) {
+        state.jobs.splice(index, 1, data)
+      }
     }
 
   },
@@ -65,8 +69,7 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    //NOTE Review once backend complete
-    async registerCust({ commit, dispatch }, newCustomer) {
+    async registerCustomer({ commit, dispatch }, newCustomer) {
       try {
         let res = await api.post('customers', newCustomer)
         await api.put(`profile/${this.state.profile._id}`, { customerProfile: res.data._id })
@@ -79,7 +82,6 @@ export default new Vuex.Store({
     },
 
     async registerProvider({ commit, dispatch }, newProvider) {
-      debugger
       try {
         let res = await api.post('providers', newProvider)
         await api.put(`profile/${this.state.profile._id}`, { providerProfile: res.data._id })
@@ -116,6 +118,7 @@ export default new Vuex.Store({
         let res = await api.post(`jobs`, jobData)
         console.log(res.data)
         dispatch('getCustomerJobs', jobData.customerId)
+        commit('addJob', jobData)
       } catch (error) {
         console.error(error)
       }
@@ -132,12 +135,12 @@ export default new Vuex.Store({
     async getAllJobs({ commit, dispatch }) {
       try {
         let res = await api.get(`jobs`)
-        commit('setAllJobs', res.data)
+        commit('setJobs', res.data)
       } catch (error) {
         console.error(error)
       }
     },
-    async AcceptJob ({ commit, dispatch }, jobData) {
+    async acceptJob({ commit, dispatch }, jobData) {
       try {
         let res = await api.put(`jobs/${jobData._id}?acceptJob=true`, jobData)
       } catch (error) {
@@ -145,7 +148,7 @@ export default new Vuex.Store({
 
       }
     },
-    async EditJobStatus ({ commit, dispatch }, jobData) {
+    async editJobStatus({ commit, dispatch }, jobData) {
       try {
         let res = await api.put(`jobs/${jobData._id}`, jobData)
         // commit("setAllJobs")
@@ -155,8 +158,32 @@ export default new Vuex.Store({
       }
     }
   },
+  //!SECTION
+
+  //NOTE Getters and Modules
+  getters: {
+    //Break down jobs by status
+    //TODO Need to filter by ProviderID still so that Accepted, Active, and Completed jobs are only displayed if ID's match.
+    postedJobs(state, getters) {
+      return state.jobs.filter(j => j.jobStatus == "posted")
+    },
+    acceptedJobs(state, getters) {
+      return state.jobs.filter(j => j.jobStatus == "accepted" && j.providerId == state.profile.providerProfile.id)
+    },
+    activeJobs(state, getters) {
+      return state.jobs.filter(j => j.jobStatus == "active" && j.providerId == state.profile.providerProfile.id)
+    },
+    completedJobs(state, getters) {
+      return state.jobs.filter(j => j.jobStatus == "completed" && j.providerId == state.profile.providerProfile.id)
+    },
+    customerCompletedJobs(state, getters) {
+      return state.customerJobs.filter(c => c.jobStatus == "completed")
+    },
+    customerIncompleteJobs(state, getters) {
+      return state.customerJobs.filter(c => c.jobStatus != "completed")
+    }
+  },
   modules: {
     socketStore
   }
 });
-//!SECTION
