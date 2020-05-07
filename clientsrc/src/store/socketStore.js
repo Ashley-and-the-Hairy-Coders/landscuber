@@ -12,7 +12,7 @@ export const socketStore = {
       })
 
       socket.on("newJob", job => {
-        commit("addPostedJob", job)
+        commit("addJob", job)
       })
 
       socket.on("jobUpdated", data => {

@@ -47,7 +47,7 @@ export default new Vuex.Store({
     updateJobs(state, data) {
       let index = state.jobs.findIndex(c => c.id == data.id)
       if (index > -1) {
-        Vue.set(state.jobs, index, data)
+        state.jobs.splice(index, 1, data)
       }
     }
 
@@ -118,7 +118,7 @@ export default new Vuex.Store({
         let res = await api.post(`jobs`, jobData)
         console.log(res.data)
         dispatch('getCustomerJobs', jobData.customerId)
-        commit('addPostedJob', jobData)
+        commit('addJob', jobData)
       } catch (error) {
         console.error(error)
       }

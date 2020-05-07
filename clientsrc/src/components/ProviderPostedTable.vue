@@ -28,6 +28,7 @@ export default {
   },
   methods: {
     acceptJob() {
+      this.jobData.jobStatus = "accepted";
       this.$store.dispatch("acceptJob", this.jobData);
     }
   },
