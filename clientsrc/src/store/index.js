@@ -143,6 +143,7 @@ export default new Vuex.Store({
     async acceptJob({ commit, dispatch }, jobData) {
       try {
         let res = await api.put(`jobs/${jobData._id}?acceptJob=true`, jobData)
+        commit('updateJobs')
       } catch (error) {
         console.error(error)
 
@@ -151,7 +152,7 @@ export default new Vuex.Store({
     async editJobStatus({ commit, dispatch }, jobData) {
       try {
         let res = await api.put(`jobs/${jobData._id}`, jobData)
-        // commit("setAllJobs")
+        commit('updateJobs')
       } catch (error) {
         console.error(error)
 

@@ -18,6 +18,7 @@ export const socketStore = {
 
       socket.on("jobUpdated", data => {
         commit("updateJobs", data)
+        commit("getAllJobs")
       })
     },
     joinRoom({ commit, dispatch }, roomName) {
