@@ -8,7 +8,7 @@ import JobSchema from "../models/Job"
 
 class DbContext {
   Values = mongoose.model("Value", ValueSchema);
-  Profile = mongoose.model('Profile', ProfileSchema)
+  Profile = mongoose.model("Profile", ProfileSchema);
   Customer = mongoose.model("Customer", CustomerSchema);
   Provider = mongoose.model("Provider", ProviderSchema);
 

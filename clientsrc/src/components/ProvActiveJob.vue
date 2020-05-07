@@ -5,7 +5,7 @@
         scope="row"
       >{{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
       <td>
-        <button class="btn btn-success" @click="CompletedJob()">Job Completed</button>
+        <button class="btn btn-success" @click="completedJob()">Job Completed</button>
       </td>
       <td>{{jobData.price}}</td>
       <td>{{jobData.yardSize}}</td>
@@ -23,10 +23,10 @@ export default {
   },
   computed: {},
   methods: {
-    CompletedJob() {
+    completedJob() {
       if (confirm("Are you sure you want to mark this job complete?")) {
         this.jobData.jobStatus = "completed";
-        this.$store.dispatch("EditJobStatus", this.jobData);
+        this.$store.dispatch("editJobStatus", this.jobData);
       }
     }
   },

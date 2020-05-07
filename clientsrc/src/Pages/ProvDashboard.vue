@@ -15,12 +15,11 @@
       <div class="row">
         <div class="col-10 mx-auto pt-3 text-info">
           <h5>My Active Jobs</h5>
-          <!-- NOTE Insert ACTIVE jobs table -->
           <UtilTable>
             <ProvActiveJob
-              v-for="Job in ActiveJobs"
-              :jobData="Job"
-              :key="Job._id"
+              v-for="job in activeJobs"
+              :jobData="job"
+              :key="job._id"
               class="table-row"
             ></ProvActiveJob>
           </UtilTable>
@@ -32,9 +31,9 @@
           <!-- NOTE Insert SCHEDULED jobs table -->
           <UtilTable>
             <ProvSchedJob
-              v-for="Job in AcceptedJobs"
-              :jobData="Job"
-              :key="Job._id"
+              v-for="job in acceptedJobs"
+              :jobData="job"
+              :key="job._id"
               class="table-row"
             ></ProvSchedJob>
           </UtilTable>
@@ -46,14 +45,13 @@
           <!--        <button class="btn btn-sm btn-success ml-2" @click="getPostedJobs()">Refresh Job Board</button> -->
           <UtilTable>
             <ProviderPostedTable
-              v-for="Job in PostedJobs"
-              :jobData="Job"
-              :key="Job._id"
+              v-for="job in postedJobs"
+              :jobData="job"
+              :key="job._id"
               class="table-row"
             ></ProviderPostedTable>
           </UtilTable>
         </div>
-        <!-- NOTE Insert AVAILABLE jobs table -->
       </div>
     </div>
   </div>
@@ -80,30 +78,18 @@ export default {
     this.$store.dispatch("leaveRoom", "jobs");
   },
   computed: {
-    PostedJobs() {
-      return this.$store.state.allJobs.filter(job => job.jobStatus == "posted");
+    postedJobs() {
+      return this.$store.getters.postedJobs;
     },
-    AcceptedJobs() {
-      return this.$store.state.allJobs.filter(
-        job =>
-          job.jobStatus == "accepted" &&
-          job.providerId == this.$store.state.profile.providerProfile.id
-      );
+    acceptedJobs() {
+      return this.$store.getters.acceptedJobs;
     },
-    ActiveJobs() {
-      return this.$store.state.allJobs.filter(
-        job =>
-          job.jobStatus == "active" &&
-          job.providerId == this.$store.state.profile.providerProfile.id
-      );
+    activeJobs() {
+      return this.$store.getters.activeJobs;
+    },
+    completedJobs() {
+      return this.$store.getters.completedJobs;
     }
-    // CompletedJobs() {
-    //   return this.$store.state.allJobs.filter(
-    //     job =>
-    //       job.jobStatus == "completed" &&
-    //       job.providerId == this.$store.state.profile.providerProfile.id
-    //   );
-    // }
   },
   methods: {
     getPostedJobs() {

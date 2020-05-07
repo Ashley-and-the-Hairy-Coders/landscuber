@@ -22,7 +22,7 @@ export default new Vuex.Store({
     customer: {},
     provider: {},
     customerJobs: [],
-    allJobs: []
+    jobs: [],
   },
   mutations: {
     setProfile(state, profile) {
@@ -34,24 +34,20 @@ export default new Vuex.Store({
     setProvider(state, provider) {
       state.provider = provider;
     },
-    // setMyJobs(state, payload) {
-    //   state.myJobs = payload
-    // },
     setCustomerJobs(state, payload) {
       state.customerJobs = payload
     },
-    setAllJobs(state, allJobs) {
-      state.allJobs = allJobs
+    setJobs(state, jobs) {
+      state.jobs = jobs
     },
     addJob(state, data) {
-      state.allJobs.push(data)
-      console.log("addJob mutation working")
+      state.jobs.push(data)
     },
+    // This may be going away
     updateJobs(state, data) {
-      let index = state.allJobs.findIndex(c => c.id == data.id)
+      let index = state.jobs.findIndex(c => c.id == data.id)
       if (index > -1) {
-        state.allJobs.splice(index, 1, data)
-        console.log("updateJobs mutation working")
+        Vue.set(state.jobs, index, data)
       }
     }
 
@@ -73,8 +69,7 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    //NOTE Review once backend complete
-    async registerCust({ commit, dispatch }, newCustomer) {
+    async registerCustomer({ commit, dispatch }, newCustomer) {
       try {
         let res = await api.post('customers', newCustomer)
         await api.put(`profile/${this.state.profile._id}`, { customerProfile: res.data._id })
@@ -87,7 +82,6 @@ export default new Vuex.Store({
     },
 
     async registerProvider({ commit, dispatch }, newProvider) {
-      debugger
       try {
         let res = await api.post('providers', newProvider)
         await api.put(`profile/${this.state.profile._id}`, { providerProfile: res.data._id })
@@ -124,6 +118,7 @@ export default new Vuex.Store({
         let res = await api.post(`jobs`, jobData)
         console.log(res.data)
         dispatch('getCustomerJobs', jobData.customerId)
+        commit('addPostedJob', jobData)
       } catch (error) {
         console.error(error)
       }
@@ -140,28 +135,46 @@ export default new Vuex.Store({
     async getAllJobs({ commit, dispatch }) {
       try {
         let res = await api.get(`jobs`)
-        commit('setAllJobs', res.data)
+        commit('setJobs', res.data)
       } catch (error) {
         console.error(error)
       }
     },
-    async AcceptJob({ commit, dispatch }, jobData) {
+    async acceptJob({ commit, dispatch }, jobData) {
       try {
         let res = await api.put(`jobs/${jobData._id}?acceptJob=true`, jobData)
+        // commit('addAcceptedJob', jobData)
+        // commit('removePostedJob', jobData)
       } catch (error) {
         console.error(error)
 
       }
     },
-    async EditJobStatus({ commit, dispatch }, jobData) {
+    async editJobStatus({ commit, dispatch }, jobData) {
       try {
-        debugger
         let res = await api.put(`jobs/${jobData._id}`, jobData)
         // commit("setAllJobs")
       } catch (error) {
         console.error(error)
 
       }
+    }
+  },
+
+  getters: {
+    //Break down jobs by status
+    //TODO Need to filter by ProviderID still so that Accepted, Active, and Completed jobs are only displayed if ID's match.
+    postedJobs(state, getters) {
+      return state.jobs.filter(j => j.jobStatus == "posted")
+    },
+    acceptedJobs(state, getters) {
+      return state.jobs.filter(j => j.jobStatus == "accepted")
+    },
+    activeJobs(state, getters) {
+      return state.jobs.filter(j => j.jobStatus == "active")
+    },
+    completedJobs(state, getters) {
+      return state.jobs.filter(j => j.jobStatus == "completed")
     }
   },
   modules: {

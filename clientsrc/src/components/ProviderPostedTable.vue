@@ -5,7 +5,7 @@
         scope="row"
       >{{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
       <td>
-        <button class="btn btn-success" @click="AcceptJob()">Accept</button>
+        <button class="btn btn-success" @click="acceptJob()">Accept</button>
       </td>
       <td>{{jobData.price}}</td>
       <td>{{jobData.yardSize}}</td>
@@ -27,9 +27,8 @@ export default {
     }
   },
   methods: {
-    AcceptJob() {
-      this.jobData.jobStatus = "scheduled";
-      this.$store.dispatch("AcceptJob", this.jobData);
+    acceptJob() {
+      this.$store.dispatch("acceptJob", this.jobData);
     }
   },
   components: {}

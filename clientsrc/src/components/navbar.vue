@@ -37,9 +37,9 @@
             :to="{ name: 'CustDashboard', params: { customerId: profile.customerProfile._id } }"
           >Customer Dashboard</router-link>
         </li>
-                <li
+        <li
           class="nav-item ml-auto"
-          v-if="$auth.isAuthenticated "
+          v-if="$auth.isAuthenticated && profile.providerProfile"
           :class="{ active: $route.name == 'ProvDashboard' }"
         >
           <router-link

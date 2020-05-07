@@ -12,13 +12,22 @@ export const socketStore = {
       })
 
       socket.on("newJob", job => {
-        commit("addJob", job)
-        console.log("newJob working")
+        commit("addPostedJob", job)
       })
 
       socket.on("jobUpdated", data => {
-        commit("updateJobs", data)
-        console.log("editJob working")
+        if (data.jobStatus == "accepted") {
+          commit("addAcceptedJob", data)
+          commit("removePostedJob", data)
+        }
+        if (data.jobStatus == "active") {
+          commit("addActiveJob", data)
+          commit("removeAcceptedJob", data)
+        }
+        if (data.jobStatus == "completed") {
+          commit("addCompletedJob", data)
+          commit("removeActiveJob", data)
+        }
       })
     },
     joinRoom({ commit, dispatch }, roomName) {
