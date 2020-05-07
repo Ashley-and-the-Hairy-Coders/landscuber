@@ -3,8 +3,8 @@
     <div class="row my-3">
       <div class="col-12 text-center">
         <img class="rounded" :src="profile.picture" alt />
-        <h5 v-if="profile.customerProfile">{{ profile.customerProfile.ratings }} Star Customer</h5>
-        <h5 v-if="profile.providerProfile">{{ profile.providerProfile.ratings }} Star Provider</h5>
+        <h5 v-if="profile.customerProfile">{{ this.customerRating }} Star Customer Rating</h5>
+        <h5 v-if="profile.providerProfile">{{ this.providerRating }} Star Provider Rating</h5>
       </div>
     </div>
 
@@ -64,8 +64,27 @@ export default {
   computed: {
     profile() {
       return this.$store.state.profile;
+    },
+    providerRating() {
+      let arr = this.$store.state.profile.providerProfile.ratings;
+      let sum = arr.reduce(function(a, b) {
+        return a + b;
+      }, 0);
+      return sum;
+      let avgProviderRate = sum / arr.length;
+      return avgProviderRate;
+    },
+    customerRating() {
+      let arr = this.$store.state.profile.customerProfile.ratings;
+      let sum = arr.reduce(function(a, b) {
+        return a + b;
+      }, 0);
+      return sum;
+      let avgCustomerRate = sum / arr.length;
+      return avgCustomerRate;
     }
-  }
+  },
+  methods: {}
 };
 </script>
 
