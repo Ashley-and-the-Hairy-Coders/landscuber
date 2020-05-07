@@ -8,18 +8,18 @@
       </div>
     </div>
 
-    <div v-if="profile.customerProfile" class="row mt-5 mb-5">
+    <div v-if="profile.customerProfile" class="row mt-3 pb-3 pt-3 bg-grey">
       <div class="col-md-4">
-        <h3 class="text-success">Customer Account Settings</h3>
-        <h6>First Name: {{ profile.customerProfile.firstName }}</h6>
-        <h6>Last Name: {{ profile.customerProfile.lastName }}</h6>
+        <h3>Customer Info</h3>
+        <h6>First: {{ profile.customerProfile.firstName }}</h6>
+        <h6>Last: {{ profile.customerProfile.lastName }}</h6>
         <p class="mb-0">Email: {{ profile.email }}</p>
         <p class="mb-0">Cell Phone: {{ profile.customerProfile.cellPhone }}</p>
         <p class="mb-0">Primary Phone: {{ profile.customerProfile.primaryPhone }}</p>
       </div>
 
       <div class="col-md-4">
-        <h3 class="text-success">Customer Address(es)</h3>
+        <h3>Customer Address(es)</h3>
         <div v-for="Address in Addresses" :key="Address._id" class="mb-4">
           <h6>Contact: {{ Address.contactName}}</h6>
           <p class="mb-0">Yard Size: {{ Address.yardSize}}</p>
@@ -29,35 +29,62 @@
       </div>
 
       <div class="col-md-4">
-        <h3 class="text-success">Customer Billing Info</h3>
+        <h3>Customer Billing Info</h3>
         <p>{{ profile.customerProfile.billingInfo }}</p>
+      </div>
+
+      <div class="col-12 d-flex justify-content-center">
+        <button
+          data-toggle="modal"
+          data-target="#editCustomerModal"
+          class="btn btn-outline-success"
+        >Edit Customer Profile</button>
+
+        <Modal title="Edit Customer Profile" id="editCustomerModal">
+          <editCustomer></editCustomer>
+        </Modal>
       </div>
     </div>
 
-    <div v-if="profile.providerProfile" class="row mt-5 mb-5">
+    <div v-if="profile.providerProfile" class="row mt-4 mb-4 pb-3 pt-3 bg-tan">
       <div class="col-md-4">
-        <h3 class="text-success">Provider Account Settings</h3>
-        <h6>First Name: {{ profile.providerProfile.firstName }}</h6>
-        <h6>Last Name: {{ profile.providerProfile.lastName }}</h6>
+        <h3>Provider Info</h3>
+        <h6>First: {{ profile.providerProfile.firstName }}</h6>
+        <h6>Last: {{ profile.providerProfile.lastName }}</h6>
         <p class="mb-0">Email: {{ profile.email }}</p>
         <p>Cell Phone: {{ profile.providerProfile.phone }}</p>
       </div>
 
       <div class="col-md-4">
-        <h3 class="text-success">Provider Services</h3>
+        <h3>Provider Service(s)</h3>
         <h6>By selecting options below, you are confirming you are able to provide the transportation, equipment, and labor necessary to complete these tasks.</h6>
         <p>{{ profile.providerProfile.services }}</p>
       </div>
 
       <div class="col-md-4">
-        <h3 class="text-success">Provider Billing Info</h3>
+        <h3>Provider Billing Info</h3>
         <p>{{ profile.providerProfile.paymentInfo }}</p>
+      </div>
+
+      <div class="col-12 d-flex justify-content-center">
+        <button
+          data-toggle="modal"
+          data-target="#editProviderModal"
+          class="btn btn-outline-success"
+        >Edit Provider Profile</button>
+
+        <Modal title="Edit Provider Profile" id="editProviderModal">
+          <editProvider></editProvider>
+        </Modal>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Modal from "../components/Modal";
+// import editCustomer from "../components/editCustomer";
+// import editProvider from "../components/editProvider";
 export default {
   name: "Profile",
   computed: {
@@ -89,12 +116,23 @@ export default {
       return [];
     }
   },
-  methods: {}
+  methods: {},
+  components: {
+    Modal
+    // editCustomer,
+    // editProvider
+  }
 };
 </script>
 
 <style scoped>
 img {
   max-width: 100px;
+}
+.bg-grey {
+  background-color: #e8e9eb;
+}
+.bg-tan {
+  background-color: #e6e5db;
 }
 </style>
