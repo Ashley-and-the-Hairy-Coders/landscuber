@@ -3,14 +3,12 @@
     <div class="container-fluid bg-home">
       <div class="row">
         <div class="col-12 pt-3">
-          <h5>Customer Name:</h5>
-          <h5>{{job.contactName}}</h5>
+          <h5>Customer Name: {{job.contactName}}</h5>
         </div>
       </div>
       <div class="row">
         <div class="col-12 pt-5 ml-5">
           <h5>Job Details:</h5>
-          <h5>{{job.contactName}}</h5>
         </div>
       </div>
       <div class="row pb-5 m-auto justify-content-center">
@@ -34,11 +32,26 @@
         </div>
       </div>
       <div class="row bg-blend"></div>
-      <div class="row pt-5 bg-message">
-        <div class="col-12">
+      <div class="row justify-content-center pt-5 bg-message">
+        <div class="col-8">
           <h4 class="text-center">Message Center:</h4>
+          <Message v-for="message in messages" :messageData='message' :key="message.id"></Message>
+          <form action="submit" @submit.prevent="addMessage()">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              placeholder="Add comment..."
+              v-model="newMessage.body"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-sm btn-success" type="submit">
+                <i class="fas fa-plus text-white"></i>
+              </button>
+            </div>
+          </div>
+        </form>
         </div>
-        <!--NOTE insert message table -->
       </div>
     </div>
   </div>
@@ -46,13 +59,17 @@
 
 
 <script>
+import Message from "../components/Message"
 export default {
   name: "JobDetails",
   data() {
-    return {};
+    return {
+      newMessage: {
+      }
+    };
   },
   mounted() {
-    console.log(this.$store.state.job);
+    this.$store.dispatch('getJob', this.$route.params.jobId)
   },
   computed: {
     customerProfile() {
@@ -63,10 +80,31 @@ export default {
     },
     job() {
       return this.$store.state.activeJob;
+    },
+    messages() {
+      return this.$store.state.activeJob.messages;
     }
   },
-  methods: {},
-  components: {}
+  methods: {
+    addMessage() {
+
+      if (this.job.customerId == this.customerProfile.id) {
+        this.newMessage.customerId = this.customerProfile.id
+        this.newMessage.customerImg = this.customerProfile.picture
+        this.$store.dispatch('addMessage', this.newMessage)
+        console.log(this.newMessage)
+      } else if (this.job.providerId == this.providerProfile.id) {
+        this.newMessage.providerId = this.providerProfile.id
+        this.newMessage.providerImg = this.providerProfile.picture
+        this.$store.dispatch('addMessage', this.newMessage)
+        console.log(this.newMessage)
+      }
+      this.newMessage = {}
+    }
+  },
+  components: {
+    Message
+  }
 };
 </script>
 

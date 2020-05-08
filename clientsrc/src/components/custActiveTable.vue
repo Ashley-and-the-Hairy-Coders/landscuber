@@ -9,7 +9,7 @@
           class="btn btn-sm btn-success"
           @click="editJob(jobData)"
           v-if="jobData.jobStatus == 'posted'"
-        >edit</button>
+        >Edit</button>
         {{jobData.streetAddress}}
       </td>
       <td class="pb-1">ASAP</td>

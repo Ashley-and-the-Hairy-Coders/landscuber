@@ -1,5 +1,5 @@
 <template>
-  <tbody class="ProviderScheduledJobs">
+  <tbody class="ProviderScheduledJobs" @click.prevent="goToJobDetails">
     <tr>
       <td
         scope="row"
@@ -26,6 +26,13 @@ export default {
     startJob() {
       this.jobData.jobStatus = "active";
       this.$store.dispatch("editJob", this.jobData);
+    },
+    goToJobDetails() {
+      this.$store.commit("setActiveJob", this.jobData);
+      this.$router.push({
+        name: "JobDetails",
+        params: { jobId: this.jobData._id }
+      });
     }
   },
   components: {}
