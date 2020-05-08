@@ -37,7 +37,6 @@ export default {
   methods: {
     ProviderRating() {
     console.log(this.completeJobs.providerId);
-      
     }
   },
   components: {}
