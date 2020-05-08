@@ -1,36 +1,36 @@
 <template>
-  <div class="activejob">
+  <div class="job-details">
     <div class="container-fluid bg-home">
       <div class="row">
         <div class="col-12 pt-3">
           <h5>Customer Name:</h5>
-          <!-- NOTE <h5> {{activeJob.contactName}}</h5>  -->
+          <h5>{{job.contactName}}</h5>
         </div>
       </div>
       <div class="row">
         <div class="col-12 pt-5 ml-5">
           <h5>Job Details:</h5>
-          <!-- NOTE <h5> {{activeJob.contactName}}</h5>  -->
+          <h5>{{job.contactName}}</h5>
         </div>
       </div>
       <div class="row pb-5 m-auto justify-content-center">
         <div class="col-12 col-md-2 m-2 pt-3 card">
           <p>Address:</p>
-          <!-- NOTE <h6> {{activeJob.streetAddress}}</h6>  -->
-          <!-- NOTE <h6> {{activeJob.city}}, {{activeJob.state}} {{activeJob.zipCode}}</h6>  -->
+          <h6>{{job.streetAddress}}</h6>
+          <h6>{{job.city}}, {{job.state}} {{job.zipCode}}</h6>
         </div>
         <div class="col-12 col-md-2 pt-3 m-2 card">
           <p>Date & Time:</p>
-          <!-- NOTE <h6> {{activeJob.timeWindow}}</h6>  -->
-          <!-- NOTE <h6> {{activeJob.confirmedTime}} || </h6>  -->
+          <h6>{{job.timeWindow}}</h6>
+          <h6>{{job.confirmedTime}} ||</h6>
         </div>
         <div class="col-12 col-md-2 pt-3 m-2 card">
           <p>Yard Size:</p>
-          <!-- NOTE <h6> {{activeJob.yardSize.enum}}</h6>  -->
+          <h6>{{job.yardSize}}</h6>
         </div>
         <div class="col-12 col-md-2 pt-3 m-2 card">
           <p>Rate:</p>
-          <!-- NOTE <h6> {{activeJob.price}}</h6>  -->
+          <h6>{{job.price}}</h6>
         </div>
       </div>
       <div class="row bg-blend"></div>
@@ -47,17 +47,22 @@
 
 <script>
 export default {
-  name: "ActiveJob",
+  name: "JobDetails",
   data() {
     return {};
   },
+  mounted() {
+    console.log(this.$store.state.job);
+  },
   computed: {
-    profile() {
-      this.$store.state.profile.customerProfile;
-      this.$store.state.profile.providerProfile; //NOTE need to work on how manage this if they have both a customer profile AND provider profile
+    customerProfile() {
+      return this.$store.state.profile.customerProfile;
+    },
+    providerProfile() {
+      return this.$store.state.profile.providerProfile;
     },
     job() {
-      this.$store.state.activeJob;
+      return this.$store.state.activeJob;
     }
   },
   methods: {},
@@ -77,10 +82,10 @@ export default {
     rgba(232, 233, 235, 1) 0%,
     rgba(224, 223, 213, 1) 38%
   );
-  height: 80px
+  height: 80px;
 }
 .bg-message {
-    background: rgba(224, 223, 213, 1);
-    height: 50vh
+  background: rgba(224, 223, 213, 1);
+  height: 50vh;
 }
 </style>
