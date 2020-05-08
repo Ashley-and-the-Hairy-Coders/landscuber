@@ -24,6 +24,7 @@ export default new Vuex.Store({
     customerJobs: [],
     activeJob: {},
     jobs: [],
+    rating: {}
   },
   mutations: {
     setProfile(state, profile) {
@@ -53,6 +54,9 @@ export default new Vuex.Store({
     },
     setActiveJob(state, payload) {
       state.activeJob = payload
+    },
+    setRating(state, rating) {
+      state.rating = rating
     }
 
   },
@@ -168,6 +172,13 @@ export default new Vuex.Store({
 
       }
     },
+    async addRating({ commit, dispatch }, ratingData) {
+      try {
+        let res = await api.put(`profile/${ratingData.providerId}`, ratingData)
+      } catch (error) {
+        console.error(error)
+}
+},
     async addMessage({commit, dispatch}, messageData) {
       try {
         let res = await api.post(`jobs/${this.state.activeJob._id}/messages`, messageData)
