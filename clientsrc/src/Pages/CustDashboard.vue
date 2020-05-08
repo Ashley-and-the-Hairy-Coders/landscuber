@@ -32,7 +32,7 @@
       </div>
 
       <div class="col-10">
-        <h3 class="text-center mt-5 text-success">Completed Jobs</h3>
+        <h3 class="text-center mt-5 text-info">Job History</h3>
         <UtilTable>
           <custCompleteTable v-for="Job in completeJobs" :jobData="Job" :key="Job._id"></custCompleteTable>
         </UtilTable>

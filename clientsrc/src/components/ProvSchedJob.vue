@@ -1,14 +1,17 @@
 <template>
-  <tbody class="ProviderScheduledJobs" @click.prevent="goToJobDetails">
+  <tbody class="ProviderScheduledJobs">
     <tr>
-      <td
-        scope="row"
-      >{{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
+        <td @click.prevent="goToJobDetails"
+          scope="row"
+        >{{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
+        <td @click.prevent="goToJobDetails">
+          {{jobData.timeWindow}}
+        </td>
+        <td @click.prevent="goToJobDetails">{{jobData.price}}</td>
+        <td @click.prevent="goToJobDetails">{{jobData.yardSize}}</td>
       <td>
-        <button class="btn btn-success" @click="startJob()">Start Job</button>
+        <button class="btn btn-success btn-sm" @click="startJob()">Start Job</button>
       </td>
-      <td>{{jobData.price}}</td>
-      <td>{{jobData.yardSize}}</td>
     </tr>
   </tbody>
 </template>

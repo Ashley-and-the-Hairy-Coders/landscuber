@@ -20,7 +20,7 @@
         <div class="col-12 col-md-2 pt-3 m-2 card">
           <p>Date & Time:</p>
           <h6>{{job.timeWindow}}</h6>
-          <h6>{{job.confirmedTime}} ||</h6>
+          <!-- <h6>{{job.confirmedTime}} ||</h6> -->
         </div>
         <div class="col-12 col-md-2 pt-3 m-2 card">
           <p>Yard Size:</p>

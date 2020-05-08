@@ -5,10 +5,13 @@
         scope="row"
       >{{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
       <td>
-        <button class="btn btn-success" @click="acceptJob()">Accept</button>
+        {{jobData.timeWindow}}
       </td>
       <td>{{jobData.price}}</td>
       <td>{{jobData.yardSize}}</td>
+      <td>
+        <button class="btn btn-success btn-sm" @click="acceptJob()">Accept</button>
+      </td>
     </tr>
   </tbody>
 </template>

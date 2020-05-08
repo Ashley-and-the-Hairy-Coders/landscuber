@@ -1,5 +1,5 @@
 <template>
-  <div class="Message d-flex align-items-center" :class="toggleAlign">
+  <div class="Message my-2 d-flex align-items-center" :class="toggleAlign">
     <img v-if="messageData.providerImg" :src="messageData.providerImg" class="avatar img-fluid">
     <p class="mb-0 px-1">{{messageData.body}}</p>
     <img v-if="messageData.customerImg" :src="messageData.customerImg" class="avatar img-fluid">

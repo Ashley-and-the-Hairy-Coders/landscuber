@@ -2,7 +2,7 @@
   <tbody class="custCompleteTable">
     <tr>
       <td scope="row">{{jobData.streetAddress}}</td>
-      <td>ASAP</td>
+      <td>{{jobData.timeWindow}}</td>
       <td>{{jobData.price}}</td>
       <td>{{jobData.yardSize}}</td>
     </tr>
@@ -20,9 +20,6 @@ export default {
   computed: {},
   mounted() {},
   methods: {
-    // editJob() {
-    //   console.log("Assuming we want the job editable...");
-    // }
   },
   components: {}
 };
