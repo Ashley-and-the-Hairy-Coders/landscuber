@@ -1,6 +1,6 @@
 
 <template>
-  <tbody class="custActiveTable">
+  <tbody class="custActiveTable" @click.prevent="goToJobDetails()">
     <tr>
       <td scope="row" class="pb-1">
         <button
@@ -63,7 +63,14 @@ export default {
   mounted() {},
   methods: {
     editJob() {
-      this.$store.commit('setActiveJob', this.jobData)
+      this.$store.commit("setActiveJob", this.jobData);
+    },
+    goToJobDetails() {
+      this.$store.commit("setActiveJob", this.jobData);
+      this.$router.push({
+        name: "JobDetails",
+        params: { jobId: this.jobData._id }
+      });
     }
   },
   components: {

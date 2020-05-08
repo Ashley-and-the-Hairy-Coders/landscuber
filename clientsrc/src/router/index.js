@@ -9,7 +9,7 @@ import CustDashboard from "../Pages/CustDashboard.vue"
 // @ts-ignore
 import ProvDashboard from "../Pages/ProvDashboard.vue"
 // @ts-ignore
-import ActiveJob from "../Pages/ActiveJob.vue"
+import JobDetails from "../Pages/JobDetails.vue"
 import { authGuard } from "@bcwdev/auth0-vue";
 
 Vue.use(VueRouter);
@@ -39,9 +39,9 @@ const routes = [
     beforeEnter: authGuard,
   },
   {
-    path: "/activejob",
-    name: "ActiveJob",
-    component: ActiveJob,
+    path: "/jobdetails/:jobId",
+    name: "JobDetails",
+    component: JobDetails,
     beforeEnter: authGuard,
   }
 ];
