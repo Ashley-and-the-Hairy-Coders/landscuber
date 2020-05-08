@@ -1,20 +1,20 @@
 
 <template>
-  <tbody class="custActiveTable" @click.prevent="goToJobDetails()">
+  <tbody class="custActiveTable" >
     <tr>
-      <td scope="row" class="pb-1">
-        <button
+      <td @click.prevent="goToJobDetails()" scope="row" class="pb-1">
+        {{jobData.streetAddress}}
+      </td>
+      <td @click.prevent="goToJobDetails()" class="pb-1">{{jobData.timeWindow}}</td>
+      <td @click.prevent="goToJobDetails()" class="pb-1">{{jobData.price}}</td>
+      <td @click.prevent="goToJobDetails()" class="pb-1">{{jobData.yardSize}}</td>
+      <td><button
           data-toggle="modal"
           data-target="#editJobModal"
           class="btn btn-sm btn-success"
           @click="editJob(jobData)"
           v-if="jobData.jobStatus == 'posted'"
-        >edit</button>
-        {{jobData.streetAddress}}
-      </td>
-      <td class="pb-1">ASAP</td>
-      <td class="pb-1">{{jobData.price}}</td>
-      <td class="pb-1">{{jobData.yardSize}}</td>
+        >Edit</button></td>
     </tr>
     <tr scope="row ">
       <td colspan="4" class="pt-0 mt-0">

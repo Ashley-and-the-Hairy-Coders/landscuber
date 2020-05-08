@@ -2,7 +2,7 @@
   <tbody class="custCompleteTable">
     <tr>
       <td scope="row">{{jobData.streetAddress}}</td>
-      <td>ASAP</td>
+      <td>{{jobData.timeWindow}}</td>
       <td>{{jobData.price}}</td>
       <td>{{jobData.yardSize}}</td>
       <button @click="setJobForRating()" class="btn btn-success"

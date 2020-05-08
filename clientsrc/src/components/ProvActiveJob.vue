@@ -1,14 +1,15 @@
 <template>
   <tbody class="ProvActiveJob">
     <tr>
-      <td
+      <td @click.prevent="goToJobDetails"
         scope="row"
       >{{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
+      <td @click.prevent="goToJobDetails">{{jobData.timeWindow}}</td>
+      <td @click.prevent="goToJobDetails">{{jobData.price}}</td>
+      <td @click.prevent="goToJobDetails">{{jobData.yardSize}}</td>
       <td>
-        <button class="btn btn-success" @click="completedJob()">Job Completed</button>
+        <button class="btn btn-success btn-sm" @click="completedJob()">Job Completed</button>
       </td>
-      <td>{{jobData.price}}</td>
-      <td>{{jobData.yardSize}}</td>
     </tr>
   </tbody>
 </template>
@@ -28,6 +29,13 @@ export default {
         this.jobData.jobStatus = "completed";
         this.$store.dispatch("editJob", this.jobData);
       }
+    },
+    goToJobDetails() {
+      this.$store.commit("setActiveJob", this.jobData);
+      this.$router.push({
+        name: "JobDetails",
+        params: { jobId: this.jobData._id }
+      });
     }
   },
   components: {}
