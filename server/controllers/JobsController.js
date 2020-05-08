@@ -73,6 +73,7 @@ export class JobsController extends BaseController {
         req.body.customerImg = customer.picture
       }
       let data = await jobsService.createMessage(req.params.jobId, req.body)
+      socketService.messageRoom("messages", "newMessage", req.params.jobId)
       return res.send(data)
     } catch (error) {
       next(error)

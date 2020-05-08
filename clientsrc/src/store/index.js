@@ -136,6 +136,14 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    async getJob({ commit, dispatch }, jobId) {
+      try {
+        let res = await api.get(`jobs/${jobId}`)
+        commit('setActiveJob', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
     async getAllJobs({ commit, dispatch }) {
       try {
         let res = await api.get(`jobs`)
@@ -158,6 +166,14 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
 
+      }
+    },
+    async addMessage({commit, dispatch}, messageData) {
+      try {
+        let res = await api.post(`jobs/${this.state.activeJob._id}/messages`, messageData)
+        dispatch('getJob', this.state.activeJob._id)
+      } catch (error) {
+        console.error(error)
       }
     }
   },
