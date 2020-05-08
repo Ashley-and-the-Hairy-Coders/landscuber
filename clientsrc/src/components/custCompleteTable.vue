@@ -5,6 +5,10 @@
       <td>ASAP</td>
       <td>{{jobData.price}}</td>
       <td>{{jobData.yardSize}}</td>
+      <button class="btn btn-success"
+        data-toggle="modal"
+        data-target="#jobRatingModal">Leave feedback!
+      </button>
     </tr>
   </tbody>
 </template>
@@ -20,9 +24,9 @@ export default {
   computed: {},
   mounted() {},
   methods: {
-    // editJob() {
-    //   console.log("Assuming we want the job editable...");
-    // }
+    saveRating() {
+      console.log("you clicked the button");
+    }
   },
   components: {}
 };

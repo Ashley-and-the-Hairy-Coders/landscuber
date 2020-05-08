@@ -37,6 +37,9 @@
           <custCompleteTable v-for="Job in completeJobs" :jobData="Job" :key="Job._id"></custCompleteTable>
         </UtilTable>
       </div>
+      <modal title="Leave Feedback!" id="jobRatingModal">
+        <JobRating></JobRating>
+      </modal>
     </div>
   </div>
 </template>
@@ -48,6 +51,7 @@ import Modal from "../components/Modal";
 import CreateJob from "../components/CreateJob";
 import custActiveTable from "../components/custActiveTable";
 import UtilTable from "../components/UtilTable";
+import JobRating from "../components/JobRating";
 export default {
   name: "custDashboard",
   data() {
@@ -77,7 +81,8 @@ export default {
     CreateJob,
     UtilTable,
     custActiveTable,
-    custCompleteTable
+    custCompleteTable,
+    JobRating
   }
 };
 </script>
