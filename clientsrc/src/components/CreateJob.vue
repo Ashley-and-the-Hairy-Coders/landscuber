@@ -39,6 +39,19 @@
       </div>
     </div>
     <p>{{yard}}</p>
+    <div class="custom-control m-1 custom-checkbox">
+        <input type="checkbox" @click="scheduleToday" class="custom-control-input" id="customCheck2" />
+        <label class="custom-control-label" for="customCheck2">Schedule for Today</label>
+      </div>
+    <form v-if="!scheduled">
+      <div class="form-group">
+        <small id="helpId" class="text-muted">Setup Time</small>
+        <input type="date"
+          required
+          v-model="newJob.timeWindow"
+          class="form-control"/>
+      </div>
+    </form>
     <form>
       <div class="form-group">
         <small id="helpId" class="text-muted">Setup Address</small>
@@ -121,10 +134,12 @@ export default {
         primary: false
       },
       newJob: {
-        jobStatus: "posted"
+        jobStatus: "posted",
+        timeWindow: ""
       },
       save: false,
-      yard: "Select Size"
+      yard: "Select Size",
+      scheduled: false
     };
   },
   computed: {
@@ -139,6 +154,25 @@ export default {
     }
   },
   methods: {
+    scheduleToday() {
+      if (this.scheduled == false) {
+        this.scheduled = true
+      } else if (this.scheduled == true) {
+        this.scheduled = false
+      }
+      let dateObj = new Date();
+      let month = dateObj.getMonth() + 1;
+      if (month < 10) {
+        month = "0" + month.toString()
+      }
+      let day = dateObj.getDate();
+      if (day < 10) {
+        day = "0" + day.toString()
+      }
+      let year = dateObj.getFullYear();
+      let newDate = year + "-" + month + "-" + day;
+      this.newJob.timeWindow = newDate;
+    },
     setYard(size) {
       this.yard = size;
       this.newAddress.yardSize = size;
@@ -149,7 +183,6 @@ export default {
       }
       let job = Object.assign(this.newJob, this.newAddress);
       job.customerId = this.Customer.id;
-      console.log(job, this.save);
       this.$store.dispatch("createJob", job);
       this.newAddress = {};
       this.newJob = {};
