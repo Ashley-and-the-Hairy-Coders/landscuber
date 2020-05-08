@@ -33,7 +33,7 @@
       </div>
       <div class="row bg-blend"></div>
       <div class="row justify-content-center pt-5 bg-message">
-        <div class="col-8">
+        <div class="col-md-6">
           <h4 class="text-center">Message Center:</h4>
           <Message v-for="message in messages" :messageData='message' :key="message.id"></Message>
           <form action="submit" @submit.prevent="addMessage()">
@@ -70,6 +70,10 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getJob', this.$route.params.jobId)
+    this.$store.dispatch("joinRoom", "messages");
+  },
+  beforeDestroy() {
+    this.$store.dispatch("leaveRoom", "messages");
   },
   computed: {
     customerProfile() {
@@ -87,7 +91,6 @@ export default {
   },
   methods: {
     addMessage() {
-
       if (this.job.customerId == this.customerProfile.id) {
         this.newMessage.customerId = this.customerProfile.id
         this.newMessage.customerImg = this.customerProfile.picture

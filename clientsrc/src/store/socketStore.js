@@ -20,14 +20,17 @@ export const socketStore = {
         commit("updateJobs", data)
         dispatch("getAllJobs")
       })
+
+      socket.on("newMessage", data => {
+        dispatch("getJob", data)
+      })
+
     },
     joinRoom({ commit, dispatch }, roomName) {
       socket.emit("dispatch", { action: "JoinRoom", data: roomName })
-
     },
     leaveRoom({ commit, dispatch }, roomName) {
       socket.emit("dispatch", { action: "LeaveRoom", data: roomName })
-
     }
   }
 }

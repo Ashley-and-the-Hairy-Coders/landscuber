@@ -1,8 +1,8 @@
 <template>
   <div class="Message d-flex align-items-center" :class="toggleAlign">
-    <img v-if="messageData.customerImg" :src="messageData.customerImg" class="avatar img-fluid">
     <img v-if="messageData.providerImg" :src="messageData.providerImg" class="avatar img-fluid">
-    <p class="mb-0 pl-1">{{messageData.body}}</p>
+    <p class="mb-0 px-1">{{messageData.body}}</p>
+    <img v-if="messageData.customerImg" :src="messageData.customerImg" class="avatar img-fluid">
   </div>
 </template>
 
@@ -17,9 +17,9 @@ export default {
   computed:{
     toggleAlign() {
       if (this.messageData.providerId) {
-        return "ml-auto"
+        return "justify-content-start"
       } else {
-        return "mr-auto"
+        return "justify-content-end"
       }
     }
   },
