@@ -96,12 +96,17 @@ export default {
     },
     providerRating() {
       let ratings = this.$store.state.profile.providerProfile.ratings;
+      let avgRating = 0;
       let newArr = [];
-      ratings.forEach(r => {
-        newArr.push(r.providerRating);
-      });
-      let avgRating = newArr.reduce((a, b) => a + b, 0) / newArr.length;
-      return avgRating.toFixed(1);
+      if (ratings.length <= 0) {
+        return (avgRating = 5);
+      } else {
+        ratings.forEach(r => {
+          newArr.push(r.providerRating);
+        });
+        avgRating = newArr.reduce((a, b) => a + b, 0) / newArr.length;
+        return avgRating.toFixed(1);
+      }
     },
     customerRating() {
       let arr = this.$store.state.profile.customerProfile.ratings;
