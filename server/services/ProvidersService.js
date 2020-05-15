@@ -45,17 +45,10 @@ class ProvidersService {
       ratingsData = dbContext.Provider.findOneAndUpdate(
         // If there is already a rating in the provider's ratings array that matches incoming jobId we need to kick this back. 
         { _id: providerId },
-        { $addToSet: { ratings: { providerRating: rawData } } },
+        { $addToSet: { ratings: { providerRating: rawData.providerRating, jobId: rawData.jobId, providerId: rawData.providerId } } },
         { new: true }
       );
       return ratingsData;
-      // let ratingsData = dbContext.Provider.findOneAndUpdate(
-      //   // If there is already a rating in the provider's ratings array that matches incoming jobId we need to kick this back. 
-      //   { _id: providerId },
-      //   { $addToSet: { ratings: { providerRating: rawData.providerRating, jobId: rawData.jobId } } },
-      //   { new: true }
-      // );
-      // return ratingsData;
     }
   }
   //!SECTION

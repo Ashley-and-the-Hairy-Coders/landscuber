@@ -4,7 +4,8 @@ let ObjectId = Schema.Types.ObjectId
 
 let ratingSchema = new Schema(
   {
-    jobId: { type: ObjectId, ref: "Job" },
+    jobId: { type: String },
+    providerId: { type: ObjectId, ref: "Provider" },
     providerRating: { type: Number }
   }
 )
