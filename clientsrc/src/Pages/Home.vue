@@ -4,35 +4,26 @@
     <div class="row top-row justify-content-center mb-0">
       <div class="col-12 col-md-8 col-lg-5 align-middle text-center my-auto">
         <button type="button" @click="landscaper = false" class="btn mx-2 btn-link">
-          <strong>Hire a Landscüber</strong>
+          <h3>Hire a Landscüber</h3>
         </button>
         <button type="button" @click="landscaper = true" class="btn mx-2 btn-link">
-          <strong>Find Clients</strong>
+          <h3>Find Clients</h3>
         </button>
 
         <div v-if="!landscaper">
           <h4 class="mx-5">We take the worry out of yard work!</h4>
-          <form class="my-2">
-            <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter your zip to find a mower"
-                aria-label="Recipient's username"
-                aria-describedby="button-addon2"
-              />
-              <div class="input-group-append">
-                <button class="btn btn-outline-success" type="button" id="button-addon2">Search</button>
-              </div>
-            </div>
-          </form>
+          <button
+          class="btn mx-2 btn-success"
+          @click="CustomerReg"
+        >Get Started</button>
         </div>
 
         <div v-if="landscaper">
           <h3 class="mx-5">Find new clients in your area!</h3>
           <!-- This btn takes user to the landscaper sign up -->
-          <button type="button" class="btn mx-2 btn-sm btn-success">Get Started</button>
+          <button type="button" @click="ProviderReg" class="btn mx-2 btn-success">Get Started</button>
         </div>
+
       </div>
 
       <div class="col-8 col-lg-5 align-self-end text-center mt-2">
@@ -46,13 +37,9 @@
         <h4>When you need your lawn mowed today, Landscüber will get it done!</h4>
         <p>Name your price and immediately connect with local lawn care professionals.</p>
         <button
-          v-if="!this.$store.state.profile.customerProfile"
+          @click="CustomerReg"
           class="btn btn-success"
-          data-toggle="modal"
-          data-target="#customerRegModal"
         >Join Now</button>
-        <button v-else class="btn btn-success" @click="goToCustomerDash()">Go to Dashboard</button>
-
         <Modal title="Join Today!" id="customerRegModal">
           <CustomerReg></CustomerReg>
         </Modal>
@@ -62,11 +49,8 @@
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex reprehenderit aut incidunt. Sapiente tenetur unde corrupti dolorum, placeat officiis praesentium, perferendis at, illum architecto aspernatur accusamus distinctio fugiat iste alias.</p>
         <button
           class="btn btn-success"
-          v-if="!this.$store.state.profile.providerProfile"
-          data-toggle="modal"
-          data-target="#providerRegModal"
+          @click="ProviderReg"
         >Get Started</button>
-        <button v-else class="btn btn-success" @click="goToProviderDash()">Make some $$$</button>
         <Modal title="Sign up to start Scübing!" id="providerRegModal">
           <ProviderReg></ProviderReg>
         </Modal>
@@ -75,72 +59,17 @@
 
     <!-- Customer Review Row -->
     <!-- NOTE Do we want to make this a separate component? -->
-    <div class="row bg-home py-2">
-      <div class="col-12 text-center">
-        <h2 class="mb-5 my-md-5">What your neighbors are saying...</h2>
-      </div>
-      <div class="card col-lg-3 col-md-5 col-10 mx-auto shadow p-3 mb-5 bg-white rounded">
-        <img
-          src="../assets/lady.png"
-          width="120"
-          height="120"
-          class="mx-auto mt-2 rounded-circle"
-          alt="..."
-        />
-        <div class="card-body">
-          <h6 class="card-text text-center">Boise, ID</h6>
-          <div class="d-flex justified-content-center">
-            <img src="../assets/5stars.png" height="25" class="mx-auto mb-2" alt="..." />
-          </div>
-          <p>We couldn't be happier with Landscüber! Our lawn was mowed the same day we scheduled the job and the landscaper was great. He was very professional and actually did a better job than my husband would do! haha! I'm very pleased and will be using Landscüber all summer long!</p>
-        </div>
-      </div>
-      <div
-        class="card col-lg-3 col-md-5 col-10 mx-auto shadow p-3 mb-5 bg-white rounded"
-        style="width: 18rem;"
-      >
-        <img
-          src="../assets/man.png"
-          width="120"
-          height="120"
-          class="mx-auto mt-2 rounded-circle"
-          alt="..."
-        />
-        <div class="card-body">
-          <h6 class="card-text text-center">Meridian, ID</h6>
-          <div class="d-flex justified-content-center">
-            <img src="../assets/5stars.png" height="25" class="mx-auto mb-2" alt="..." />
-          </div>
-          <p>I had some deadlines at work that I had to meet and didn't have time to mow before our 4th of July party. I hired Landscüber in the morning and by the time I got home, the lawn was done and ready for the party! Thanks for keeping me out of the doghouse!</p>
-        </div>
-      </div>
-      <div
-        class="card col-lg-3 col-md-5 col-10 mx-auto shadow p-3 mb-5 bg-white rounded"
-        style="width: 18rem;"
-      >
-        <img
-          src="../assets/lady2.png"
-          width="120"
-          height="120"
-          class="mx-auto mt-2 rounded-circle"
-          alt="..."
-        />
-        <div class="card-body">
-          <h6 class="card-text text-center">Nampa, ID</h6>
-          <div class="d-flex justified-content-center">
-            <img src="../assets/5stars.png" height="25" class="mx-auto mb-2" alt="..." />
-          </div>
-          <p>Our yard is too big for me to mow with my current mower. I scheduled a landscaper from Landscüber and the mowed our lawn in 1/2 the time it would have taken me! I'm so grateful! The yard looks great and now I have time to finish my gardening!</p>
-        </div>
-      </div>
-    </div>
+    <LPR></LPR>
   </div>
 </template>
 
 <script>
+import LPR from "../components/LandingPageReviews";
 import Modal from "../components/Modal";
 import CustomerReg from "../components/CustomerReg";
 import ProviderReg from "../components/ProviderReg";
+import axios from "axios";
+import { getUserData } from "@bcwdev/auth0-vue";
 export default {
   name: "home",
   data() {
@@ -154,6 +83,28 @@ export default {
     }
   },
   methods: {
+    CustomerReg() {
+      if (!this.$auth.isAuthenticated) {
+        this.login()
+      } else if (this.$auth.isAuthenticated && this.profile.customerProfile) {
+        this.goToCustomerDash();
+      } else if (this.$auth.isAuthenticated && this.profile.providerProfile) {
+        $('#customerRegModal').modal('toggle');
+      } else if (this.$auth.isAuthenticated && !this.profile.customerProfile && !this.profile.providerProfile) {
+        $('#customerRegModal').modal('toggle');
+      }
+    },
+    ProviderReg() {
+      if (!this.$auth.isAuthenticated) {
+        this.login()
+      } else if (this.$auth.isAuthenticated && this.profile.providerProfile) {
+        this.goToProviderDash();
+      } else if (this.$auth.isAuthenticated && this.profile.customerProfile) {
+        $('#providerRegModal').modal('toggle');
+      } else if (this.$auth.isAuthenticated && !this.profile.customerProfile && !this.profile.providerProfile) {
+        $('#providerRegModal').modal('toggle');
+      }
+    },
     goToCustomerDash() {
       this.$router.push({
         name: "CustDashboard",
@@ -165,12 +116,24 @@ export default {
         name: "ProvDashboard",
         params: { providerId: this.profile.providerProfile._id }
       });
+    },
+    async login() {
+      await this.$auth.loginWithPopup();
+      this.$store.dispatch("setBearer", this.$auth.bearer);
+      console.log("this.$auth.user: ");
+      console.log(this.$auth.user);
+      this.$store.dispatch("getProfile");
+    },
+    async logout() {
+      this.$store.dispatch("resetBearer");
+      await this.$auth.logout({ returnTo: window.location.origin });
     }
   },
   components: {
     Modal,
     CustomerReg,
-    ProviderReg
+    ProviderReg,
+    LPR
   }
 };
 </script>
