@@ -29,14 +29,28 @@ class ProvidersService {
   }
 
   async createRating(providerId, rawData) {
-    let ratingsData = await dbContext.Provider.findOneAndUpdate(
-      { _id: providerId },
-      { $addToSet: { ratings: {providerRating: rawData} } },
-      { new: true }
+    let newArr = []
+    let ratingsData = null;
+    let provider = await dbContext.Provider.findOne(
+      { _id: providerId }
     );
-    return ratingsData;
+    // @ts-ignore
+    provider.ratings.forEach(r => {
+      newArr.push(r.jobId)
+    })
+    if (newArr.includes(rawData.jobId)) {
+      throw new BadRequest("You can't do that ding dong!")
+    }
+    else {
+      ratingsData = dbContext.Provider.findOneAndUpdate(
+        // If there is already a rating in the provider's ratings array that matches incoming jobId we need to kick this back. 
+        { _id: providerId },
+        { $addToSet: { ratings: { providerRating: rawData.providerRating, jobId: rawData.jobId, providerId: rawData.providerId } } },
+        { new: true }
+      );
+      return ratingsData;
+    }
   }
-
   //!SECTION
   //SECTION Edit requests
 

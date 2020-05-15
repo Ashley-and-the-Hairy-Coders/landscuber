@@ -3,8 +3,8 @@
     <div class="row my-3">
       <div class="col-12 text-center">
         <img class="rounded mb-2" :src="profile.picture" alt />
-        <h5 v-if="profile.customerProfile">{{ this.customerRating }} Star Customer Rating</h5>
-        <h5 v-if="profile.providerProfile">{{ this.providerRating }} Star Provider Rating</h5>
+        <!-- <h5 v-if="profile.customerProfile">{{ this.customerRating }} Star Customer Rating</h5> -->
+        <h5 v-if="profile.providerProfile">{{ providerRating }} Star Provider Rating</h5>
       </div>
     </div>
 
@@ -87,18 +87,21 @@ import editCustomer from "../components/editCustomer";
 import editProvider from "../components/editProvider";
 export default {
   name: "Profile",
+  data() {
+    return {};
+  },
   computed: {
     profile() {
       return this.$store.state.profile;
     },
     providerRating() {
-      let arr = this.$store.state.profile.providerProfile.ratings;
-      let sum = arr.reduce(function(a, b) {
-        return a + b;
-      }, 0);
-      return sum;
-      let avgProviderRate = sum / arr.length;
-      return avgProviderRate;
+      let ratings = this.$store.state.profile.providerProfile.ratings;
+      let newArr = [];
+      ratings.forEach(r => {
+        newArr.push(r.providerRating);
+      });
+      let avgRating = newArr.reduce((a, b) => a + b, 0) / newArr.length;
+      return avgRating.toFixed(1);
     },
     customerRating() {
       let arr = this.$store.state.profile.customerProfile.ratings;
