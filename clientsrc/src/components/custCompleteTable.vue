@@ -5,10 +5,12 @@
       <td>{{jobData.timeWindow}}</td>
       <td>{{jobData.price}}</td>
       <td>{{jobData.yardSize}}</td>
-      <button @click="setJobForRating()" class="btn btn-success"
+      <button
+        @click="setJobForRating()"
+        class="btn btn-success"
         data-toggle="modal"
-        data-target="#jobRatingModal">Leave feedback!
-      </button>
+        data-target="#jobRatingModal"
+      >Leave feedback!</button>
     </tr>
   </tbody>
 </template>
@@ -28,7 +30,7 @@ export default {
       console.log("you clicked the button");
     },
     setJobForRating() {
-      this.$store.commit("setRating", this.jobData)
+      this.$store.commit("setJobToBeRated", this.jobData);
     }
   },
   components: {}
