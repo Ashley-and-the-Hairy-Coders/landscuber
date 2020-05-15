@@ -178,6 +178,7 @@ export default new Vuex.Store({
         let res = await api.post(`providers/${ratingData.providerId}/ratings`, ratingData)
       } catch (error) {
         console.error(error)
+        alert("This job has already been rated")
       }
     },
     async addMessage({ commit, dispatch }, messageData) {
