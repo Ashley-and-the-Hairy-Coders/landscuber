@@ -27,6 +27,16 @@ class ProvidersService {
     let data = await dbContext.Provider.create(rawData);
     return data;
   }
+
+  async createRating(providerId, rawData) {
+    let ratingsData = await dbContext.Provider.findOneAndUpdate(
+      { _id: providerId },
+      { $addToSet: { ratings: {providerRating: rawData} } },
+      { new: true }
+    );
+    return ratingsData;
+  }
+
   //!SECTION
   //SECTION Edit requests
 

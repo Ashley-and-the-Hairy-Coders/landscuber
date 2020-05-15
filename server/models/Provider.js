@@ -1,6 +1,13 @@
 import mongoose from "mongoose";
-import RatingSchema from "./Rating"
+// import RatingSchema from "./Rating"
 const Schema = mongoose.Schema;
+
+
+let ratingSchema = new Schema(
+  {
+    providerRating: { type: String }
+  }
+)
 
 const Provider = new Schema(
   {
@@ -17,7 +24,7 @@ const Provider = new Schema(
     phone: { type: String, required: true },
     paymentInfo: { type: String, default: "Billing Info will be stored here" },
     availableNow: { type: Boolean, default: false },
-    ratings: [RatingSchema],
+    ratings: [ratingSchema],
     services: [{ type: String }]
 
   },
