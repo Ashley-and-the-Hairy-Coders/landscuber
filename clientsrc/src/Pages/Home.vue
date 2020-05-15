@@ -12,18 +12,14 @@
 
         <div v-if="!landscaper">
           <h4 class="mx-5">We take the worry out of yard work!</h4>
-          <button
-          class="btn mx-2 btn-success"
-          @click="CustomerReg"
-        >Get Started</button>
+          <button class="btn mx-2 btn-success" @click="CustomerReg">Get Started</button>
         </div>
 
         <div v-if="landscaper">
-          <h3 class="mx-5">Find new clients in your area!</h3>
+          <h4 class="mx-5">Find new clients in your area!</h4>
           <!-- This btn takes user to the landscaper sign up -->
           <button type="button" @click="ProviderReg" class="btn mx-2 btn-success">Get Started</button>
         </div>
-
       </div>
 
       <div class="col-8 col-lg-5 align-self-end text-center mt-2">
@@ -36,10 +32,7 @@
       <div class="col-12 col-md-8 col-lg-6 text-center py-4">
         <h4>When you need your lawn mowed today, Landscüber will get it done!</h4>
         <p>Name your price and immediately connect with local lawn care professionals.</p>
-        <button
-          @click="CustomerReg"
-          class="btn btn-success"
-        >Join Now</button>
+        <button @click="CustomerReg" class="btn btn-success">Join Now</button>
         <Modal title="Join Today!" id="customerRegModal">
           <CustomerReg></CustomerReg>
         </Modal>
@@ -47,18 +40,14 @@
       <div class="col-12 col-md-8 col-lg-6 text-center py-4">
         <h4>Ready to get a job now? Join as a provider</h4>
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex reprehenderit aut incidunt. Sapiente tenetur unde corrupti dolorum, placeat officiis praesentium, perferendis at, illum architecto aspernatur accusamus distinctio fugiat iste alias.</p>
-        <button
-          class="btn btn-success"
-          @click="ProviderReg"
-        >Get Started</button>
+        <button class="btn btn-success" @click="ProviderReg">Get Started</button>
         <Modal title="Sign up to start Scübing!" id="providerRegModal">
           <ProviderReg></ProviderReg>
         </Modal>
       </div>
     </div>
 
-    <!-- Customer Review Row -->
-    <!-- NOTE Do we want to make this a separate component? -->
+    <!-- Landing Page Reviews -->
     <LPR></LPR>
   </div>
 </template>
@@ -74,7 +63,18 @@ export default {
   name: "home",
   data() {
     return {
-      landscaper: false
+      landscaper: false,
+      Toast : this.$swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          onOpen: toast => {
+            toast.addEventListener("mouseenter", this.$swal.stopTimer);
+            toast.addEventListener("mouseleave", this.$swal.resumeTimer);
+          }
+        })
     };
   },
   computed: {
@@ -85,24 +85,32 @@ export default {
   methods: {
     CustomerReg() {
       if (!this.$auth.isAuthenticated) {
-        this.login()
+        this.login();
       } else if (this.$auth.isAuthenticated && this.profile.customerProfile) {
         this.goToCustomerDash();
       } else if (this.$auth.isAuthenticated && this.profile.providerProfile) {
-        $('#customerRegModal').modal('toggle');
-      } else if (this.$auth.isAuthenticated && !this.profile.customerProfile && !this.profile.providerProfile) {
-        $('#customerRegModal').modal('toggle');
+        $("#customerRegModal").modal("toggle");
+      } else if (
+        this.$auth.isAuthenticated &&
+        !this.profile.customerProfile &&
+        !this.profile.providerProfile
+      ) {
+        $("#customerRegModal").modal("toggle");
       }
     },
     ProviderReg() {
       if (!this.$auth.isAuthenticated) {
-        this.login()
+        this.login();
       } else if (this.$auth.isAuthenticated && this.profile.providerProfile) {
         this.goToProviderDash();
       } else if (this.$auth.isAuthenticated && this.profile.customerProfile) {
-        $('#providerRegModal').modal('toggle');
-      } else if (this.$auth.isAuthenticated && !this.profile.customerProfile && !this.profile.providerProfile) {
-        $('#providerRegModal').modal('toggle');
+        $("#providerRegModal").modal("toggle");
+      } else if (
+        this.$auth.isAuthenticated &&
+        !this.profile.customerProfile &&
+        !this.profile.providerProfile
+      ) {
+        $("#providerRegModal").modal("toggle");
       }
     },
     goToCustomerDash() {
@@ -120,6 +128,12 @@ export default {
     async login() {
       await this.$auth.loginWithPopup();
       this.$store.dispatch("setBearer", this.$auth.bearer);
+      if (this.$auth.user) {
+        this.Toast.fire({
+          icon: "success",
+          title: "Signed in successfully"
+        });
+      }
       console.log("this.$auth.user: ");
       console.log(this.$auth.user);
       this.$store.dispatch("getProfile");
