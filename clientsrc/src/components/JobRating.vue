@@ -27,7 +27,8 @@
 export default {
   name: "JobRating",
   data() {
-    return {};
+    return {
+    };
   },
   computed: {
     completeJobs() {
@@ -37,6 +38,13 @@ export default {
   methods: {
     ProviderRating() {
     console.log(this.completeJobs.providerId);
+    console.log(event.target.value);
+    this.$store.dispatch("addRating",{
+      providerId: this.completeJobs.providerId,
+      providerRating: event.target.value
+    })
+
+    
     }
   },
   components: {}

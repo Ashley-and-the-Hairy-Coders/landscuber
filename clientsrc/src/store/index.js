@@ -174,7 +174,8 @@ export default new Vuex.Store({
     },
     async addRating({ commit, dispatch }, ratingData) {
       try {
-        let res = await api.put(`profile/${ratingData.providerId}`, ratingData)
+        console.log("ratingData", ratingData);
+        let res = await api.post(`providers/${ratingData.providerId}/ratings`, ratingData)
       } catch (error) {
         console.error(error)
 }
