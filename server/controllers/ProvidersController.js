@@ -15,6 +15,7 @@ export class ProvidersController extends BaseController {
       .get("/:id", this.getProviderById)
       .get("/:id/jobs", this.getJobsByProviderId)
       .post("", this.createProvider)
+      .post("/:id/ratings", this.createRating)
       .put("/:id", this.editProvider)
       .delete("/:id", this.deleteProvider)
   }
@@ -43,6 +44,15 @@ export class ProvidersController extends BaseController {
       next(error);
     }
   }
+  async createRating(req, res, next) {
+    try {
+      let data = await providersService.createRating(req.params.id, req.body)
+      return res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   //!SECTION
   //SECTION Post requests
 

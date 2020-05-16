@@ -1,24 +1,24 @@
 
 <template>
-  <tbody class="custActiveTable">
+  <tbody class="custActiveTable" >
     <tr>
-      <td scope="row" class="pb-1">
-        <button
+      <td @click.prevent="goToJobDetails()" scope="row" class="pb-1">
+        {{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}
+      </td>
+      <td @click.prevent="goToJobDetails()" class="pb-1">{{jobData.timeWindow}}</td>
+      <td @click.prevent="goToJobDetails()" class="pb-1">{{jobData.price}}</td>
+      <td @click.prevent="goToJobDetails()" class="pb-1">{{jobData.yardSize}}</td>
+      <td><button
           data-toggle="modal"
           data-target="#editJobModal"
-          class="btn btn-sm btn-success"
-          @click="editJob()"
+          class="btn btn-block btn-success"
+          @click="editJob(jobData)"
           v-if="jobData.jobStatus == 'posted'"
-        >edit</button>
-        {{jobData.streetAddress}}
-      </td>
-      <td class="pb-1">ASAP</td>
-      <td class="pb-1">{{jobData.price}}</td>
-      <td class="pb-1">{{jobData.yardSize}}</td>
+        >Edit</button></td>
     </tr>
     <tr scope="row ">
-      <td colspan="4" class="pt-0 mt-0">
-        <div class="progress">
+      <td colspan="5" class="pt-0 mt-0">
+        <div class="progress bg-">
           <div
             class="progress-bar progress-bar-striped bg-success text-capitalize"
             role="progressbar"
@@ -63,7 +63,14 @@ export default {
   mounted() {},
   methods: {
     editJob() {
-      console.log("Assuming we want the job editable...");
+      this.$store.commit("setActiveJob", this.jobData);
+    },
+    goToJobDetails() {
+      this.$store.commit("setActiveJob", this.jobData);
+      this.$router.push({
+        name: "JobDetails",
+        params: { jobId: this.jobData._id }
+      });
     }
   },
   components: {
@@ -75,4 +82,38 @@ export default {
 
 
 <style scoped>
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 25%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 12px;
+		left: 6px;
+		width: 75%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+  }
+  td:nth-of-type(1):before { content: "Address:"; }
+	td:nth-of-type(2):before { content: "Date:"; }
+	td:nth-of-type(3):before { content: "\0024"; }
+	td:nth-of-type(4):before { content: "Size:"; }
+}
 </style>

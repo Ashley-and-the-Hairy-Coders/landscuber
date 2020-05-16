@@ -5,10 +5,13 @@
         scope="row"
       >{{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
       <td>
-        <button class="btn btn-success" @click="acceptJob()">Accept</button>
+        {{jobData.timeWindow}}
       </td>
       <td>{{jobData.price}}</td>
       <td>{{jobData.yardSize}}</td>
+      <td>
+        <button class="btn btn-success btn-sm" @click="acceptJob()">Accept</button>
+      </td>
     </tr>
   </tbody>
 </template>
@@ -28,8 +31,20 @@ export default {
   },
   methods: {
     acceptJob() {
-      this.jobData.jobStatus = "accepted";
-      this.$store.dispatch("acceptJob", this.jobData);
+      this.$swal.fire({
+        title: "Yes take this job?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#85CF4B",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Claim"
+      }).then(result => {
+        if (result.value) {
+          this.$swal.fire("It's all yours", "You've claimed this job", "success");
+          this.jobData.jobStatus = "accepted";
+          this.$store.dispatch("acceptJob", this.jobData);
+        }
+      });
     }
   },
   components: {}

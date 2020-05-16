@@ -2,13 +2,15 @@
   <tbody class="ProvActiveJob">
     <tr>
       <td
+        @click.prevent="goToJobDetails"
         scope="row"
       >{{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</td>
+      <td @click.prevent="goToJobDetails">{{jobData.timeWindow}}</td>
+      <td @click.prevent="goToJobDetails">{{jobData.price}}</td>
+      <td @click.prevent="goToJobDetails">{{jobData.yardSize}}</td>
       <td>
-        <button class="btn btn-success" @click="completedJob()">Job Completed</button>
+        <button class="btn btn-success btn-sm" @click="completedJob()">Job Completed</button>
       </td>
-      <td>{{jobData.price}}</td>
-      <td>{{jobData.yardSize}}</td>
     </tr>
   </tbody>
 </template>
@@ -24,10 +26,28 @@ export default {
   computed: {},
   methods: {
     completedJob() {
-      if (confirm("Are you sure you want to mark this job complete?")) {
-        this.jobData.jobStatus = "completed";
-        this.$store.dispatch("editJobStatus", this.jobData);
-      }
+      this.$swal.fire({
+        title: "Are you sure?",
+        text: "Confirm only when the job is finished!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#85CF4B",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, complete it!"
+      }).then(result => {
+        if (result.value) {
+          this.$swal.fire("Completed!", "Your job has been completed.", "success");
+          this.jobData.jobStatus = "completed";
+          this.$store.dispatch("editJob", this.jobData);
+        }
+      });
+    },
+    goToJobDetails() {
+      this.$store.commit("setActiveJob", this.jobData);
+      this.$router.push({
+        name: "JobDetails",
+        params: { jobId: this.jobData._id }
+      });
     }
   },
   components: {}

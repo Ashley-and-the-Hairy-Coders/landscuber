@@ -22,7 +22,9 @@ export default new Vuex.Store({
     customer: {},
     provider: {},
     customerJobs: [],
+    activeJob: {},
     jobs: [],
+    jobToBeRated: {}
   },
   mutations: {
     setProfile(state, profile) {
@@ -43,12 +45,18 @@ export default new Vuex.Store({
     addJob(state, data) {
       state.jobs.push(data)
     },
-    // This may be going away
     updateJobs(state, data) {
+      console.log("Jobs are updating?")
       let index = state.jobs.findIndex(c => c.id == data.id)
       if (index > -1) {
         state.jobs.splice(index, 1, data)
       }
+    },
+    setActiveJob(state, payload) {
+      state.activeJob = payload
+    },
+    setJobToBeRated(state, job) {
+      state.jobToBeRated = job
     }
 
   },
@@ -132,6 +140,14 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    async getJob({ commit, dispatch }, jobId) {
+      try {
+        let res = await api.get(`jobs/${jobId}`)
+        commit('setActiveJob', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
     async getAllJobs({ commit, dispatch }) {
       try {
         let res = await api.get(`jobs`)
@@ -143,18 +159,34 @@ export default new Vuex.Store({
     async acceptJob({ commit, dispatch }, jobData) {
       try {
         let res = await api.put(`jobs/${jobData._id}?acceptJob=true`, jobData)
+        commit('updateJobs', res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async editJob({ commit, dispatch }, jobData) {
+      try {
+        let res = await api.put(`jobs/${jobData._id}`, jobData)
       } catch (error) {
         console.error(error)
 
       }
     },
-    async editJobStatus({ commit, dispatch }, jobData) {
+    async addRating({ commit, dispatch }, ratingData) {
       try {
-        let res = await api.put(`jobs/${jobData._id}`, jobData)
-        // commit("setAllJobs")
+        console.log("ratingData", ratingData);
+        let res = await api.post(`providers/${ratingData.providerId}/ratings`, ratingData)
       } catch (error) {
         console.error(error)
-
+        alert("This job has already been rated")
+      }
+    },
+    async addMessage({ commit, dispatch }, messageData) {
+      try {
+        let res = await api.post(`jobs/${this.state.activeJob._id}/messages`, messageData)
+        dispatch('getJob', this.state.activeJob._id)
+      } catch (error) {
+        console.error(error)
       }
     }
   },
@@ -177,10 +209,10 @@ export default new Vuex.Store({
       return state.jobs.filter(j => j.jobStatus == "completed" && j.providerId == state.profile.providerProfile.id)
     },
     customerCompletedJobs(state, getters) {
-      return state.customerJobs.filter(c => c.jobStatus == "completed")
+      return state.jobs.filter(c => c.jobStatus == "completed" && c.customerId == state.profile.customerProfile.id)
     },
     customerIncompleteJobs(state, getters) {
-      return state.customerJobs.filter(c => c.jobStatus != "completed")
+      return state.jobs.filter(c => c.jobStatus != "completed" && c.customerId == state.profile.customerProfile.id)
     }
   },
   modules: {

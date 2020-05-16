@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import RatingSchema from "./Rating";
 const Schema = mongoose.Schema;
 let ObjectId = Schema.Types.ObjectId;
 
@@ -36,7 +35,7 @@ const Customer = new Schema(
     primaryPhone: { type: String },
     billingInfo: { type: String, default: "Billing Info will be stored here" },
     addresses: [addressSchema],
-    ratings: [RatingSchema],
+    // ratings: [RatingSchema],
   },
 
   { timestamps: true, toJSON: { virtuals: true } }

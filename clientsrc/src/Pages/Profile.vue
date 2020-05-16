@@ -3,12 +3,12 @@
     <div class="row my-3">
       <div class="col-12 text-center">
         <img class="rounded mb-2" :src="profile.picture" alt />
-        <h5 v-if="profile.customerProfile">{{ this.customerRating }} Star Customer Rating</h5>
-        <h5 v-if="profile.providerProfile">{{ this.providerRating }} Star Provider Rating</h5>
+        <!-- <h5 v-if="profile.customerProfile">{{ this.customerRating }} Star Customer Rating</h5> -->
+        <h5 v-if="profile.providerProfile">{{ providerRating }} Star Provider Rating</h5>
       </div>
     </div>
 
-    <div v-if="profile.customerProfile" class="row mt-3 pb-3 pt-3 bg-grey">
+    <div v-if="profile.customerProfile" class="row mt-3 py-5 bg-grey">
       <div class="col-md-4">
         <h3>Customer Info</h3>
         <h6>First: {{ profile.customerProfile.firstName }}</h6>
@@ -33,20 +33,20 @@
         <p>{{ profile.customerProfile.billingInfo }}</p>
       </div>
 
-      <div class="col-12 d-flex justify-content-center">
+      <div class="col-12 pt-5 d-flex justify-content-center">
         <button
           data-toggle="modal"
-          data-target="#editCustomerModal"
+          data-target="#editCustomer"
           class="btn btn-outline-success"
         >Edit Customer Profile</button>
 
-        <Modal title="Edit Customer Profile" id="editCustomerModal">
+        <Modal title="Edit Customer Profile" id="editCustomer">
           <editCustomer></editCustomer>
         </Modal>
       </div>
     </div>
 
-    <div v-if="profile.providerProfile" class="row mt-4 mb-4 pb-3 pt-3 bg-tan">
+    <div v-if="profile.providerProfile" class="row my-4 py-5 bg-tan">
       <div class="col-md-4">
         <h3>Provider Info</h3>
         <h6>First: {{ profile.providerProfile.firstName }}</h6>
@@ -66,14 +66,14 @@
         <p>{{ profile.providerProfile.paymentInfo }}</p>
       </div>
 
-      <div class="col-12 d-flex justify-content-center">
+      <div class="col-12 pt-5 d-flex justify-content-center">
         <button
           data-toggle="modal"
-          data-target="#editProviderModal"
+          data-target="#editProvider"
           class="btn btn-outline-success"
         >Edit Provider Profile</button>
 
-        <Modal title="Edit Provider Profile" id="editProviderModal">
+        <Modal title="Edit Provider Profile" id="editProvider">
           <editProvider></editProvider>
         </Modal>
       </div>
@@ -83,22 +83,30 @@
 
 <script>
 import Modal from "../components/Modal";
-// import editCustomer from "../components/editCustomer";
-// import editProvider from "../components/editProvider";
+import editCustomer from "../components/editCustomer";
+import editProvider from "../components/editProvider";
 export default {
   name: "Profile",
+  data() {
+    return {};
+  },
   computed: {
     profile() {
       return this.$store.state.profile;
     },
     providerRating() {
-      let arr = this.$store.state.profile.providerProfile.ratings;
-      let sum = arr.reduce(function(a, b) {
-        return a + b;
-      }, 0);
-      return sum;
-      let avgProviderRate = sum / arr.length;
-      return avgProviderRate;
+      let ratings = this.$store.state.profile.providerProfile.ratings;
+      let avgRating = 0;
+      let newArr = [];
+      if (ratings.length <= 0) {
+        return (avgRating = 5);
+      } else {
+        ratings.forEach(r => {
+          newArr.push(r.providerRating);
+        });
+        avgRating = newArr.reduce((a, b) => a + b, 0) / newArr.length;
+        return avgRating.toFixed(1);
+      }
     },
     customerRating() {
       let arr = this.$store.state.profile.customerProfile.ratings;
@@ -118,9 +126,9 @@ export default {
   },
   methods: {},
   components: {
-    Modal
-    // editCustomer,
-    // editProvider
+    Modal,
+    editCustomer,
+    editProvider
   }
 };
 </script>

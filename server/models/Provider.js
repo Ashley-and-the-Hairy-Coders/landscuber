@@ -1,12 +1,20 @@
 import mongoose from "mongoose";
-import RatingSchema from "./Rating"
 const Schema = mongoose.Schema;
+let ObjectId = Schema.Types.ObjectId
+
+let ratingSchema = new Schema(
+  {
+    jobId: { type: String },
+    providerId: { type: ObjectId, ref: "Provider" },
+    providerRating: { type: Number }
+  }
+)
 
 const Provider = new Schema(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    providerEmail: { type: String,  },
+    providerEmail: { type: String, },
     // We need to figure out how we are converting/storing location data below
     // For now this is just a string with a max length of 5 so we can test signups
     location: { type: String, required: true, minlength: 5, maxlength: 5 },
@@ -17,7 +25,7 @@ const Provider = new Schema(
     phone: { type: String, required: true },
     paymentInfo: { type: String, default: "Billing Info will be stored here" },
     availableNow: { type: Boolean, default: false },
-    ratings: [RatingSchema],
+    ratings: [ratingSchema],
     services: [{ type: String }]
 
   },

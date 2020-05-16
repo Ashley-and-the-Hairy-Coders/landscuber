@@ -52,7 +52,6 @@ export class JobsController extends BaseController {
     try {
       let job = await jobsService.createJob(req.body);
       socketService.messageRoom("jobs", "newJob", job);
-      console.log("JobsController:", job)
       return res.send(job);
     } catch (error) {
       next(error);
@@ -74,6 +73,7 @@ export class JobsController extends BaseController {
         req.body.customerImg = customer.picture
       }
       let data = await jobsService.createMessage(req.params.jobId, req.body)
+      socketService.messageRoom("messages", "newMessage", req.params.jobId)
       return res.send(data)
     } catch (error) {
       next(error)
@@ -88,7 +88,7 @@ export class JobsController extends BaseController {
     try {
       // NOTE We need to revisit this and find out how to send the acceptJob query from the front end. Cannot test it via postman because we do not have any userInfo to work with.
       // Will it looks like this? ---> await api.put(`job/jobId?acceptJob`, jobData)
-      if (req.query.acceptJob) {
+      if (req.query.acceptJob && !req.body.providerId) {
         let provider = await providersService.getProviderByEmail(req.userInfo)
         req.body.providerId = provider.id
         req.body.jobStatus = "accepted"
@@ -98,6 +98,7 @@ export class JobsController extends BaseController {
         req.params.id,
         req.body
       );
+      socketService.messageRoom("jobs", "jobUpdated", job);
       return res.send(job);
     } catch (error) {
       next(error);

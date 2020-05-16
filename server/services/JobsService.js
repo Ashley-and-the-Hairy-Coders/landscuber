@@ -64,7 +64,7 @@ class JobsService {
     if (!jobData) {
       throw new BadRequest("Invalid job ID or you did not create this job!");
     }
-    socketService.messageRoom("jobs", "jobUpdated", jobData);
+
     return jobData;
   }
   //!SECTION
