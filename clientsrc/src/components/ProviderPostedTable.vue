@@ -10,7 +10,7 @@
         <p>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
         <p>{{jobData.timeWindow}}</p>
         <p>${{jobData.price}}</p>
-        <p>{{jobData.yardSize}}</p>
+        <p class="text-capitalize">{{jobData.yardSize}}</p>
       </div>
       <button class="btn btn-success btn-sm m-1" @click="acceptJob()">Accept</button>
     </div>

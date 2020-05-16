@@ -9,8 +9,8 @@ const Profile = new Schema(
     name: { type: String, required: true },
     picture: { type: String },
     // NOTE If you wish to add additional public properties for profiles do so here
-    customerProfile: { type: ObjectId, ref: "Customer" },
-    providerProfile: { type: ObjectId, ref: "Provider" }
+    customerProfile: { type: ObjectId, ref: "Customer", default: {} },
+    providerProfile: { type: ObjectId, ref: "Provider", default: {} }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );
