@@ -1,31 +1,33 @@
 <template>
-  <div class="card">
-    <div class="card-header bg-info">
-      <p class="text-white p-0 m-0 display-6">
-        <strong>{{jobData.contactName}}</strong>
-      </p>
-    </div>
-    <div class="card-body">
-      <p>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
-      <p>{{jobData.timeWindow}}</p>
-      <p>${{jobData.price}}</p>
-      <p>{{jobData.yardSize}}</p>
-
-      <div class="progress">
-        <div
-          class="progress-bar progress-bar-striped bg-success text-info font-weight-bold w-100 text-uppercase"
-          role="progressbar"
-          aria-valuenow="25"
-          aria-valuemin="0"
-          aria-valuemax="100"
-        >{{jobData.jobStatus}}</div>
+  <div class="col-md-3 my-2">
+    <div class="card card-dashboard">
+      <div class="card-header bg-info">
+        <p class="text-white p-0 m-0 display-6">
+          <strong>{{jobData.contactName}}</strong>
+        </p>
       </div>
-      <button
-        @click="setJobForRating()"
-        class="btn btn-success btn-sm m-1 mt-3"
-        data-toggle="modal"
-        data-target="#jobRatingModal"
-      >Leave feedback!</button>
+      <div class="card-body">
+        <p>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
+        <p>{{jobData.timeWindow}}</p>
+        <p>${{jobData.price}}</p>
+        <p>{{jobData.yardSize}}</p>
+
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped bg-success text-info font-weight-bold w-100 text-uppercase"
+            role="progressbar"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >{{jobData.jobStatus}}</div>
+        </div>
+        <button
+          @click="setJobForRating()"
+          class="btn btn-success btn-sm m-1 mt-3"
+          data-toggle="modal"
+          data-target="#jobRatingModal"
+        >Leave feedback!</button>
+      </div>
     </div>
   </div>
 </template>

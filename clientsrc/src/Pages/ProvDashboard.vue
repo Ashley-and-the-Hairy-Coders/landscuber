@@ -1,5 +1,61 @@
 <template>
-  <div class="provdashboard bg-warning">
+  <div class="providerDashboard container-fluid bg-secondary">
+    <!-- SECTION Provider dashboard header, greeting and Available Now toggle. -->
+    <div class="row mb-3 py-3">
+      <div class="col-12 text-center text-info">
+        <h2
+          v-if="profile.providerProfile.firstName"
+        >Welcome back, {{profile.providerProfile.firstName}}!</h2>
+      </div>
+    </div>
+    <div class="row py-md-3">
+      <div class="col-10 pr-1">
+        <h4 class="text-right text-info">I AM AVAILABLE</h4>
+      </div>
+      <div class="col-2 m-md-auto pl-0">
+        <label class="switch pl-0">
+          <input type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <!-- !SECTION End header -->
+    <!-- SECTION Begin provider active job display -->
+    <div class="col-12 text-center mt-3">
+      <h3 class="text-info">Active Jobs</h3>
+    </div>
+    <div class="row justify-content-center text-center mx-5 mt-3 p-1">
+      <div class="card-deck">
+        <ProvActiveJob v-for="job in activeJobs" :jobData="job" :key="job._id"></ProvActiveJob>
+      </div>
+    </div>
+    <!-- !SECTION -->
+    <!-- SECTION Begin provider accepted/scheduled jobs display -->
+
+    <div class="col-12 text-center mt-3">
+      <h3 class="text-info">Accepted Jobs</h3>
+    </div>
+    <div class="row justify-content-center text-center mx-5 mt-3 p-1">
+      <div class="card-deck">
+        <ProvSchedJob v-for="job in acceptedJobs" :jobData="job" :key="job._id"></ProvSchedJob>
+      </div>
+    </div>
+
+    <!-- !SECTION -->
+    <!-- SECTION Begin provider posted/available jobs display -->
+
+    <div class="col-12 text-center mt-3">
+      <h3 class="text-info">Posted Jobs</h3>
+    </div>
+    <div class="row justify-content-center text-center mx-5 mt-3 p-1">
+      <div class="card-deck">
+        <ProviderPostedTable v-for="job in postedJobs" :jobData="job" :key="job._id"></ProviderPostedTable>
+      </div>
+    </div>
+
+    <!-- !SECTION -->
+  </div>
+  <!-- <div class="provdashboard bg-warning">
     <div class="container-fluid m-0 text-center">
       <div class="row py-5">
         <div class="col-11">
@@ -28,7 +84,6 @@
       <div class="row">
         <div class="col-10 mx-auto pt-3 text-info">
           <h5>My Scheduled Jobs</h5>
-          <!-- NOTE Insert SCHEDULED jobs table -->
           <UtilTable>
             <ProvSchedJob
               v-for="job in acceptedJobs"
@@ -42,7 +97,7 @@
       <div class="row">
         <div class="col-10 mx-auto pt-3 text-info">
           <h5>Available Jobs</h5>
-          <!--        <button class="btn btn-sm btn-success ml-2" @click="getPostedJobs()">Refresh Job Board</button> -->
+
           <UtilTable>
             <ProviderPostedTable
               v-for="job in postedJobs"
@@ -54,7 +109,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 </template>
 
 
@@ -78,6 +133,9 @@ export default {
     this.$store.dispatch("leaveRoom", "jobs");
   },
   computed: {
+    profile() {
+      return this.$store.state.profile;
+    },
     postedJobs() {
       return this.$store.getters.postedJobs;
     },

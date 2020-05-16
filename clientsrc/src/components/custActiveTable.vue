@@ -1,6 +1,6 @@
 
 <template>
-  <div class="card" @click.prevent="goToJobDetails()">
+  <div class="card card-dashboard">
     <div class="card-header bg-info">
       <p class="text-white p-0 m-0 display-6">
         <strong>{{jobData.contactName}}</strong>
@@ -23,6 +23,7 @@
         >{{jobData.jobStatus}}</div>
       </div>
     </div>
+    <button class="btn btn-danger btn-sm mx-2 my-1" @click="goToJobDetails()">View Job Details</button>
   </div>
 
   <!-- <tbody class="custActiveTable" >
