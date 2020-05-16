@@ -3,7 +3,8 @@
     <div class="row m-0">
       <div class="col-12 text-center text-success">
         <h2
-          v-if="profile.customerProfile.firstName"
+        class="text-capitalize"
+          v-if="this.profile.customerProfile.firstName"
         >Welcome back, {{profile.customerProfile.firstName}}!</h2>
       </div>
     </div>
