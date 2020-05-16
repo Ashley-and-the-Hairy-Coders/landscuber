@@ -178,7 +178,6 @@ export default {
       this.newAddress.yardSize = size;
     },
     async createJob() {
-      console.log("Hi");
       if (!this.newJob.price) {
         let res = await swal.fire({
           title: "A price is required",
