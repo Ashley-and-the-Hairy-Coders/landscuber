@@ -15,7 +15,7 @@
         >Get Directions!</a>
         <p>{{jobData.timeWindow}}</p>
         <p>${{jobData.price}}</p>
-        <p>{{jobData.yardSize}}</p>
+        <p class="text-capitalize">{{jobData.yardSize}}</p>
       </div>
       <button class="btn btn-success btn-sm m-1" @click="completedJob()">Job Completed</button>
       <button class="btn btn-danger btn-sm m-1" @click="goToJobDetails()">View Job Details</button>

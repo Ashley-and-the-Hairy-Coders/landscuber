@@ -125,6 +125,7 @@
 
 
 <script>
+import swal from "sweetalert2";
 export default {
   name: "CreateJob",
   data() {
@@ -176,9 +177,19 @@ export default {
       this.yard = size;
       this.newAddress.yardSize = size;
     },
-    createJob() {
+    async createJob() {
+      console.log("Hi");
       if (!this.newJob.price) {
-        this.newJob.price = window.prompt("A price is required", 50);
+        let res = await swal.fire({
+          title: "A price is required",
+          input: "number",
+          inputValidator: value => {
+            if (!value) {
+              return "Hey, you have to do something! How much dinero?!";
+            }
+          }
+        });
+        this.newJob.price = res.value;
       }
       if (this.save) {
         this.$store.dispatch("saveAddress", this.newAddress);

@@ -11,7 +11,7 @@
         <p>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
         <p>{{jobData.timeWindow}}</p>
         <p>${{jobData.price}}</p>
-        <p>{{jobData.yardSize}}</p>
+        <p class="text-capitalize">{{jobData.yardSize}}</p>
 
         <div class="progress">
           <div
