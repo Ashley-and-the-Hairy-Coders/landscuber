@@ -45,7 +45,7 @@
     </div>
     <form v-if="!scheduled">
       <div class="form-group">
-        <small id="helpId" class="text-muted">Setup Time</small>
+        <small id="helpId" class="text-muted">Schedule a Time</small>
         <input type="date" required v-model="newJob.timeWindow" class="form-control" />
       </div>
     </form>
@@ -92,7 +92,7 @@
           required
           aria-describedby="helpId"
         />
-        <p class="text-muted">Name your price! {{newJob.price}}</p>
+        <p class="text-muted">Name your price! ${{newJob.price}}</p>
         <input
           required
           type="range"
@@ -116,7 +116,7 @@
         @click.prevent="createJob"
         class="btn btn-success btn-small"
         data-dismiss="modal"
-      >Scübe!</button>
+      >Post</button>
     </form>
   </div>
 </template>
@@ -175,9 +175,9 @@ export default {
       this.newAddress.yardSize = size;
     },
     createJob() {
-      // if (!this.newJob.price) {
-      //   this.newJob.price = window.prompt("A price is required", 50);
-      // }
+      if (!this.newJob.price) {
+        this.newJob.price = window.prompt("A price is required", 50);
+      }
       if (this.save) {
         this.$store.dispatch("saveAddress", this.newAddress);
       }
