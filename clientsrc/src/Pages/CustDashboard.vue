@@ -145,7 +145,6 @@ export default {
 <style scoped>
 .card {
   width: 240px;
-  width: 240px;
   height: 20rem;
 }
 .table-row {
