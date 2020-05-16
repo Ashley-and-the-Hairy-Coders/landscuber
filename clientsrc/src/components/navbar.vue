@@ -52,7 +52,7 @@
         <img :src="this.profile.picture" height="50px" class="mx-2 ml-auto rounded rounded-circle" />
         <button
           class="btn text-info btn-link nav-button"
-          @click="login"
+          @click="login(`customer`)"
           v-if="!$auth.isAuthenticated"
         >Login</button>
         <button class="btn btn-link nav-button" @click="logout" v-else>logout</button>
@@ -87,22 +87,34 @@ export default {
     }
   },
   methods: {
-    async login() {
+    async login(regType) {
       await this.$auth.loginWithPopup();
       this.$store.dispatch("setBearer", this.$auth.bearer);
-      console.log("this.$auth.user: ");
-      console.log(this.$auth.user);
       if (this.$auth.user) {
         this.Toast.fire({
           icon: "success",
           title: "Signed in successfully"
         });
       }
+      console.log("this.$auth.user: ");
+      console.log(this.$auth.user);
       this.$store.dispatch("getProfile");
+      setTimeout(this.toggleModal(regType), 2000)
     },
     async logout() {
       this.$store.dispatch("resetBearer");
       await this.$auth.logout({ returnTo: window.location.origin });
+    },
+    toggleModal(registration) {
+      console.log("toggled", registration);
+      console.log(this.profile.providerProfile);
+      if (this.$auth.user && !this.profile.customerProfile.nickname && registration == "customer") {
+        console.log("customer condition met");
+        $("#customerRegModal").modal("toggle");
+      } else if (this.$auth.user && !this.profile.providerProfile.nickname && registration == "provider") {
+        $("#providerRegModal").modal("toggle");
+        console.log("provider condition met");
+      }
     }
   }
 };
