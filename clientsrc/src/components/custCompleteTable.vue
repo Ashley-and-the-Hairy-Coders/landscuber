@@ -1,6 +1,6 @@
 <template>
-  <div class="col-md-3 my-2">
-    <div class="card card-dashboard">
+  <div class="col-md-3 m-2">
+    <div class="card">
       <div class="card-header bg-info">
         <p class="text-white p-0 m-0 display-6">
           <strong>{{jobData.contactName}}</strong>
@@ -21,13 +21,13 @@
             aria-valuemax="100"
           >{{jobData.jobStatus}}</div>
         </div>
-        <button
-          @click="setJobForRating()"
-          class="btn btn-success btn-sm m-1 mt-3"
-          data-toggle="modal"
-          data-target="#jobRatingModal"
-        >Leave feedback!</button>
       </div>
+      <button
+        @click="setJobForRating()"
+        class="btn btn-success btn-sm m-1 mt-3"
+        data-toggle="modal"
+        data-target="#jobRatingModal"
+      >Leave feedback!</button>
     </div>
   </div>
 </template>

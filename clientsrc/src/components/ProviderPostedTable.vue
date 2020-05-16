@@ -76,4 +76,7 @@ export default {
 
 
 <style scoped>
+.card {
+  height: 18em;
+}
 </style>

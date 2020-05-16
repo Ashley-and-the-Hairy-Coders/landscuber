@@ -1,20 +1,21 @@
 <template>
-  <div class="card card-dashboard">
-    <div class="card-header bg-info">
-      <p class="text-white p-0 m-0 display-6">
-        <strong>{{jobData.contactName}}</strong>
-      </p>
+  <div class="col-md-3 my-2">
+    <div class="card">
+      <div class="card-header bg-info">
+        <p class="text-white p-0 m-0 display-6">
+          <strong>{{jobData.contactName}}</strong>
+        </p>
+      </div>
+      <div class="card-body">
+        <p>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
+        <p>{{jobData.timeWindow}}</p>
+        <p>${{jobData.price}}</p>
+        <p>{{jobData.yardSize}}</p>
+      </div>
+      <button class="btn btn-success btn-sm mx-2 my-1" @click="startJob()">Start Job</button>
+      <button class="btn btn-danger btn-sm mx-2 my-1" @click="goToJobDetails()">View Job Details</button>
     </div>
-    <div class="card-body">
-      <p>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
-      <p>{{jobData.timeWindow}}</p>
-      <p>${{jobData.price}}</p>
-      <p>{{jobData.yardSize}}</p>
-    </div>
-    <button class="btn btn-success btn-sm mx-2 my-1" @click="startJob()">Start Job</button>
-    <button class="btn btn-danger btn-sm mx-2 my-1" @click="goToJobDetails()">View Job Details</button>
   </div>
-
   <!-- <tbody class="ProviderScheduledJobs">
     <tr>
         <td @click.prevent="goToJobDetails"
