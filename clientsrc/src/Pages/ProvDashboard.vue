@@ -8,12 +8,12 @@
         >Welcome back, {{profile.providerProfile.firstName}}!</h2>
       </div>
     </div>
-    <div class="row py-3">
-      <div class="col-11">
+    <div class="row justify-content-center py-md-3">
+      <div class="col pr-1">
         <h4 class="text-right text-info">I AM AVAILABLE</h4>
       </div>
-      <div class="m-auto">
-        <label class="switch">
+      <div class="col m-md-auto pl-0">
+        <label class="switch pl-0">
           <input type="checkbox" />
           <span class="slider round"></span>
         </label>
