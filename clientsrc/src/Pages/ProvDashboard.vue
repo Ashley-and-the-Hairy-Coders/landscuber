@@ -9,10 +9,10 @@
       </div>
     </div>
     <div class="row py-md-3">
-      <div class="col-10 pr-1">
+      <div class="col-9 pr-1">
         <h4 class="text-right text-info">I AM AVAILABLE</h4>
       </div>
-      <div class="col-2 m-md-auto pl-0">
+      <div class="col-2 pl-0 mr-1">
         <label class="switch pl-0">
           <input type="checkbox" />
           <span class="slider round"></span>
@@ -24,10 +24,8 @@
     <div class="col-12 text-center mt-3">
       <h3 class="text-info">Active Jobs</h3>
     </div>
-    <div class="row justify-content-center text-center mx-5 mt-3 p-1">
-      <div class="card-deck">
-        <ProvActiveJob v-for="job in activeJobs" :jobData="job" :key="job._id"></ProvActiveJob>
-      </div>
+    <div class="row justify-content-center text-center mx-3 mt-3 p-1">
+      <ProvActiveJob v-for="job in activeJobs" :jobData="job" :key="job._id"></ProvActiveJob>
     </div>
     <!-- !SECTION -->
     <!-- SECTION Begin provider accepted/scheduled jobs display -->
@@ -35,10 +33,8 @@
     <div class="col-12 text-center mt-3">
       <h3 class="text-info">Accepted Jobs</h3>
     </div>
-    <div class="row justify-content-center text-center mx-5 mt-3 p-1">
-      <div class="card-deck">
-        <ProvSchedJob v-for="job in acceptedJobs" :jobData="job" :key="job._id"></ProvSchedJob>
-      </div>
+    <div class="row justify-content-center text-center mx-3 mt-3 p-1">
+      <ProvSchedJob v-for="job in acceptedJobs" :jobData="job" :key="job._id"></ProvSchedJob>
     </div>
 
     <!-- !SECTION -->
@@ -47,10 +43,8 @@
     <div class="col-12 text-center mt-3">
       <h3 class="text-info">Posted Jobs</h3>
     </div>
-    <div class="row justify-content-center text-center mx-5 mt-3 p-1">
-      <div class="card-deck">
-        <ProviderPostedTable v-for="job in postedJobs" :jobData="job" :key="job._id"></ProviderPostedTable>
-      </div>
+    <div class="row justify-content-center text-center mx-3 mt-3 p-1">
+      <ProviderPostedTable v-for="job in postedJobs" :jobData="job" :key="job._id"></ProviderPostedTable>
     </div>
 
     <!-- !SECTION -->

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="bg-secondary">
     <navbar />
     <router-view />
   </div>
@@ -25,11 +25,10 @@ export default {
 </script>
 
 <style lang="scss">
+#app {
+  height: 125vh;
+}
 @import "./assets/_variables.scss";
 @import "bootstrap";
 @import "./assets/_overrides.scss";
-.card-dashboard {
-  width: 240px;
-  height: 20rem;
-}
 </style>

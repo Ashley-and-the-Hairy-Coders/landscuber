@@ -25,20 +25,16 @@
     <div class="col-12 text-center mt-3">
       <h3 class="text-info">Active Jobs</h3>
     </div>
-    <div class="row justify-content-center text-center mx-5 mt-3 p-1">
-      <div class="card-deck">
-        <custActiveTable v-for="Job in incompleteJobs" :jobData="Job" :key="Job._id"></custActiveTable>
-      </div>
+    <div class="row justify-content-center text-center mx-3 mt-3 p-1">
+      <custActiveTable v-for="Job in incompleteJobs" :jobData="Job" :key="Job._id"></custActiveTable>
     </div>
     <!-- !SECTION End active jobs -->
     <!-- SECTION Begin job history -->
     <div class="col-12 text-center mt-3">
       <h3 class="text-info">Job History</h3>
     </div>
-    <div class="row justify-content-center text-center mx-5 mt-3 p-1">
-      <div class="card-deck">
-        <custCompleteTable v-for="Job in completeJobs" :jobData="Job" :key="Job._id"></custCompleteTable>
-      </div>
+    <div class="row justify-content-center text-center mx-3 mt-3 p-1">
+      <custCompleteTable v-for="Job in completeJobs" :jobData="Job" :key="Job._id"></custCompleteTable>
     </div>
     <modal title="Leave Feedback!" id="jobRatingModal">
       <JobRating></JobRating>
@@ -143,14 +139,4 @@ export default {
 
 
 <style scoped>
-.card {
-  width: 240px;
-  height: 20rem;
-}
-.table-row {
-  background-color: #e0dfd5;
-}
-.table-row:not(:last-of-type) {
-  border-bottom: 1px solid #6c7579;
-}
 </style>

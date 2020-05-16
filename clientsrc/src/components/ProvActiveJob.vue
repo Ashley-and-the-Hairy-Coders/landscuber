@@ -1,20 +1,26 @@
 <template>
-  <div class="card card-dashboard">
-    <div class="card-header bg-info">
-      <p class="text-white p-0 m-0 display-6">
-        <strong>{{jobData.contactName}}</strong>
-      </p>
+  <div class="col-md-3 my-2">
+    <div class="card">
+      <div class="card-header bg-info">
+        <p class="text-white p-0 m-0 display-6">
+          <strong>{{jobData.contactName}}</strong>
+        </p>
+      </div>
+      <div class="card-body">
+        <p>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
+        <a
+          :href="`http://google.com/maps/dir/${coords.latitude},${coords.longitude}/${jobData.streetAddress}+${jobData.city}+${jobData.state}+${jobData.zipCode}`"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Get Directions!</a>
+        <p>{{jobData.timeWindow}}</p>
+        <p>${{jobData.price}}</p>
+        <p>{{jobData.yardSize}}</p>
+      </div>
+      <button class="btn btn-success btn-sm m-1" @click="completedJob()">Job Completed</button>
+      <button class="btn btn-danger btn-sm m-1" @click="goToJobDetails()">View Job Details</button>
     </div>
-    <div class="card-body">
-      <p>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
-      <p>{{jobData.timeWindow}}</p>
-      <p>${{jobData.price}}</p>
-      <p>{{jobData.yardSize}}</p>
-    </div>
-    <button class="btn btn-success btn-sm m-1" @click="completedJob()">Job Completed</button>
-    <button class="btn btn-danger btn-sm m-1" @click="goToJobDetails()">View Job Details</button>
   </div>
-
   <!-- <tbody class="ProvActiveJob">
     <tr>
       <td
@@ -37,10 +43,20 @@ export default {
   name: "ProvActiveJob",
   props: ["jobData"],
   data() {
-    return {};
+    return {
+      coords: {}
+    };
   },
   computed: {},
+  mounted() {
+    this.getCurrentLocation();
+  },
   methods: {
+    getCurrentLocation() {
+      navigator.geolocation.getCurrentPosition(a => {
+        this.coords = a.coords;
+      });
+    },
     completedJob() {
       this.$swal
         .fire({
