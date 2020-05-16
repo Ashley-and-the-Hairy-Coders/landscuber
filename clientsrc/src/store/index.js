@@ -188,6 +188,22 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
+    },
+    async editCustomer({commit,dispatch}, customerData) {
+      try {
+        let res = await api.put(`customers/${customerData.id}`, customerData);
+        commit('setCustomer', res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async editProvider({ commit, dispatch }, providerData) {
+      try {
+        let res = await api.put(`providers/${providerData.id}`, providerData);
+        commit('setProvider', res.data);
+      } catch (error) {
+        console.error(error);
+      }
     }
   },
   //!SECTION
