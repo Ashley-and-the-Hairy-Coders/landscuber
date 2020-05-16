@@ -1,17 +1,56 @@
 <template>
-  <div class="custDashboard container-fluid bg-secondary">
-    <div class="row m-0">
-      <div class="col-12 text-center text-success">
+  <!-- SECTION Customer Dashboard Header (Welcome user, display "Book now" button) -->
+  <div class="customerDashboard container-fluid bg-secondary">
+    <div class="row my-3">
+      <div class="col-12 text-center text-info">
         <h2
-        class="text-capitalize"
-          v-if="this.profile.customerProfile.firstName"
+          v-if="profile.customerProfile.firstName"
         >Welcome back, {{profile.customerProfile.firstName}}!</h2>
       </div>
     </div>
     <div class="row text-center">
-      <div class="col-12 col-md-6">
-        <!-- <h1>There are {{NumOfProvidersAvail}} active in your area!</h1> -->
+      <div class="col-10 mx-auto col-md-3">
+        <button
+          data-toggle="modal"
+          data-target="#createJobModal"
+          class="btn btn-success btn-block"
+        >Request Lawn Service</button>
+        <Modal title="Request Lawn Service" id="createJobModal">
+          <CreateJob></CreateJob>
+        </Modal>
       </div>
+    </div>
+    <!-- !SECTION End header -->
+    <!-- SECTION Table displaying active jobs for customer -->
+    <div class="col-12 text-center mt-3">
+      <h3 class="text-info">Active Jobs</h3>
+    </div>
+    <div class="row justify-content-center text-center mx-5 mt-3 p-1">
+      <div class="card-deck">
+        <custActiveTable v-for="Job in incompleteJobs" :jobData="Job" :key="Job._id"></custActiveTable>
+      </div>
+    </div>
+    <!-- !SECTION End active jobs -->
+    <!-- SECTION Begin job history -->
+    <div class="col-12 text-center mt-3">
+      <h3 class="text-info">Job History</h3>
+    </div>
+    <div class="row justify-content-center text-center mx-5 mt-3 p-1">
+      <div class="card-deck">
+        <custCompleteTable v-for="Job in completeJobs" :jobData="Job" :key="Job._id"></custCompleteTable>
+      </div>
+    </div>
+    <!-- !SECTION End job history -->
+  </div>
+  <!-- <div class="custDashboard container-fluid">
+    <div class="row my-3">
+      <div class="col-12 text-center text-success">
+        <h2
+          v-if="profile.customerProfile.firstName"
+        >Welcome back, {{profile.customerProfile.firstName}}!</h2>
+      </div>
+    </div>
+    <div class="row text-center">
       <div class="col-12 col-md-6">
         <button
           data-toggle="modal"
@@ -53,7 +92,7 @@
         <JobRating></JobRating>
       </modal>
     </div>
-  </div>
+  </div>-->
 </template>
 
 
