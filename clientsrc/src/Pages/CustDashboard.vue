@@ -139,10 +139,4 @@ export default {
 
 
 <style scoped>
-.table-row {
-  background-color: #e0dfd5;
-}
-.table-row:not(:last-of-type) {
-  border-bottom: 1px solid #6c7579;
-}
 </style>

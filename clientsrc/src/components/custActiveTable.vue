@@ -33,6 +33,9 @@
       >Edit Job</button>
       <button class="btn btn-danger btn-sm mx-1 my-1" @click="goToJobDetails()">View Job Details</button>
     </div>
+    <Modal title="Edit Job" id="editJobModal" class="text-center">
+      <EditJob :job="jobData"></EditJob>
+    </Modal>
   </div>
 
   <!-- <tbody class="custActiveTable" >
@@ -62,9 +65,7 @@
         </div>
       </td>
     </tr>
-    <Modal title="Edit Job" id="editJobModal" class="text-center">
-      <EditJob :job="jobData"></EditJob>
-    </Modal>
+
   </tbody>-->
 </template>
 

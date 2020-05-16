@@ -6,7 +6,7 @@
           <h5 class="modal-title">{{title}}</h5>
           <button
             type="button"
-            class="close text-danger"
+            class="close"
             id="close-btn"
             data-dismiss="modal"
             aria-label="Close"
@@ -40,5 +40,8 @@ export default {
 <style scoped>
 .modal-color {
   background-color: azure;
+}
+.close {
+  color: red;
 }
 </style>

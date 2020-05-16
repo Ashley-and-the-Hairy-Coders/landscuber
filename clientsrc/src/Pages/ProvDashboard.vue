@@ -9,10 +9,10 @@
       </div>
     </div>
     <div class="row py-md-3">
-      <div class="col-10 pr-1">
+      <div class="col-9 pr-1">
         <h4 class="text-right text-info">I AM AVAILABLE</h4>
       </div>
-      <div class="col-2 m-md-auto pl-0">
+      <div class="col-2 pl-0 mr-1">
         <label class="switch pl-0">
           <input type="checkbox" />
           <span class="slider round"></span>

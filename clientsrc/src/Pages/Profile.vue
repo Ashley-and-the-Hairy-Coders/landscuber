@@ -1,5 +1,5 @@
 <template>
-  <div class="about container-fluid">
+  <div class="about container-fluid bg-secondary">
     <div class="row my-3">
       <div class="col-12 text-center">
         <img class="rounded mb-2" :src="profile.picture" alt />
@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <div v-if="profile.customerProfile" class="row justify-content-lg-around mt-3 py-5 bg-grey">
+    <div v-if="profile.customerProfile" class="row justify-content-lg-around mt-3 py-5 mx-2">
       <div class="col-md-4">
         <h3>Customer Info</h3>
         <h6>First: {{ profile.customerProfile.firstName }}</h6>
@@ -36,7 +36,7 @@
         <button
           data-toggle="modal"
           data-target="#editCustomer"
-          class="btn btn-outline-success"
+          class="btn btn-outline-info"
         >Edit Customer Profile</button>
 
         <Modal title="Edit Customer Profile" id="editCustomer">
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-    <div v-if="profile.providerProfile" class="row bg-tan my-4 py-5">
+    <div v-if="profile.providerProfile" class="row bg-tan mt-4 py-5 mx-2">
       <div class="col-md-4">
         <h3>Provider Info</h3>
         <h6>First: {{ profile.providerProfile.firstName }}</h6>
@@ -73,7 +73,7 @@
         <button
           data-toggle="modal"
           data-target="#editProvider"
-          class="btn btn-outline-success"
+          class="btn btn-outline-info"
         >Edit Provider Profile</button>
 
         <Modal title="Edit Provider Profile" id="editProvider">
@@ -140,13 +140,8 @@ export default {
 img {
   max-width: 100px;
 }
-.bg-grey {
-  background-color: #e8e9eb;
-}
+
 .bg-tan {
   background-color: #e6e5db;
-}
-div.row {
-  border: 2rem solid white;
 }
 </style>

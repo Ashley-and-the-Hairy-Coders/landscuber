@@ -8,6 +8,11 @@
       </div>
       <div class="card-body">
         <p>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
+        <a
+          :href="`http://google.com/maps/dir/${coords.latitude},${coords.longitude}/${jobData.streetAddress}+${jobData.city}+${jobData.state}+${jobData.zipCode}`"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Get Directions!</a>
         <p>{{jobData.timeWindow}}</p>
         <p>${{jobData.price}}</p>
         <p>{{jobData.yardSize}}</p>
@@ -38,10 +43,20 @@ export default {
   name: "ProvActiveJob",
   props: ["jobData"],
   data() {
-    return {};
+    return {
+      coords: {}
+    };
   },
   computed: {},
+  mounted() {
+    this.getCurrentLocation();
+  },
   methods: {
+    getCurrentLocation() {
+      navigator.geolocation.getCurrentPosition(a => {
+        this.coords = a.coords;
+      });
+    },
     completedJob() {
       this.$swal
         .fire({
