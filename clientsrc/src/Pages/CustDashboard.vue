@@ -1,6 +1,6 @@
 <template>
-  <div class="custDashboard container-fluid">
-    <div class="row my-3">
+  <div class="custDashboard container-fluid bg-secondary">
+    <div class="row m-0">
       <div class="col-12 text-center text-success">
         <h2
           v-if="profile.customerProfile.firstName"
@@ -25,16 +25,27 @@
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-10">
+      <div class="col-12 col-md-10">
+        <h5 class="text-center mt-5 text-info">Current Jobs</h5>
         <UtilTable>
-          <custActiveTable v-for="Job in incompleteJobs" :jobData="Job" :key="Job._id"></custActiveTable>
+          <custActiveTable
+            v-for="Job in incompleteJobs"
+            :jobData="Job"
+            :key="Job._id"
+            class="table-row"
+          ></custActiveTable>
         </UtilTable>
       </div>
 
-      <div class="col-10">
-        <h3 class="text-center mt-5 text-info">Job History</h3>
+      <div class="col-12 col-md-10">
+        <h5 class="text-center mt-5 text-info">Job History</h5>
         <UtilTable>
-          <custCompleteTable v-for="Job in completeJobs" :jobData="Job" :key="Job._id"></custCompleteTable>
+          <custCompleteTable
+            v-for="Job in completeJobs"
+            :jobData="Job"
+            :key="Job._id"
+            class="table-row"
+          ></custCompleteTable>
         </UtilTable>
       </div>
       <modal title="Leave Feedback!" id="jobRatingModal">
@@ -89,4 +100,10 @@ export default {
 
 
 <style scoped>
+.table-row {
+  background-color: #e0dfd5;
+}
+.table-row:not(:last-of-type) {
+  border-bottom: 1px solid #6c7579;
+}
 </style>
