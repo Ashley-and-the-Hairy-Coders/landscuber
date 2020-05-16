@@ -35,22 +35,22 @@
       <div class="row justify-content-center pt-5 bg-message">
         <div class="col-md-6">
           <h4 class="text-center">Message Center:</h4>
-          <Message v-for="message in messages" :messageData='message' :key="message.id"></Message>
+          <Message v-for="message in messages" :messageData="message" :key="message.id"></Message>
           <form action="submit" @submit.prevent="addMessage()">
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control form-control-sm"
-              placeholder="Add comment..."
-              v-model="newMessage.body"
-            />
-            <div class="input-group-append">
-              <button class="btn btn-sm btn-success" type="submit">
-                <i class="fas fa-plus text-white"></i>
-              </button>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="Add comment..."
+                v-model="newMessage.body"
+              />
+              <div class="input-group-append">
+                <button class="btn btn-sm btn-success" type="submit">
+                  <i class="fas fa-plus text-white"></i>
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
         </div>
       </div>
     </div>
@@ -59,17 +59,16 @@
 
 
 <script>
-import Message from "../components/Message"
+import Message from "../components/Message";
 export default {
   name: "JobDetails",
   data() {
     return {
-      newMessage: {
-      }
+      newMessage: {}
     };
   },
   mounted() {
-    this.$store.dispatch('getJob', this.$route.params.jobId)
+    this.$store.dispatch("getJob", this.$route.params.jobId);
     this.$store.dispatch("joinRoom", "messages");
   },
   beforeDestroy() {
@@ -77,10 +76,18 @@ export default {
   },
   computed: {
     customerProfile() {
-      return this.$store.state.profile.customerProfile;
+      if (!this.$store.state.profile.customerProfile) {
+        return { id: "123" };
+      } else {
+        return this.$store.state.profile.customerProfile;
+      }
     },
     providerProfile() {
-      return this.$store.state.profile.providerProfile;
+      if (!this.$store.state.profile.providerProfile) {
+        return { id: "123" };
+      } else {
+        return this.$store.state.profile.providerProfile;
+      }
     },
     job() {
       return this.$store.state.activeJob;
@@ -92,17 +99,17 @@ export default {
   methods: {
     addMessage() {
       if (this.job.customerId == this.customerProfile.id) {
-        this.newMessage.customerId = this.customerProfile.id
-        this.newMessage.customerImg = this.customerProfile.picture
-        this.$store.dispatch('addMessage', this.newMessage)
-        console.log(this.newMessage)
+        this.newMessage.customerId = this.customerProfile.id;
+        this.newMessage.customerImg = this.customerProfile.picture;
+        this.$store.dispatch("addMessage", this.newMessage);
+        console.log(this.newMessage);
       } else if (this.job.providerId == this.providerProfile.id) {
-        this.newMessage.providerId = this.providerProfile.id
-        this.newMessage.providerImg = this.providerProfile.picture
-        this.$store.dispatch('addMessage', this.newMessage)
-        console.log(this.newMessage)
+        this.newMessage.providerId = this.providerProfile.id;
+        this.newMessage.providerImg = this.providerProfile.picture;
+        this.$store.dispatch("addMessage", this.newMessage);
+        console.log(this.newMessage);
       }
-      this.newMessage = {}
+      this.newMessage = {};
     }
   },
   components: {
