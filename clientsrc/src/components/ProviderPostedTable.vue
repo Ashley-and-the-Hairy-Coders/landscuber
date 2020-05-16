@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-3 my-2">
-    <div class="card">
+    <div class="card card-dashboard">
       <div class="card-header bg-info">
         <p class="text-white p-0 m-0 display-6">
           <strong>{{jobData.contactName}}</strong>

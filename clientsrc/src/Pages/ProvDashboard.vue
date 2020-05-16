@@ -1,18 +1,18 @@
 <template>
   <div class="providerDashboard container-fluid bg-secondary">
     <!-- SECTION Provider dashboard header, greeting and Available Now toggle. -->
-    <div class="row my-3 py-3">
+    <div class="row mb-3 py-3">
       <div class="col-12 text-center text-info">
         <h2
           v-if="profile.providerProfile.firstName"
         >Welcome back, {{profile.providerProfile.firstName}}!</h2>
       </div>
     </div>
-    <div class="row justify-content-center py-md-3">
-      <div class="col pr-1">
+    <div class="row py-md-3">
+      <div class="col-10 pr-1">
         <h4 class="text-right text-info">I AM AVAILABLE</h4>
       </div>
-      <div class="col m-md-auto pl-0">
+      <div class="col-2 m-md-auto pl-0">
         <label class="switch pl-0">
           <input type="checkbox" />
           <span class="slider round"></span>
@@ -48,10 +48,8 @@
       <h3 class="text-info">Posted Jobs</h3>
     </div>
     <div class="row justify-content-center text-center mx-5 mt-3 p-1">
-      <div class="col-12">
-        <div class="card-deck">
-          <ProviderPostedTable v-for="job in postedJobs" :jobData="job" :key="job._id"></ProviderPostedTable>
-        </div>
+      <div class="card-deck">
+        <ProviderPostedTable v-for="job in postedJobs" :jobData="job" :key="job._id"></ProviderPostedTable>
       </div>
     </div>
 

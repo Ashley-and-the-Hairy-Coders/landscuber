@@ -28,4 +28,9 @@ export default {
 @import "./assets/_variables.scss";
 @import "bootstrap";
 @import "./assets/_overrides.scss";
+.card-dashboard {
+  width: 240px;
+  width: 240px;
+  height: 20rem;
+}
 </style>

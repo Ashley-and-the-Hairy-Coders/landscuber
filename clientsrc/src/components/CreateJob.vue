@@ -40,16 +40,13 @@
     </div>
     <p>{{yard}}</p>
     <div class="custom-control m-1 custom-checkbox">
-        <input type="checkbox" @click="scheduleToday" class="custom-control-input" id="customCheck2" />
-        <label class="custom-control-label" for="customCheck2">Schedule for Today</label>
-      </div>
+      <input type="checkbox" @click="scheduleToday" class="custom-control-input" id="customCheck2" />
+      <label class="custom-control-label" for="customCheck2">Schedule for Today</label>
+    </div>
     <form v-if="!scheduled">
       <div class="form-group">
         <small id="helpId" class="text-muted">Setup Time</small>
-        <input type="date"
-          required
-          v-model="newJob.timeWindow"
-          class="form-control"/>
+        <input type="date" required v-model="newJob.timeWindow" class="form-control" />
       </div>
     </form>
     <form>
@@ -156,18 +153,18 @@ export default {
   methods: {
     scheduleToday() {
       if (this.scheduled == false) {
-        this.scheduled = true
+        this.scheduled = true;
       } else if (this.scheduled == true) {
-        this.scheduled = false
+        this.scheduled = false;
       }
       let dateObj = new Date();
       let month = dateObj.getMonth() + 1;
       if (month < 10) {
-        month = "0" + month.toString()
+        month = "0" + month.toString();
       }
       let day = dateObj.getDate();
       if (day < 10) {
-        day = "0" + day.toString()
+        day = "0" + day.toString();
       }
       let year = dateObj.getFullYear();
       let newDate = year + "-" + month + "-" + day;
@@ -178,6 +175,9 @@ export default {
       this.newAddress.yardSize = size;
     },
     createJob() {
+      // if (!this.newJob.price) {
+      //   this.newJob.price = window.prompt("A price is required", 50);
+      // }
       if (this.save) {
         this.$store.dispatch("saveAddress", this.newAddress);
       }

@@ -1,7 +1,7 @@
 <template>
   <!-- SECTION Customer Dashboard Header (Welcome user, display "Book now" button) -->
   <div class="customerDashboard container-fluid bg-secondary">
-    <div class="row my-3">
+    <div class="row mb-3">
       <div class="col-12 text-center text-info">
         <h2
           v-if="profile.customerProfile.firstName"
@@ -40,6 +40,9 @@
         <custCompleteTable v-for="Job in completeJobs" :jobData="Job" :key="Job._id"></custCompleteTable>
       </div>
     </div>
+    <modal title="Leave Feedback!" id="jobRatingModal">
+      <JobRating></JobRating>
+    </modal>
     <!-- !SECTION End job history -->
   </div>
   <!-- <div class="custDashboard container-fluid">
@@ -140,6 +143,11 @@ export default {
 
 
 <style scoped>
+.card {
+  width: 240px;
+  width: 240px;
+  height: 20rem;
+}
 .table-row {
   background-color: #e0dfd5;
 }

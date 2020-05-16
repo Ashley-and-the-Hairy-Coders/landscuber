@@ -26,7 +26,7 @@ const Job = new Schema(
       required: true,
       enum: ["small", "medium", "large", "x-large"],
     },
-    price: { type: Number, required: true },
+    price: { type: Number, required: true, min: 15, max: 200 },
     timeWindow: { type: String, required: true },
     confirmedTime: { type: String },
     jobNote: { type: String },
