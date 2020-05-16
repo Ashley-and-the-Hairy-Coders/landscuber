@@ -8,14 +8,13 @@
       </div>
     </div>
 
-    <div v-if="profile.customerProfile" class="row mt-3 py-5 bg-grey">
+    <div v-if="profile.customerProfile" class="row justify-content-lg-around mt-3 py-5 bg-grey">
       <div class="col-md-4">
         <h3>Customer Info</h3>
         <h6>First: {{ profile.customerProfile.firstName }}</h6>
         <h6>Last: {{ profile.customerProfile.lastName }}</h6>
         <p class="mb-0">Email: {{ profile.email }}</p>
         <p class="mb-0">Cell Phone: {{ profile.customerProfile.cellPhone }}</p>
-        <p class="mb-0">Primary Phone: {{ profile.customerProfile.primaryPhone }}</p>
       </div>
 
       <div class="col-md-4">
@@ -41,12 +40,12 @@
         >Edit Customer Profile</button>
 
         <Modal title="Edit Customer Profile" id="editCustomer">
-          <editCustomer></editCustomer>
+          <editCustomer :customer="this.profile.customerProfile"></editCustomer>
         </Modal>
       </div>
     </div>
 
-    <div v-if="profile.providerProfile" class="row my-4 py-5 bg-tan">
+    <div v-if="profile.providerProfile" class="row bg-tan my-4 py-5">
       <div class="col-md-4">
         <h3>Provider Info</h3>
         <h6>First: {{ profile.providerProfile.firstName }}</h6>
@@ -58,7 +57,11 @@
       <div class="col-md-4">
         <h3>Provider Service(s)</h3>
         <h6>By selecting options below, you are confirming you are able to provide the transportation, equipment, and labor necessary to complete these tasks.</h6>
-        <p>{{ profile.providerProfile.services }}</p>
+        <ul>
+          <li>Mowing</li>
+          <li>Trimming</li>
+          <li>Edging</li>
+        </ul>
       </div>
 
       <div class="col-md-4">
@@ -74,7 +77,7 @@
         >Edit Provider Profile</button>
 
         <Modal title="Edit Provider Profile" id="editProvider">
-          <editProvider></editProvider>
+          <editProvider :provider="this.profile.providerProfile"></editProvider>
         </Modal>
       </div>
     </div>
@@ -142,5 +145,8 @@ img {
 }
 .bg-tan {
   background-color: #e6e5db;
+}
+div.row {
+  border: 2rem solid white;
 }
 </style>
