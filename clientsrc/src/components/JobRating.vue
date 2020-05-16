@@ -27,24 +27,23 @@
 export default {
   name: "JobRating",
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
-    completeJobs() {
-      return this.$store.state.rating;
+    jobToBeRated() {
+      return this.$store.state.jobToBeRated;
     }
   },
   methods: {
     ProviderRating() {
-    console.log(this.completeJobs.providerId);
-    console.log(event.target.value);
-    this.$store.dispatch("addRating",{
-      providerId: this.completeJobs.providerId,
-      providerRating: event.target.value
-    })
-
-    
+      console.log(this.jobToBeRated);
+      let rating = parseInt(event.target.value);
+      console.log(rating);
+      this.$store.dispatch("addRating", {
+        jobId: this.jobToBeRated._id,
+        providerId: this.jobToBeRated.providerId,
+        providerRating: event.target.value
+      });
     }
   },
   components: {}

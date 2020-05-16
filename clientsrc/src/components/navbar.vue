@@ -66,6 +66,21 @@ import axios from "axios";
 import { getUserData } from "@bcwdev/auth0-vue";
 export default {
   name: "Navbar",
+  data() {
+    return {
+      Toast: this.$swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        onOpen: toast => {
+          toast.addEventListener("mouseenter", this.$swal.stopTimer);
+          toast.addEventListener("mouseleave", this.$swal.resumeTimer);
+        }
+      })
+    };
+  },
   computed: {
     profile() {
       return this.$store.state.profile;
@@ -77,6 +92,12 @@ export default {
       this.$store.dispatch("setBearer", this.$auth.bearer);
       console.log("this.$auth.user: ");
       console.log(this.$auth.user);
+      if (this.$auth.user) {
+        this.Toast.fire({
+          icon: "success",
+          title: "Signed in successfully"
+        });
+      }
       this.$store.dispatch("getProfile");
     },
     async logout() {

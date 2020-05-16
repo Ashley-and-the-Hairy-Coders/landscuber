@@ -34,7 +34,7 @@ export default {
       console.log("you clicked the button");
     },
     setJobForRating() {
-      this.$store.commit("setRating", this.jobData);
+      this.$store.commit("setJobToBeRated", this.jobData);
     }
   },
   components: {}

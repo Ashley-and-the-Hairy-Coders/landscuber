@@ -46,7 +46,7 @@ export class ProvidersController extends BaseController {
   }
   async createRating(req, res, next) {
     try {
-      let data = await providersService.createRating(req.params.id, req.body.providerRating)
+      let data = await providersService.createRating(req.params.id, req.body)
       return res.send(data)
     } catch (error) {
       next(error)
