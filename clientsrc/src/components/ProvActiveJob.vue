@@ -6,16 +6,16 @@
           <strong>{{jobData.contactName}}</strong>
         </p>
       </div>
-      <div class="card-body">
-        <p>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
+      <div class="card-body text-capitalize text-danger text-left">
+        <p><strong>Addr: </strong>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
         <a
           :href="`http://google.com/maps/dir/${coords.latitude},${coords.longitude}/${jobData.streetAddress}+${jobData.city}+${jobData.state}+${jobData.zipCode}`"
           target="_blank"
           rel="noopener noreferrer"
         >Get Directions!</a>
-        <p>{{jobData.timeWindow}}</p>
-        <p>${{jobData.price}}</p>
-        <p class="text-capitalize">{{jobData.yardSize}}</p>
+        <p><strong>Service Date: </strong>{{jobData.timeWindow}}</p>
+        <p><strong>Price: </strong>${{jobData.price}}</p>
+        <p class="text-capitalize"><strong>Yard Size: </strong>{{jobData.yardSize}}</p>
       </div>
       <button class="btn btn-success btn-sm m-1" @click="completedJob()">Job Completed</button>
       <button class="btn btn-danger btn-sm m-1" @click="goToJobDetails()">View Job Details</button>
@@ -94,4 +94,10 @@ export default {
 
 
 <style scoped>
+p{
+  margin: 0;
+}
+a{
+  color: blue;
+}
 </style>
