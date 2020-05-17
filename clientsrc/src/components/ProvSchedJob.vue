@@ -7,15 +7,27 @@
         </p>
       </div>
       <div class="card-body text-capitalize text-danger text-left">
-        <p><strong>Addr: </strong>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
+        <p>
+          <strong>Addr:</strong>
+          {{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}
+        </p>
         <a
           :href="`http://google.com/maps/dir/${coords.latitude},${coords.longitude}/${jobData.streetAddress}+${jobData.city}+${jobData.state}+${jobData.zipCode}`"
           target="_blank"
           rel="noopener noreferrer"
         >Get Directions!</a>
-        <p><strong>Service Date: </strong>{{jobData.timeWindow}}</p>
-        <p><strong>Price: </strong>${{jobData.price}}</p>
-        <p class="text-capitalize"><strong>Yard Size: </strong>{{jobData.yardSize}}</p>
+        <p>
+          <strong>Service Date:</strong>
+          {{jobData.timeWindow}}
+        </p>
+        <p>
+          <strong>Price:</strong>
+          ${{jobData.price}}
+        </p>
+        <p class="text-capitalize">
+          <strong>Yard Size:</strong>
+          {{jobData.yardSize}}
+        </p>
       </div>
       <button class="btn btn-success btn-sm mx-2 my-1" @click="startJob()">Start Job</button>
       <button class="btn btn-danger btn-sm mx-2 my-1" @click="goToJobDetails()">View Job Details</button>
@@ -64,11 +76,11 @@ export default {
         params: { jobId: this.jobData._id }
       });
     },
-  },
-  getCurrentLocation() {
-    navigator.geolocation.getCurrentPosition(a => {
-      this.coords = a.coords;
-    });
+    getCurrentLocation() {
+      navigator.geolocation.getCurrentPosition(a => {
+        this.coords = a.coords;
+      });
+    },
   },
   components: {}
 };
