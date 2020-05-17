@@ -7,13 +7,13 @@
           <strong>{{jobData.contactName}}</strong>
         </p>
       </div>
-      <div class="card-body">
-        <p>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
-        <p>{{jobData.timeWindow}}</p>
-        <p>${{jobData.price}}</p>
-        <p class="text-capitalize">{{jobData.yardSize}}</p>
+      <div class="card-body text-capitalize text-danger text-left">
+        <p><strong>Addr: </strong>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
+        <p><strong>Date: </strong>{{jobData.timeWindow}}</p>
+        <p><strong>Price: </strong>${{jobData.price}}</p>
+        <p><strong>Yard Size: </strong>{{jobData.yardSize}}</p>
 
-        <div class="progress">
+        <div class="progress mt-2">
           <div
             class="progress-bar progress-bar-striped bg-success text-info font-weight-bold text-uppercase"
             role="progressbar"
@@ -118,51 +118,7 @@ export default {
 
 
 <style scoped>
-@media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
-  /* Force table to not be like tables anymore */
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
-    display: block;
-  }
-
-  tr {
-    border: 1px solid #ccc;
-  }
-
-  td {
-    /* Behave  like a "row" */
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 25%;
-  }
-
-  td:before {
-    /* Now like a table header */
-    position: absolute;
-    /* Top/left values mimic padding */
-    top: 12px;
-    left: 6px;
-    width: 75%;
-    padding-right: 10px;
-    white-space: nowrap;
-  }
-  td:nth-of-type(1):before {
-    content: "Address:";
-  }
-  td:nth-of-type(2):before {
-    content: "Date:";
-  }
-  td:nth-of-type(3):before {
-    content: "\0024";
-  }
-  td:nth-of-type(4):before {
-    content: "Size:";
-  }
+p{
+  margin: 0;
 }
 </style>
