@@ -42,7 +42,7 @@ export default {
         providerId: this.jobToBeRated.providerId,
         providerRating: event.target.value
       });
-      $('#jobRatingModal').modal('hide')
+      $('#jobRatingModal').modal('hide');
     }
   },
   components: {}
