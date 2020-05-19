@@ -36,14 +36,13 @@ export default {
   },
   methods: {
     ProviderRating() {
-      console.log(this.jobToBeRated);
       let rating = parseInt(event.target.value);
-      console.log(rating);
       this.$store.dispatch("addRating", {
         jobId: this.jobToBeRated._id,
         providerId: this.jobToBeRated.providerId,
         providerRating: event.target.value
       });
+      $('#jobRatingModal').modal('hide');
     }
   },
   components: {}

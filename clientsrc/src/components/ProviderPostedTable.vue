@@ -6,11 +6,11 @@
           <strong>{{jobData.contactName}}</strong>
         </p>
       </div>
-      <div class="card-body">
-        <p>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
-        <p>{{jobData.timeWindow}}</p>
-        <p>${{jobData.price}}</p>
-        <p class="text-capitalize">{{jobData.yardSize}}</p>
+      <div class="card-body text-capitalize text-danger text-left">
+        <p><strong>Addr: </strong>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
+        <p><strong>Date: </strong>{{jobData.timeWindow}}</p>
+        <p><strong>Price: </strong>${{jobData.price}}</p>
+        <p><strong>Yard Size: </strong>{{jobData.yardSize}}</p>
       </div>
       <button class="btn btn-success btn-sm m-1" @click="acceptJob()">Accept</button>
     </div>
@@ -76,7 +76,10 @@ export default {
 
 
 <style scoped>
-.card {
+/* .card {
   height: 18em;
+} */
+p{
+  margin: 0;
 }
 </style>
