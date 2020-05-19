@@ -146,14 +146,10 @@ export default {
       await this.$auth.logout({ returnTo: window.location.origin });
     },
     toggleModal(registration) {
-      console.log("toggled", registration);
-      console.log(this.profile.providerProfile);
-      if (this.$auth.user && !this.profile.customerProfile.nickname && registration == "customer") {
-        console.log("customer condition met");
+      if (this.$auth.user && !this.profile.customerProfile.firstName && registration == "customer") {
         $("#customerRegModal").modal("toggle");
-      } else if (this.$auth.user && !this.profile.providerProfile.nickname && registration == "provider") {
+      } else if (this.$auth.user && !this.profile.providerProfile.firstName && registration == "provider") {
         $("#providerRegModal").modal("toggle");
-        console.log("provider condition met");
       }
     }
   },
