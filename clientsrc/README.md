@@ -7,7 +7,11 @@ Project Members:
   Ashley Smith
   
 Summary of App:
-This app is built in order to serve two crowds a Customer and a Service Provider.  LandScuber is an uber-like app targeting the landscaping industry.  The general idea is for Customers to be able to request on demand Service Providers in their local area to provide landscaping services for a pre-determined price.  Upon complete of service Customers are able to rate the job completed by the Service Provider.
+Landscüber was built to connect Customers to local Providers, and arrange on-demand services. While the foundation was designed to be scalable and include unlimited service options, the MVP product targets the landscaping industry. In this version, Customers are able to post a job with details such as yard size and a custom price, then any Provider is able to claim and complete the job. 
+
+In addition to the technical considerations, Landscüber was developed with social distancing and the gig-economy in mind. This application allows Customers to remotely schedule services as well as communicate additional job details through a live chat function, effectively eliminating the need for face-to-face interactions. Providers are empowered to earn additional income, while managing their own schedule. 
+
+From a business perspective, we focused on creating an effective conversion pipeline that starts with the landing page and continues throughout the application. Specifically, details such as the customer reviews on the landing page are known to foster trust - which increases the chance of converting a new user. Other details like allowing Customers to rate their Providers, offers important feedback to the business, as well as another point of engagement for the users. 
 
 Tech Highlights:
 Integration with Auth0 for secure login.
