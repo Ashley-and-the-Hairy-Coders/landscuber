@@ -15,7 +15,7 @@ From a business perspective, we focused on creating an effective conversion pipe
 
 Tech Highlights:
 Integration with Auth0 for secure login.
-Utilizing Sockets we created a live chat that allows the Customer and Service Provider to communicate instantly during the duration of the service period eliminating the need an exchange of personal information.
+Utilizing Sockets we created a live chat feature that allows the Customer and Service Provider to communicate instantly for the duration of the service period, eliminating the need to exchange personal information.
 The Service Provider can get directions provided by Google Maps isntantly through the Job page.
 Live status updates are provided through all stages of the job from intitalizatin through acceptance to completion.
 
