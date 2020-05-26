@@ -1,6 +1,44 @@
 
 <template>
-  <tbody class="custActiveTable" >
+  <div class="col-md-3 m-2">
+    <div class="card">
+      <div class="card-header bg-info">
+        <p class="text-white p-0 m-0 display-6">
+          <strong>{{jobData.contactName}}</strong>
+        </p>
+      </div>
+      <div class="card-body text-capitalize text-danger text-left">
+        <p><strong>Addr: </strong>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
+        <p><strong>Date: </strong>{{jobData.timeWindow}}</p>
+        <p><strong>Price: </strong>${{jobData.price}}</p>
+        <p><strong>Yard Size: </strong>{{jobData.yardSize}}</p>
+
+        <div class="progress mt-2">
+          <div
+            class="progress-bar progress-bar-striped bg-success text-info font-weight-bold text-uppercase"
+            role="progressbar"
+            :style="{width: status}"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >{{jobData.jobStatus}}</div>
+        </div>
+      </div>
+      <button
+        class="btn btn-success btn-sm mx-1 mb-1"
+        @click="editJob(jobData)"
+        data-toggle="modal"
+        data-target="#editJobModal"
+        v-if="jobData.jobStatus == 'posted'"
+      >Edit Job</button>
+      <button class="btn btn-danger btn-sm mx-1 my-1" @click="goToJobDetails()">View Job Details</button>
+    </div>
+    <Modal title="Edit Job" id="editJobModal" class="text-center">
+      <EditJob :job="jobData"></EditJob>
+    </Modal>
+  </div>
+
+  <!-- <tbody class="custActiveTable" >
     <tr>
       <td @click.prevent="goToJobDetails()" scope="row" class="pb-1">
         {{jobData.streetAddress}} {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}
@@ -27,10 +65,8 @@
         </div>
       </td>
     </tr>
-    <Modal title="Edit Job" id="editJobModal" class="text-center">
-      <EditJob :job="jobData"></EditJob>
-    </Modal>
-  </tbody>
+
+  </tbody>-->
 </template>
 
 
@@ -46,13 +82,13 @@ export default {
   computed: {
     status() {
       if (this.jobData.jobStatus == "posted") {
-        return "25%";
+        return "30%";
       }
       if (this.jobData.jobStatus == "accepted") {
-        return "40%";
+        return "60%";
       }
       if (this.jobData.jobStatus == "active") {
-        return "75%";
+        return "90%";
       }
       if (this.jobData.jobStatus == "scheduled") {
         return "60%";
@@ -82,38 +118,7 @@ export default {
 
 
 <style scoped>
-@media 
-only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1024px)  {
-
-	/* Force table to not be like tables anymore */
-	table, thead, tbody, th, td, tr { 
-		display: block; 
-	}
-	
-	tr { border: 1px solid #ccc; }
-	
-	td { 
-		/* Behave  like a "row" */
-		border: none;
-		border-bottom: 1px solid #eee; 
-		position: relative;
-		padding-left: 25%; 
-	}
-	
-	td:before { 
-		/* Now like a table header */
-		position: absolute;
-		/* Top/left values mimic padding */
-		top: 12px;
-		left: 6px;
-		width: 75%; 
-		padding-right: 10px; 
-		white-space: nowrap;
-  }
-  td:nth-of-type(1):before { content: "Address:"; }
-	td:nth-of-type(2):before { content: "Date:"; }
-	td:nth-of-type(3):before { content: "\0024"; }
-	td:nth-of-type(4):before { content: "Size:"; }
+p{
+  margin: 0;
 }
 </style>

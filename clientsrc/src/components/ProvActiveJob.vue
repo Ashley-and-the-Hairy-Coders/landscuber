@@ -1,5 +1,27 @@
 <template>
-  <tbody class="ProvActiveJob">
+  <div class="col-md-3 my-2">
+    <div class="card">
+      <div class="card-header bg-info">
+        <p class="text-white p-0 m-0 display-6">
+          <strong>{{jobData.contactName}}</strong>
+        </p>
+      </div>
+      <div class="card-body text-capitalize text-danger text-left">
+        <p><strong>Addr: </strong>{{jobData.streetAddress}}, {{jobData.city}}, {{jobData.state}} {{jobData.zipCode}}</p>
+        <a
+          :href="`http://google.com/maps/dir/${coords.latitude},${coords.longitude}/${jobData.streetAddress}+${jobData.city}+${jobData.state}+${jobData.zipCode}`"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Get Directions!</a>
+        <p><strong>Service Date: </strong>{{jobData.timeWindow}}</p>
+        <p><strong>Price: </strong>${{jobData.price}}</p>
+        <p class="text-capitalize"><strong>Yard Size: </strong>{{jobData.yardSize}}</p>
+      </div>
+      <button class="btn btn-success btn-sm m-1" @click="completedJob()">Job Completed</button>
+      <button class="btn btn-danger btn-sm m-1" @click="goToJobDetails()">View Job Details</button>
+    </div>
+  </div>
+  <!-- <tbody class="ProvActiveJob">
     <tr>
       <td
         @click.prevent="goToJobDetails"
@@ -12,7 +34,7 @@
         <button class="btn btn-success btn-sm" @click="completedJob()">Job Completed</button>
       </td>
     </tr>
-  </tbody>
+  </tbody>-->
 </template>
 
 
@@ -21,26 +43,42 @@ export default {
   name: "ProvActiveJob",
   props: ["jobData"],
   data() {
-    return {};
+    return {
+      coords: {}
+    };
   },
   computed: {},
+  mounted() {
+    this.getCurrentLocation();
+  },
   methods: {
-    completedJob() {
-      this.$swal.fire({
-        title: "Are you sure?",
-        text: "Confirm only when the job is finished!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#85CF4B",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, complete it!"
-      }).then(result => {
-        if (result.value) {
-          this.$swal.fire("Completed!", "Your job has been completed.", "success");
-          this.jobData.jobStatus = "completed";
-          this.$store.dispatch("editJob", this.jobData);
-        }
+    getCurrentLocation() {
+      navigator.geolocation.getCurrentPosition(a => {
+        this.coords = a.coords;
       });
+    },
+    completedJob() {
+      this.$swal
+        .fire({
+          title: "Are you sure?",
+          text: "Confirm only when the job is finished!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#85CF4B",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, complete it!"
+        })
+        .then(result => {
+          if (result.value) {
+            this.$swal.fire(
+              "Completed!",
+              "Your job has been completed.",
+              "success"
+            );
+            this.jobData.jobStatus = "completed";
+            this.$store.dispatch("editJob", this.jobData);
+          }
+        });
     },
     goToJobDetails() {
       this.$store.commit("setActiveJob", this.jobData);
@@ -56,4 +94,10 @@ export default {
 
 
 <style scoped>
+p{
+  margin: 0;
+}
+a{
+  color: blue;
+}
 </style>

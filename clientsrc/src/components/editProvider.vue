@@ -6,26 +6,23 @@
           type="text"
           class="form-control w-75 m-2"
           placeholder="First Name"
-          v-model="Provider.firstName"
+          v-model="provider.firstName"
           required
         />
         <input
           type="text"
           class="form-control w-75 m-2"
           placeholder="Last Name"
-          v-model="Provider.lastName"
+          v-model="provider.lastName"
           required
         />
         <input
           type="text"
           class="form-control w-75 m-2"
           placeholder="Cell Phone"
-          v-model="Provider.cellPhone"
+          v-model="provider.phone"
           required
         />
-        <h6 class="mt-5">Services</h6>
-
-        <!-- <div v-for="Service in Services" :key="Service._id" class="mb-4"></div> -->
       </div>
 
       <button
@@ -52,14 +49,11 @@ export default {
   computed: {
     Provider() {
       return this.$store.state.profile.providerProfile;
-    },
-    // Services() {
-    //   return this.$store.state.profile.providerProfile.services;
-    // }
+    }
   },
   methods: {
     editProvider() {
-      console.log("need to dispatch update to the store", this.Provider);
+      this.$store.dispatch("editProvider", this.provider);
     }
   },
   components: {}

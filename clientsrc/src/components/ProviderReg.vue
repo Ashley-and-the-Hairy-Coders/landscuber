@@ -19,20 +19,20 @@
       />
     </div>
     <input
-      class="form-control w-25 mx-auto m-2"
-      maxlength="5"
-      placeholder="Zip Code"
-      v-model="newProvider.location"
-      required
-      type="text"
-    />
-    <input
-      class="form-control w-25 mx-auto m-2"
+      class="form-control w-50 mx-auto m-2"
       maxlength="12"
       placeholder="555-123-4567"
       v-model="newProvider.phone"
       required
       type="text"
+    />
+    <input
+      class="form-control w-25 mx-auto m-2"
+      maxlength="5"
+      placeholder="Zip Code"
+      v-model="newProvider.location"
+      required
+      type="number"
     />
     <button
       type="submit"
@@ -65,7 +65,13 @@ export default {
 
 
 <style scoped>
-</style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
-// NOTE Added to store
-// 
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+</style>

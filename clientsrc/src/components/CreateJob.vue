@@ -19,37 +19,36 @@
         >{{Address.contactName}}</a>
       </div>
     </div>
-    <div class="dropdown">
-      <button
-        class="btn btn-secondary dropdown-toggle"
-        type="button"
-        id="dropdownMenuButton"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >Yard Size</button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" @click.prevent="setYard('small')">Small &#8804; 5,000 sqft</a>
-        <a
-          class="dropdown-item"
-          @click.prevent="setYard('medium')"
-        >Medium - 10,000 sqft - 5,001 sqft</a>
-        <a class="dropdown-item" @click.prevent="setYard('large')">Large - 1/2 Acre - 10,000 sqft</a>
-        <a class="dropdown-item" @click.prevent="setYard('x-large')">Extra Large &#8805; 1/2 Acre</a>
+    <span class="d-flex justify-content-center">
+      <div class="dropdown">
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >Yard Size</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" @click.prevent="setYard('small')">Small &#8804; 5,000 sqft</a>
+          <a
+            class="dropdown-item"
+            @click.prevent="setYard('medium')"
+          >Medium - 10,000 sqft - 5,001 sqft</a>
+          <a class="dropdown-item" @click.prevent="setYard('large')">Large - 1/2 Acre - 10,000 sqft</a>
+          <a class="dropdown-item" @click.prevent="setYard('x-large')">Extra Large &#8805; 1/2 Acre</a>
+        </div>
       </div>
-    </div>
-    <p>{{yard}}</p>
+      <p class="m-0 align-self-center text-capitalize">{{yard}}</p>
+    </span>
     <div class="custom-control m-1 custom-checkbox">
-        <input type="checkbox" @click="scheduleToday" class="custom-control-input" id="customCheck2" />
-        <label class="custom-control-label" for="customCheck2">Schedule for Today</label>
-      </div>
+      <input type="checkbox" @click="scheduleToday" class="custom-control-input" id="customCheck2" />
+      <label class="custom-control-label" for="customCheck2">Schedule for Today</label>
+    </div>
     <form v-if="!scheduled">
       <div class="form-group">
-        <small id="helpId" class="text-muted">Setup Time</small>
-        <input type="date"
-          required
-          v-model="newJob.timeWindow"
-          class="form-control"/>
+        <small id="helpId" class="text-muted">Schedule a Time</small>
+        <input type="date" required v-model="newJob.timeWindow" class="form-control" />
       </div>
     </form>
     <form>
@@ -95,7 +94,7 @@
           required
           aria-describedby="helpId"
         />
-        <p class="text-muted">Name your price! {{newJob.price}}</p>
+        <p class="text-muted">Name your price! ${{newJob.price}}</p>
         <input
           required
           type="range"
@@ -119,13 +118,14 @@
         @click.prevent="createJob"
         class="btn btn-success btn-small"
         data-dismiss="modal"
-      >Scübe!</button>
+      >Post</button>
     </form>
   </div>
 </template>
 
 
 <script>
+import swal from "sweetalert2";
 export default {
   name: "CreateJob",
   data() {
@@ -156,18 +156,18 @@ export default {
   methods: {
     scheduleToday() {
       if (this.scheduled == false) {
-        this.scheduled = true
+        this.scheduled = true;
       } else if (this.scheduled == true) {
-        this.scheduled = false
+        this.scheduled = false;
       }
       let dateObj = new Date();
       let month = dateObj.getMonth() + 1;
       if (month < 10) {
-        month = "0" + month.toString()
+        month = "0" + month.toString();
       }
       let day = dateObj.getDate();
       if (day < 10) {
-        day = "0" + day.toString()
+        day = "0" + day.toString();
       }
       let year = dateObj.getFullYear();
       let newDate = year + "-" + month + "-" + day;
@@ -177,7 +177,19 @@ export default {
       this.yard = size;
       this.newAddress.yardSize = size;
     },
-    createJob() {
+    async createJob() {
+      if (!this.newJob.price) {
+        let res = await swal.fire({
+          title: "A price is required",
+          input: "number",
+          inputValidator: value => {
+            if (!value) {
+              return "Hey, you have to do something! How much dinero?!";
+            }
+          }
+        });
+        this.newJob.price = res.value;
+      }
       if (this.save) {
         this.$store.dispatch("saveAddress", this.newAddress);
       }

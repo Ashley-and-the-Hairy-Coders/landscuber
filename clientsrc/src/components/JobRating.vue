@@ -1,8 +1,8 @@
 <template>
   <div class="JobRating">
     <div class="container">
-      <h1 class="m-auto">How was your provider today?</h1>
-      <div class="row">
+      <h1 class="m-auto text-center">How was your provider today?</h1>
+      <div class="row justify-content-center">
         <form>
           <fieldset class="rating m-auto">
             <input @click="ProviderRating()" type="radio" id="star5" name="rating" value="5" />
@@ -36,14 +36,13 @@ export default {
   },
   methods: {
     ProviderRating() {
-      console.log(this.jobToBeRated);
       let rating = parseInt(event.target.value);
-      console.log(rating);
       this.$store.dispatch("addRating", {
         jobId: this.jobToBeRated._id,
         providerId: this.jobToBeRated.providerId,
         providerRating: event.target.value
       });
+      $('#jobRatingModal').modal('hide');
     }
   },
   components: {}

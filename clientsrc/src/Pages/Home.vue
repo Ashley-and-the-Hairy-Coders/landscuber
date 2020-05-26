@@ -12,13 +12,13 @@
 
         <div v-if="!landscaper">
           <h4 class="mx-5">We take the worry out of yard work!</h4>
-          <button class="btn mx-2 btn-success" @click="CustomerReg">Get Started</button>
+          <button class="btn mx-2 btn-lg btn-success" @click="CustomerReg">Join Now</button>
         </div>
 
         <div v-if="landscaper">
           <h4 class="mx-5">Find new clients in your area!</h4>
           <!-- This btn takes user to the landscaper sign up -->
-          <button type="button" @click="ProviderReg" class="btn mx-2 btn-success">Get Started</button>
+          <button type="button" @click="ProviderReg" class="btn mx-2 btn-lg btn-success">Get Started</button>
         </div>
       </div>
 
@@ -29,19 +29,19 @@
 
     <!-- Customer/Partner Join Now Row -->
     <div class="row bg-home-mid justify-content-around bg-secondary py-5">
-      <div class="col-12 col-md-8 col-lg-6 text-center py-4">
-        <h4>When you need your lawn mowed today, Landscüber will get it done!</h4>
-        <p>Name your price and immediately connect with local lawn care professionals.</p>
+      <div class="col-12 col-md-8 col-lg-5 text-center py-4">
+        <h4>Need your lawn mowed today? Join as a customer!</h4>
+        <p>Landscüber gives you the power to name your price and immediately connect with a local lawn care professional. Whether you’ve got a small backyard or a large commercial property, Landscüber will get the job done.</p>
         <button @click="CustomerReg" class="btn btn-success">Join Now</button>
-        <Modal title="Join Today!" id="customerRegModal">
+        <Modal title="Sign up as a customer" id="customerRegModal">
           <CustomerReg></CustomerReg>
         </Modal>
       </div>
-      <div class="col-12 col-md-8 col-lg-6 text-center py-4">
-        <h4>Ready to get a job now? Join as a provider</h4>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex reprehenderit aut incidunt. Sapiente tenetur unde corrupti dolorum, placeat officiis praesentium, perferendis at, illum architecto aspernatur accusamus distinctio fugiat iste alias.</p>
+      <div class="col-12 col-md-8 col-lg-5 text-center py-4">
+        <h4>Ready to accept a job? Become a provider!</h4>
+        <p>Landscüber allows you to view all active jobs in your area, and earn money on your own schedule. As long as you’ve got the equipment and transportation, there is unlimited potential for individual success.</p>
         <button class="btn btn-success" @click="ProviderReg">Get Started</button>
-        <Modal title="Sign up to start Scübing!" id="providerRegModal">
+        <Modal title="Sign up as a provider" id="providerRegModal">
           <ProviderReg></ProviderReg>
         </Modal>
       </div>
@@ -85,7 +85,7 @@ export default {
   methods: {
     CustomerReg() {
       if (!this.$auth.isAuthenticated) {
-        this.login();
+        this.login("customer");
       } else if (this.$auth.isAuthenticated && this.profile.customerProfile) {
         this.goToCustomerDash();
       } else if (this.$auth.isAuthenticated && this.profile.providerProfile) {
@@ -100,7 +100,8 @@ export default {
     },
     ProviderReg() {
       if (!this.$auth.isAuthenticated) {
-        this.login();
+        let RegType = "provider";
+        this.login(RegType);
       } else if (this.$auth.isAuthenticated && this.profile.providerProfile) {
         this.goToProviderDash();
       } else if (this.$auth.isAuthenticated && this.profile.customerProfile) {
@@ -125,7 +126,7 @@ export default {
         params: { providerId: this.profile.providerProfile._id }
       });
     },
-    async login() {
+    async login(regType) {
       await this.$auth.loginWithPopup();
       this.$store.dispatch("setBearer", this.$auth.bearer);
       if (this.$auth.user) {
@@ -134,13 +135,22 @@ export default {
           title: "Signed in successfully"
         });
       }
+      let modal = regType
       console.log("this.$auth.user: ");
       console.log(this.$auth.user);
       this.$store.dispatch("getProfile");
+      setTimeout(this.toggleModal(modal), 2000)
     },
     async logout() {
       this.$store.dispatch("resetBearer");
       await this.$auth.logout({ returnTo: window.location.origin });
+    },
+    toggleModal(registration) {
+      if (this.$auth.user && !this.profile.customerProfile.firstName && registration == "customer") {
+        $("#customerRegModal").modal("toggle");
+      } else if (this.$auth.user && !this.profile.providerProfile.firstName && registration == "provider") {
+        $("#providerRegModal").modal("toggle");
+      }
     }
   },
   components: {
